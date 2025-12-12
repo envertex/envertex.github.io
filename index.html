@@ -14814,51 +14814,93 @@ sudo cp shellrator.py /bin/shellrator
 shellrator
 </code></pre>
               <h3 id="182-upgrade-shells">18.2 Upgrade Shells</h3>
-              <h4 id="1821-adjust-interactive-shells">18.2.1 Adjust Interactive Shells</h4>
-              <pre><code class="language-bash"># Find terminal size (replace values with actual output)
-stty size  # Example output: 50 235
+            
 
-# Background the shell and adjust settings
+<h4 id="1821-adjust-interactive-shells">18.2.1 Full Shell Treatment (Orden Correcto)</h4>
+<pre><code class="language-bash">
+# ================================
+# 1. Obtener un pseudo-TTY (elige uno)
+# ================================
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+# python -c 'import pty; pty.spawn("/bin/bash")'
+# perl -e 'exec "/bin/bash"'
+# sh -i
+# os.execute("/bin/bash")  # Lua
+# exec "/bin/bash"         # Ruby
+
+# ================================
+# 2. Suspender la shell
+# ================================
 Ctrl-Z
-stty raw -echo  # Disable shell echo
-fg
-export SHELL=bash
-export TERM=xterm  # Or use xterm-256color for extended color support
 
-# Set terminal size
-stty rows &lt;ROWS&gt; columns &lt;COLS&gt;
+# ================================
+# 3. Ajustar la terminal local (Kali)
+# ================================
+stty raw -echo     # Desactiva echo y habilita modo raw
+
+# ================================
+# 4. Regresar la shell
+# ================================
+fg
+
+# ================================
+# 5. Exportar variables para colores y comportamiento
+# ================================
+export SHELL=bash
+export TERM=xterm-256color
+
+# ================================
+# 6. Ajustar tamaño dinámico de la terminal
+# ================================
+# Ver tamaño en tu Kali:
+# stty size  → ejemplo: 50 235
+stty rows <ROWS> columns <COLS>
 </code></pre>
-              <h4 id="1822-bash">18.2.2 Bash</h4>
-              <pre><code class="language-bash"># Spawn a new Bash shell
+
+<h4 id="1822-bash">18.2.2 Bash (Opcional, final)</h4>
+<pre><code class="language-bash">
+# Lanzar una shell Bash totalmente interactiva
 bash -i
 </code></pre>
-              <h4 id="1823-lua">18.2.3 Lua</h4>
-              <pre><code class="language-lua"># Execute a new Bash shell
-os.execute(&#39;/bin/bash&#39;)
+
+<h4 id="1823-lua">18.2.3 Lua (Métodos alternativos para pseudo-TTY)</h4>
+<pre><code class="language-lua">
+# Ejecutar Bash desde Lua
+os.execute('/bin/bash')
 </code></pre>
-              <h4 id="1824-perl">18.2.4 Perl</h4>
-              <pre><code class="language-bash"># Execute a new Bash shell
-perl -e &#39;exec &quot;/bin/bash&quot;&#39;
+
+<h4 id="1824-perl">18.2.4 Perl</h4>
+<pre><code class="language-bash">
+# Ejecutar Bash desde Perl
+perl -e 'exec "/bin/bash"'
 </code></pre>
-              <h4 id="1825-python">18.2.5 Python</h4>
-              <pre><code class="language-python"># Python 2.x
-python -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39;
+
+<h4 id="1825-python">18.2.5 Python</h4>
+<pre><code class="language-python">
+# Python 2.x
+python -c 'import pty; pty.spawn("/bin/bash")'
 
 # Python 3.x
-python3 -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39;
+python3 -c 'import pty; pty.spawn("/bin/bash")'
 
-# Upgrade to a TTY shell with Python
-python -c &#39;import pty; import os; pty.spawn(&quot;/bin/bash&quot;); os.system(&quot;stty raw -echo&quot;)&#39;
+# Python -> pseudo-TTY + ajustar raw automáticamente
+python -c 'import pty; import os; pty.spawn("/bin/bash"); os.system("stty raw -echo")'
 </code></pre>
-              <h4 id="1826-ruby">18.2.6 Ruby</h4>
-              <pre><code class="language-ruby"># Execute a new Bash shell
-exec &quot;/bin/bash&quot;
+
+<h4 id="1826-ruby">18.2.6 Ruby</h4>
+<pre><code class="language-ruby">
+# Ejecutar Bash desde Ruby
+exec "/bin/bash"
 </code></pre>
-              <h4 id="1827-sh">18.2.7 Sh</h4>
-              <pre><code class="language-sh"># Spawn a new interactive shell
+
+<h4 id="1827-sh">18.2.7 Sh</h4>
+<pre><code class="language-sh">
+# Shell interactiva básica
 sh -i
 </code></pre>
-              <h3 id="183-tools">18.3 Tools</h3>
+
+
+								<h3 id="183-tools">18.3 Tools</h3>
               <h4 id="1831-linux">18.3.1 Linux</h4>
               <h5 id="18311-bloodhound-tools">18.3.1.1 BloodHound Tools</h5>
               <ul>
