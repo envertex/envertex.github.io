@@ -14821,7 +14821,8 @@ shellrator
 # ================================
 # 1. Obtener un pseudo-TTY (elige uno)
 # ================================
-python3 -c 'import pty; pty.spawn("/bin/bash")'
+script /dev/null -c bash
+# python3 -c 'import pty; pty.spawn("/bin/bash")'
 # python -c 'import pty; pty.spawn("/bin/bash")'
 # perl -e 'exec "/bin/bash"'
 # sh -i
@@ -14843,6 +14844,7 @@ stty raw -echo     # Desactiva echo y habilita modo raw
 # ================================
 fg
 
+aca se quedara en el aire escribir 'reset xterm'
 # ================================
 # 5. Exportar variables para colores y comportamiento
 # ================================
