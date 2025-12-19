@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home | OSCP Nebula Notes</title>
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- FIX visual solo para esta página -->
+  <style>
+    .diagram {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .diagram img {
+      max-width: 900px;   /* controla el ancho */
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      background: #000;
+      border: 1px solid #1c1f24;
+    }
+
+    @media (max-width: 1000px) {
+      .diagram img {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <!-- PERFIL -->
+  <div class="profile">
+    <img src="img/logo.png" alt="Logo" class="profile-img">
+    <h2>Genaro</h2>
+    <p class="tag">XXXX XXXX</p>
+  </div>
+
+  <!-- REDES -->
+  <div class="socials">
+    <a href="https://youtube.com/@g3narin" target="_blank">
+      <span class="icon">▶</span>
+      <span>YouTube</span>
+      <span class="user">g3narin</span>
+    </a>
+    <a href="https://www.hackthebox.com/profile/Genaro" target="_blank">
+      <span class="icon">⬢</span>
+      <span>HackTheBox</span>
+      <span class="user">Genaro</span>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+<!-- NAV OSCP -->
+<nav class="nav">
+
+  <a href="index.html">🏠 Home</a>
+
+  <a href="pages/enumeration.html">🔍 Enumeration</a>
+
+  <a href="pages/web-attacks.html">🌐 Web Attacks</a>
+
+  <a href="pages/shells.html">🐚 Shells & Payloads</a>
+  <a href="pages/file-transfer.html">📁 File Transfer</a>
+
+  <a href="pages/passwords.html">🔑 Password Attacks</a>
+
+  <a href="pages/linux-privesc.html">🐧 Linux PrivEsc</a>
+  <a href="pages/windows-privesc.html">🪟 Windows PrivEsc</a>
+
+  <a href="pages/pivoting.html">🔀 Pivoting</a>
+
+  <a href="pages/ad-enumeration.html">🧩 AD Enumeration</a>
+  <a href="pages/ad-attacks.html">⚔️ AD Attacks</a>
+  <a href="pages/ad-lateral-movement.html">🔀 AD Lateral Movement</a>
+
+  <a href="pages/cloud-security.html">☁️ Cloud</a>
+
+</nav>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="content">
+
+    <!-- INTRO -->
+    <div class="section">
+      <h1>OSCP Attack Methodology</h1>
+
+      <p>
+        This repository is a <strong>mental framework</strong> for the OSCP exam.
+        It is not about memorizing commands, but about knowing
+        <strong>what to do next when something fails</strong>.
+      </p>
+
+      <p>
+        Every machine gives feedback.
+        Ports, services, errors, credentials — all of them are signals.
+      </p>
+
+      <p>
+        If you feel lost during the exam, return here and reset your thinking.
+      </p>
+    </div>
+
+    <!-- NON-AD -->
+    <div class="section">
+      <h2>Standalone Machine (Non-AD)</h2>
+
+      <p>
+        This diagram represents a typical standalone OSCP machine.
+        The objective is always the same:
+        <strong>Initial access → Local enumeration → Privilege escalation</strong>.
+      </p>
+
+      <p>
+        Enumeration is not a single phase.
+        It is a loop that happens before exploitation and again after gaining a shell.
+      </p>
+
+      <ul>
+        <li>If no exploit works → enumeration is incomplete</li>
+        <li>If you get a shell but no privesc → local enumeration failed</li>
+        <li>If everything looks patched → re-check services and versions</li>
+      </ul>
+
+      <div class="diagram">
+        <img src="img/flow-non-ad.png" alt="Non-AD Attack Flow">
+      </div>
+
+      <p>
+        Never jump steps.
+        When stuck, move backwards in the diagram and re-evaluate assumptions.
+      </p>
+    </div>
+
+    <!-- AD -->
+    <div class="section">
+      <h2>Active Directory Environment</h2>
+
+      <p>
+        Active Directory machines require a different mindset.
+        Exploits matter less than
+        <strong>credentials, permissions, and trust relationships</strong>.
+      </p>
+
+      <p>
+        Progress in AD is rarely linear.
+        Small wins (like one user credential) often unlock multiple attack paths.
+      </p>
+
+      <ul>
+        <li>User access is more important than SYSTEM shells</li>
+        <li>Domain enumeration never truly ends</li>
+        <li>Lateral movement is expected, not optional</li>
+      </ul>
+
+      <div class="diagram">
+        <img src="img/flow-ad.png" alt="Active Directory Attack Flow">
+      </div>
+
+      <p>
+        If one attack path fails, enumerate again and search for another.
+        Domain compromise is about persistence, not speed.
+      </p>
+    </div>
+
+    <!-- MINDSET -->
+    <div class="section">
+      <h2>Exam Mindset</h2>
+
+      <ul>
+        <li>Slow thinking beats rushed exploitation</li>
+        <li>Trust enumeration over gut feeling</li>
+        <li>Document everything, even failed attempts</li>
+        <li>If stuck for too long, reset and re-enumerate</li>
+      </ul>
+    </div>
+
+  </div>
+
+</main>
+
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
