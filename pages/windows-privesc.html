@@ -66,11 +66,10 @@
     <a href="pivoting.html">🔀 Pivoting</a>
     <a href="ad-enumeration.html">🧩 AD Enumeration</a>
 
-    <a href="ad-attacks.html">⚔️ AD Attacks</a>
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
 
-    <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
-
-    <a href="cloud-security.html">☁️ Cloud</a>
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
 
   </nav>
 </aside>
@@ -90,159 +89,151 @@
     <!-- TITLE -->
     <div class="section">
       <h1>Enumeration</h1>
-      <p>
-        Enumeration is not a phase.<br>
-        It is a <strong>continuous feedback loop</strong>.<br>
-        Every exploit, shell, or failure starts here.
-      </p>
+          
     </div>
 
-    <!-- MINDSET -->
     <div class="section">
-      <h2>Enumeration Mindset</h2>
-      <ul>
-        <li>No exploit without service understanding</li>
-        <li>No shell means incomplete enumeration</li>
-        <li>If stuck → enumerate again, deeper</li>
-        <li>Everything leaks information</li>
-      </ul>
-    </div>
+  <h2>Situational Awareness</h2>
 
-    <!-- NMAP -->
-    <div class="section">
-      <h2>Nmap – Network Enumeration</h2>
+  <p>This command allows us to view DNS information, IP addresses, gateways, and network configuration.</p>
+  <pre>
+<code>ipconfig /all</code>
+<button class="copy-btn" data-copy="ipconfig /all">COPY</button>
+  </pre>
 
-      <p>
-        Nmap defines the entire attack surface.<br>
-        Miss a port and you miss the machine.
-      </p>
+  <p>Allows us to identify other devices that are connected to the same network.</p>
+  <pre>
+<code>arp -a</code>
+<button class="copy-btn" data-copy="arp -a">COPY</button>
+  </pre>
 
-      <pre>
-<code>nmap -sC -sV -p- $IP</code>
-<button class="copy-btn" data-copy="nmap -sC -sV -p- $IP">COPY</button>
-      </pre>
+  <p>Displays the routing table of the system, which is very important for lateral movement.</p>
+  <pre>
+<code>route print</code>
+<button class="copy-btn" data-copy="route print">COPY</button>
+  </pre>
+</div>
 
-      <pre>
-<code>nmap -p- --min-rate 5000 -n $IP</code>
-<button class="copy-btn" data-copy="nmap -p- --min-rate 5000 -n $IP">COPY</button>
-      </pre>
+<div class="section">
+  <h2>Protection</h2>
 
-      <pre>
-<code>nmap -sU --top-ports 1000 $IP</code>
-<button class="copy-btn" data-copy="nmap -sU --top-ports 1000 $IP">COPY</button>
-      </pre>
+  <p>Allows us to check if the antivirus (Windows Defender) is enabled.</p>
+  <pre>
+<code>Get-MpComputerStatus</code>
+<button class="copy-btn" data-copy="Get-MpComputerStatus">COPY</button>
+  </pre>
 
-      <ul>
-        <li>Identify all services</li>
-        <li>Confirm versions manually</li>
-        <li>Note unusual ports and protocols</li>
-      </ul>
-    </div>
+  <p>Shows the effective AppLocker rules applied on the system.</p>
+  <pre>
+<code>Get-AppLockerPolicy -Effective</code>
+<button class="copy-btn" data-copy="Get-AppLockerPolicy -Effective">COPY</button>
+  </pre>
 
-    <!-- HTTP -->
-    <div class="section">
-      <h2>HTTP / HTTPS Enumeration</h2>
+  <p>Checks whether <code>cmd.exe</code> is allowed by AppLocker policies.</p>
+  <pre>
+<code>Get-AppLockerPolicy -Local | Test-AppLockerPolicy -Path C:\Windows\System32\cmd.exe -User Everyone</code>
+<button class="copy-btn" data-copy="Get-AppLockerPolicy -Local | Test-AppLockerPolicy -Path C:\Windows\System32\cmd.exe -User Everyone">COPY</button>
+  </pre>
+</div>
 
-      <p>
-        Web services almost always hide something.<br>
-        Enumeration must be recursive and methodical.
-      </p>
+<div class="section">
+  <h2>System and Processes</h2>
 
-      <pre>
-<code>whatweb http://$IP</code>
-<button class="copy-btn" data-copy="whatweb http://$IP">COPY</button>
-      </pre>
+  <p>Lists running processes and their associated services.</p>
+  <pre>
+<code>tasklist /svc</code>
+<button class="copy-btn" data-copy="tasklist /svc">COPY</button>
+  </pre>
 
-      <pre>
-<code>gobuster dir -u http://$IP -w /usr/share/wordlists/dirb/common.txt</code>
-<button class="copy-btn" data-copy="gobuster dir -u http://$IP -w /usr/share/wordlists/dirb/common.txt">COPY</button>
-      </pre>
+  <p>Displays environment variables (PATH, shares, profiles, and potentially dangerous paths).</p>
+  <pre>
+<code>set</code>
+<button class="copy-btn" data-copy="set">COPY</button>
+  </pre>
 
-      <pre>
-<code>ffuf -u http://$IP/FUZZ -w /usr/share/seclists/Discovery/Web-Content/common.txt</code>
-<button class="copy-btn" data-copy="ffuf -u http://$IP/FUZZ -w /usr/share/seclists/Discovery/Web-Content/common.txt">COPY</button>
-      </pre>
+  <p>Provides detailed information about the operating system and hardware.</p>
+  <pre>
+<code>systeminfo</code>
+<button class="copy-btn" data-copy="systeminfo">COPY</button>
+  </pre>
+</div>
 
-      <ul>
-        <li>View source code</li>
-        <li>Look for parameters and APIs</li>
-        <li>Test uploads and authentication</li>
-      </ul>
-    </div>
+<div class="section">
+  <h2>Services and Ports</h2>
 
-    <!-- SMB -->
-    <div class="section">
-      <h2>SMB Enumeration</h2>
+  <p>Displays active network connections, listening ports, and associated processes.</p>
+  <pre>
+<code>netstat -ano</code>
+<button class="copy-btn" data-copy="netstat -ano">COPY</button>
+  </pre>
+</div>
 
-      <p>
-        SMB frequently leaks users, shares, and credentials.
-      </p>
+<div class="section">
+  <h2>Users</h2>
 
-      <pre>
-<code>smbclient -L //$IP -N</code>
-<button class="copy-btn" data-copy="smbclient -L //$IP -N">COPY</button>
-      </pre>
+  <p>Shows currently logged-in users.</p>
+  <pre>
+<code>query user</code>
+<button class="copy-btn" data-copy="query user">COPY</button>
+  </pre>
 
-      <pre>
-<code>enum4linux -a $IP</code>
-<button class="copy-btn" data-copy="enum4linux -a $IP">COPY</button>
-      </pre>
+  <p>Displays the current username.</p>
+  <pre>
+<code>echo %USERNAME%</code>
+<button class="copy-btn" data-copy="echo %USERNAME%">COPY</button>
+  </pre>
 
-      <ul>
-        <li>Anonymous access</li>
-        <li>Readable shares</li>
-        <li>Scripts and configs with creds</li>
-      </ul>
-    </div>
+  <p>Lists all local users on the system.</p>
+  <pre>
+<code>net user</code>
+<button class="copy-btn" data-copy="net user">COPY</button>
+  </pre>
 
-    <!-- FTP -->
-    <div class="section">
-      <h2>FTP Enumeration</h2>
+  <p>Lists all local groups.</p>
+  <pre>
+<code>net localgroup</code>
+<button class="copy-btn" data-copy="net localgroup">COPY</button>
+  </pre>
 
-      <pre>
-<code>ftp $IP</code>
-<button class="copy-btn" data-copy="ftp $IP">COPY</button>
-      </pre>
+  <p>Lists members of the local Administrators group.</p>
+  <pre>
+<code>net localgroup administrators</code>
+<button class="copy-btn" data-copy="net localgroup administrators">COPY</button>
+  </pre>
 
-      <ul>
-        <li>Anonymous login</li>
-        <li>Writable directories</li>
-        <li>Upload equals potential shell</li>
-      </ul>
-    </div>
+  <p>Lists domain groups (if the system is part of a domain).</p>
+  <pre>
+<code>net group /domain</code>
+<button class="copy-btn" data-copy="net group /domain">COPY</button>
+  </pre>
+</div>
 
-    <!-- SSH -->
-    <div class="section">
-      <h2>SSH Enumeration</h2>
+<div class="section">
+  <h2>Groups and Privileges</h2>
 
-      <ul>
-        <li>Version-specific vulnerabilities</li>
-        <li>Credential reuse potential</li>
-        <li>Target for brute-force later</li>
-      </ul>
-    </div>
+  <p>Displays the privileges assigned to the current user.</p>
+  <pre>
+<code>whoami /priv</code>
+<button class="copy-btn" data-copy="whoami /priv">COPY</button>
+  </pre>
 
-    <!-- DATABASES -->
-    <div class="section">
-      <h2>Database Enumeration</h2>
+  <p>Lists the groups the current user belongs to.</p>
+  <pre>
+<code>whoami /groups</code>
+<button class="copy-btn" data-copy="whoami /groups">COPY</button>
+  </pre>
+</div>
 
-      <ul>
-        <li>MySQL / PostgreSQL / MSSQL</li>
-        <li>Default or reused credentials</li>
-        <li>File read/write primitives</li>
-      </ul>
-    </div>
+<div class="section">
+  <h2>Updates</h2>
 
-    <!-- LOOP -->
-    <div class="section">
-      <h2>Enumeration Loop</h2>
+  <p>Displays installed Windows updates and hotfixes.</p>
+  <pre>
+<code>wmic qfe</code>
+<button class="copy-btn" data-copy="wmic qfe">COPY</button>
+  </pre>
+</div>
 
-      <ul>
-        <li>Service discovered → deeper enumeration</li>
-        <li>Exploit fails → enumerate again</li>
-        <li>Shell obtained → local enumeration begins</li>
-      </ul>
-    </div>
 
   </div>
 </main>

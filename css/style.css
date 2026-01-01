@@ -22,10 +22,10 @@ html,body{
   height:100%;
   background:var(--bg);
   color:var(--text);
-    font-family: "Inter", "Segoe UI", Roboto, system-ui, -apple-system, "Fira Code", monospace;
-  font-size:12.3px;
-  background-color: #0b0c0d;
+  font-family: "Inter", "Segoe UI", Roboto, system-ui, -apple-system, "Fira Code", monospace;
 
+  /* 🔥 CAMBIA ESTO */
+  font-size:14px; /* base neutra */
 }
 
 a{
@@ -50,7 +50,11 @@ a{
   top: 0;
   height: 100vh;
   overflow-y: auto;
+
+  /* ✅ AÑADE ESTO */
+  font-size:13px; /* ← SIDEBAR */
 }
+
 
 /* PROFILE */
 .profile{
@@ -168,13 +172,19 @@ a{
 }
 
 /* ================== CONTENT ================== */
+/* ================== CONTENT ================== */
 .content{
   margin:24px 0;
   padding:28px;
   background:linear-gradient(180deg,var(--surface),#0e0e10);
   border-radius:14px;
   box-shadow:0 0 30px rgba(0,0,0,.6);
+
+  /* ✅ AÑADE ESTO */
+  font-size:15px;       /* ← CONTENIDO */
+  line-height:1.65;
 }
+
 
 /* ================== HEADINGS (ALINEADOS) ================== */
 h1,h2,h3{
@@ -336,4 +346,54 @@ a.code-link:hover {
   background: rgba(255, 60, 70, 0.25);
   border-color: rgba(255, 60, 70, 0.45);
   color: #ff9aa2;
+}
+
+
+.content h1 { font-size: 1.9rem; }
+.content h2 { font-size: 1.4rem; }
+.content h3 { font-size: 1.25rem; }
+.content h4 { font-size: 1rem; }
+
+.content p { font-size: 0.9rem; }
+pre{
+  font-size:.9rem;
+}
+
+
+/* ================== BLOQUE DE CÓDIGO MULTILÍNEA ================== */
+pre.code-block {
+  display: flex;               /* flex para alinear código y botón */
+  align-items: center;         /* centra verticalmente */
+  justify-content: space-between;
+  gap: 12px;
+
+  background: #0b0b0c;
+  padding: 12px 14px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+
+  font-size: 0.9rem;
+  line-height: 1.4;
+  overflow: auto;              /* permite scroll si el bloque es muy grande */
+}
+
+pre.code-block code {
+  white-space: pre;            /* permite saltos de línea */
+  overflow: auto;
+  text-overflow: unset;
+  flex: 1;                     /* ocupa todo el espacio disponible */
+}
+
+/* BOTÓN PEQUEÑO PARA BLOQUES MULTILÍNEA */
+pre.code-block .copy-btn {
+  flex-shrink: 0;               /* no se encoja */
+  background: rgba(200, 40, 40, 0.2);
+  border: 1px solid rgba(200, 40, 40, 0.4);
+  color: #ffb3b3;
+  padding: 3px 8px;             /* más pequeño que el normal */
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  height: fit-content;          /* se ajusta a la altura del contenido */
 }
