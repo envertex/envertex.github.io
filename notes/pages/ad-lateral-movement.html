@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AD Lateral Movement | OSCP Notes</title>
+
+  <meta name="color-scheme" content="dark">
+  <style>
+    html, body {
+      margin: 0;
+      background: #0b0c0d;
+      color: #e8e8ea;
+    }
+  </style>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <div class="profile">
+    <img src="../img/logo.png" alt="Logo" class="profile-img">
+    <h2>Genaro</h2>
+    <p class="tag">XXXX XXXX</p>
+  </div>
+
+  <div class="socials">
+    <a href="https://youtube.com/@g3narin" target="_blank">
+      <span class="icon">▶</span>
+      <span>YouTube</span>
+      <span class="user">g3narin</span>
+    </a>
+    <a href="https://app.hackthebox.com/users/2426983" target="_blank">
+      <span class="icon">⬢</span>
+      <span>HackTheBox</span>
+      <span class="user">Genaro</span>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+  <nav class="nav">
+
+    <a href="../index.html">🏠 Home</a>
+
+    <a href="enumeration.html">🔍 Enumeration</a>
+    <a href="web-attacks.html">🌐 Web Attacks</a>
+
+    <a href="shells.html">🐚 Shells & Payloads</a>
+    <a href="file-transfer.html">📁 File Transfer</a>
+
+    <a href="passwords.html">🔑 Password Attacks</a>
+
+    <a href="linux-privesc.html">🐧 Linux PrivEsc</a>
+    <a href="windows-privesc.html">🪟 Windows PrivEsc</a>
+
+    <a href="pivoting.html">🔀 Pivoting</a>
+
+    <a href="ad-enumeration.html">🧩 AD Enumeration</a>
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
+
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
+  </nav>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <input id="searchInput" placeholder="Search...">
+      <button id="clearBtn">Clear</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- TITLE -->
+    <div class="section">
+      <h1>Active Directory Lateral Movement</h1>
+      <p>
+        Privilege escalation is vertical.<br>
+        Lateral movement is how you win the domain.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Techniques and Preparation</h2>
+    </div>
+
+    <div class="section">
+      <h2>Lateral Movement from Kali</h2>
+    </div>
+
+    <div class="section">
+      <h2>Lateral Movement from Windows</h2>
+    </div>
+
+    <div class="section">
+      <h2>Credential Spraying with CrackMapExec</h2>
+    </div>
+
+    <div class="section">
+      <h2>Lateral Movement Strategy</h2>
+      <ul>
+        <li>Dump creds → move → dump again</li>
+        <li>Reuse tickets, hashes, and plaintext passwords</li>
+        <li>One session equals multiple hosts</li>
+        <li>Domain Admin is usually lateral, not local</li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

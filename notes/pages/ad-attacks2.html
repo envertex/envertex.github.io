@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cloud Security | OSCP Notes</title>
+
+  <meta name="color-scheme" content="dark">
+  <style>
+    html, body {
+      margin: 0;
+      background: #0b0c0d;
+      color: #e8e8ea;
+    }
+  </style>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <div class="profile">
+    <img src="../img/logo.png" alt="Logo" class="profile-img">
+    <h2>Genaro</h2>
+    <p class="tag">XXXX XXXX</p>
+  </div>
+
+  <div class="socials">
+    <a href="https://youtube.com/@g3narin" target="_blank">
+      <span class="icon">▶</span>
+      <span>YouTube</span>
+      <span class="user">g3narin</span>
+    </a>
+    <a href="https://app.hackthebox.com/users/2426983" target="_blank">
+      <span class="icon">⬢</span>
+      <span>HackTheBox</span>
+      <span class="user">Genaro</span>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+  <nav class="nav">
+
+    <a href="../index.html">🏠 Home</a>
+
+    <a href="enumeration.html">🔍 Enumeration</a>
+    <a href="web-attacks.html">🌐 Web Attacks</a>
+
+    <a href="shells.html">🐚 Shells & Payloads</a>
+    <a href="file-transfer.html">📁 File Transfer</a>
+
+    <a href="passwords.html">🔑 Password Attacks</a>
+
+    <a href="linux-privesc.html">🐧 Linux PrivEsc</a>
+    <a href="windows-privesc.html">🪟 Windows PrivEsc</a>
+
+    <a href="pivoting.html">🔀 Pivoting</a>
+
+    <a href="ad-enumeration.html">🧩 AD Enumeration</a>
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
+
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
+  </nav>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <input id="searchInput" placeholder="Search...">
+      <button id="clearBtn">Clear</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+   
+    <!-- TITLE -->
+    <div class="section">
+      <h1>Active Directory Attacks II</h1>
+
+    </div>
+<div class="section">
+  <h2>ACL's</h2>
+  <p>
+    This section documents Active Directory privilege escalation techniques that are possible
+    exclusively through Access Control List (ACL) misconfigurations. Each table is organized
+    by ACL right and describes what attacks become possible when that permission is granted.
+  </p>
+</div>
+
+<!-- ===================== ACL ABUSE TABLES ===================== -->
+
+<div class="section">
+  <h2>GenericAll</h2>
+  <p>
+    GenericAll grants full control over an Active Directory object. An attacker can freely
+    modify attributes, reset passwords, manipulate group membership, abuse delegation,
+    and fully compromise the target object.
+  </p>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ACL Right</th>
+        <th>Target Object</th>
+        <th>Abuse Path</th>
+        <th>Technique Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>GenericAll</td><td>User / Group</td><td>Reset password</td><td>ForceChangePassword</td></tr>
+      <tr><td>GenericAll</td><td>User / Group</td><td>Add user to group</td><td>ModifyGroupMembership</td></tr>
+      <tr><td>GenericAll</td><td>User</td><td>Write SPN attribute</td><td>Kerberoasting</td></tr>
+      <tr><td>GenericAll</td><td>User / Computer</td><td>Write msDS-KeyCredentialLink</td><td>ShadowCredentials</td></tr>
+      <tr><td>GenericAll</td><td>Computer</td><td>Write RBCD attribute</td><td>RBCD</td></tr>
+      <tr><td>GenericAll</td><td>GPO</td><td>Modify GPO</td><td>ModifyGPO</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>GenericWrite</h2>
+  <p>
+    GenericWrite allows writing most non-protected attributes of an object. While weaker than
+    GenericAll, it frequently enables credential abuse, delegation attacks, and privilege escalation.
+  </p>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ACL Right</th>
+        <th>Target Object</th>
+        <th>Abuse Path</th>
+        <th>Technique Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>GenericWrite</td><td>User</td><td>Write SPN attribute</td><td>Kerberoasting</td></tr>
+      <tr><td>GenericWrite</td><td>User / Computer</td><td>Write msDS-KeyCredentialLink</td><td>ShadowCredentials</td></tr>
+      <tr><td>GenericWrite</td><td>Computer</td><td>Write RBCD attribute</td><td>RBCD</td></tr>
+      <tr><td>GenericWrite</td><td>Group</td><td>Modify member attribute</td><td>ModifyGroupMembership</td></tr>
+      <tr><td>GenericWrite</td><td>GPO</td><td>Modify GPO</td><td>ModifyGPO</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>WriteProperty</h2>
+  <p>
+    WriteProperty allows modification of specific attributes only. The impact depends on which
+    attribute is writable, but many of them directly enable high-impact attacks.
+  </p>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ACL Right</th>
+        <th>Target Object</th>
+        <th>Abuse Path</th>
+        <th>Technique Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>WriteProperty</td><td>User</td><td>Write SPN attribute</td><td>Kerberoasting</td></tr>
+      <tr><td>WriteProperty</td><td>Computer</td><td>Write RBCD attribute</td><td>RBCD</td></tr>
+      <tr><td>WriteProperty</td><td>User / Computer</td><td>Write msDS-KeyCredentialLink</td><td>ShadowCredentials</td></tr>
+      <tr><td>WriteProperty</td><td>Group</td><td>Modify member attribute</td><td>ModifyGroupMembership</td></tr>
+      <tr><td>WriteProperty</td><td>User</td><td>Set logon script</td><td>WriteLogonScript</td></tr>
+      <tr><td>WriteProperty</td><td>GPO</td><td>Modify GPO</td><td>ModifyGPO</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>WriteOwner</h2>
+  <p>
+    WriteOwner allows an attacker to take ownership of an object. Once ownership is obtained,
+    the attacker can rewrite the DACL and gain full control.
+  </p>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ACL Right</th>
+        <th>Target Object</th>
+        <th>Abuse Path</th>
+        <th>Technique Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>WriteOwner</td><td>Any AD Object</td><td>Take ownership and grant further permissions</td><td>WriteOwner</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>WriteDACL</h2>
+  <p>
+    WriteDACL allows direct modification of an object's access control list. This effectively
+    enables an attacker to grant themselves any permission, including full control.
+  </p>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ACL Right</th>
+        <th>Target Object</th>
+        <th>Abuse Path</th>
+        <th>Technique Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>WriteDACL</td><td>Any AD Object</td><td>Modify ACL to grant further rights</td><td>WriteDACL</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>AllExtendedRights</h2>
+  <p>
+    AllExtendedRights grants access to sensitive extended operations such as password resets,
+    DCSync, group modification, and reading privileged secrets.
+  </p>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ACL Right</th>
+        <th>Target Object</th>
+        <th>Abuse Path</th>
+        <th>Technique Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>AllExtendedRights</td><td>User</td><td>Reset password</td><td>ForceChangePassword</td></tr>
+      <tr><td>AllExtendedRights</td><td>Domain Object</td><td>Perform DCSync</td><td>DCSync</td></tr>
+      <tr><td>AllExtendedRights</td><td>Group</td><td>Add group member</td><td>ModifyGroupMembership</td></tr>
+      <tr><td>AllExtendedRights</td><td>Computer</td><td>Read LAPS password</td><td>ReadLAPS</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>ForceChangePassword</h2>
+  <p>
+    ForceChangePassword allows resetting the password of a user or computer account without
+    knowing the current password, resulting in immediate account takeover.
+  </p>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ACL Right</th>
+        <th>Target Object</th>
+        <th>Abuse Path</th>
+        <th>Technique Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ForceChangePassword</td><td>User / Computer</td><td>Reset password without current</td><td>ForceChangePassword</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>Group Membership Rights</h2>
+  <p>
+    These ACLs specifically affect group membership and are frequently abused to escalate
+    privileges by joining high-privilege groups.
+  </p>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ACL Right</th>
+        <th>Target Object</th>
+        <th>Abuse Path</th>
+        <th>Technique Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Add Members</td><td>Group</td><td>Add user to group</td><td>ModifyGroupMembership</td></tr>
+      <tr><td>WriteMembers</td><td>Group</td><td>Overwrite group membership</td><td>ModifyGroupMembership</td></tr>
+      <tr><td>AddSelf</td><td>Group</td><td>Add self to group</td><td>ModifyGroupMembership</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>Self</h2>
+  <p>
+    The Self permission allows an object to modify attributes referring to itself.
+    In computer accounts, this is commonly abused for resource-based constrained delegation.
+  </p>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ACL Right</th>
+        <th>Target Object</th>
+        <th>Abuse Path</th>
+        <th>Technique Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Self</td><td>Computer</td><td>Write RBCD attribute</td><td>RBCD</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>ReadProperty</h2>
+  <p>
+    ReadProperty allows reading sensitive attributes that may expose credentials or enable
+    offline attacks such as Kerberoasting or LAPS password disclosure.
+  </p>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ACL Right</th>
+        <th>Target Object</th>
+        <th>Abuse Path</th>
+        <th>Technique Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ReadProperty</td><td>User / Computer</td><td>Read SPN</td><td>Kerberoasting</td></tr>
+      <tr><td>ReadProperty</td><td>Computer</td><td>Read LAPS password</td><td>ReadLAPS</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>Delegation & GPO Rights</h2>
+  <p>
+    These ACLs affect delegation configuration and Group Policy linking, enabling privilege
+    escalation or large-scale code execution through policy abuse.
+  </p>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>ACL Right</th>
+        <th>Target Object</th>
+        <th>Abuse Path</th>
+        <th>Technique Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>msDS-AllowedToDelegateTo</td><td>User / Computer</td><td>Configure constrained delegation</td><td>Delegation</td></tr>
+      <tr><td>WriteAccountRestrictions</td><td>Computer</td><td>Modify RBCD attribute</td><td>RBCD</td></tr>
+      <tr><td>WriteGPLink</td><td>Organizational Unit (OU)</td><td>Link GPO to OU</td><td>WriteGPLink</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+</main>
+
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1329 @@
+[
+  {
+    "name": "Haircut",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Remote File Inclusion (RFI)",
+      "PHP Remote Code Execution",
+      "Arbitrary File Upload",
+      "SUID Enumeration",
+      "Screen 4.5 SUID Privilege Escalation",
+      "LD_PRELOAD Abuse"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-haircut.html"
+  },
+  {
+    "name": "Cicada",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-cicada.html"
+  },
+  {
+    "name": "StreamIO",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-streamio.html"
+  },
+  {
+    "name": "Reel2",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques":  [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP", "OSEP"
+    ],
+    "writeup": "/machines/writeups/writeup-reel2.html"
+  },
+  {
+    "name": "Sniper",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-sniper.html"
+  },
+  {
+    "name": "Reel",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-reel.html"
+  },
+{
+  "name": "Faculty",
+  "os": "Linux",
+  "difficulty": "Medium",
+  "platform": "Hack The Box",
+  "techniques": [
+    "SQL Injection Bypass (SQLi)",
+    "Admin Panel Abuse",
+    "PDF Metadata Analysis",
+    "mPDF File Inclusion",
+    "Local File Inclusion (LFI)",
+    "Source Code Disclosure",
+    "Credential Reuse Attack",
+    "Password Spraying SSH",
+    "Sudo Misconfiguration Abuse",
+    "Command Injection meta-git",
+    "SSH Key Extraction",
+    "Linux Capability Abuse",
+    "debug (id)",
+    "GDB Privilege Escalation"
+  ],
+  "certifications": [
+    "OSCP"
+  ],
+  "writeup": "/machines/writeups/writeup-faculty.html"
+},
+  {
+    "name": "Mailing",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-mailing.html"
+  },
+  {
+    "name": "Titanic",
+    "os": "Linux",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+"techniques": [
+  "Local File Inclusion (LFI)",
+  "Path Traversal",
+  "Gitea SQLite Database Disclosure",
+  "PBKDF2 Hash Cracking",
+  "SSH Credential Reuse",
+  "ImageMagick CVE Exploitation",
+  "Shared Library Hijacking"
+],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-titanic.html"
+  },
+  {
+    "name": "Analysis",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-analysis.html"
+  },
+  {
+    "name": "Json",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-json.html"
+  },
+  {
+    "name": "Zetta",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-zetta.html"
+  },
+  {
+    "name": "OpenAdmin",
+    "os": "Linux",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-openadmin.html"
+  },
+  {
+    "name": "Dab",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-dab.html"
+  },
+  {
+    "name": "Freelancer",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-freelancer.html"
+  },
+  {
+    "name": "Hospital",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-hospital.html"
+  },
+  {
+    "name": "MultiMaster",
+    "os": "Windows",
+    "difficulty": "Insane",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-multimaster.html"
+  },
+  {
+    "name": "Fuse",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-fuse.html"
+  },
+  {
+    "name": "Bounty",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-bounty.html"
+  },
+  {
+    "name": "Jab",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-jab.html"
+  },
+  {
+    "name": "Tentacle",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-tentacle.html"
+  },
+  {
+    "name": "Chatterbox",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-chatterbox.html"
+  },
+  {
+    "name": "Arctic",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-arctic.html"
+  },
+  {
+    "name": "Forest",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-forest.html"
+  },
+  {
+    "name": "Bookworm",
+    "os": "Linux",
+    "difficulty": "Insane",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-bookworm.html"
+  },
+  {
+    "name": "Certified",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-certified.html"
+  },
+  {
+    "name": "Forge",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-forge.html"
+  },
+  {
+    "name": "Heist",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-heist.html"
+  },
+  {
+    "name": "EarlyAccess",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-earlyaccess.html"
+  },
+  {
+    "name": "Absolute",
+    "os": "Windows",
+    "difficulty": "Insane",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-absolute.html"
+  },
+  {
+    "name": "Pov",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-pov.html"
+  },
+  {
+    "name": "Flight",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-flight.html"
+  },
+  {
+    "name": "Bashed",
+    "os": "Linux",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-bashed.html"
+  },
+  {
+    "name": "Fluffy",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-fluffy.html"
+  },
+  {
+    "name": "Static",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-static.html"
+  },
+  {
+    "name": "Axlle",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-axlle.html"
+  },
+  {
+    "name": "Magic",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-magic.html"
+  },
+  {
+    "name": "Devvortex",
+    "os": "Linux",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-devvortex.html"
+  },
+  {
+    "name": "Control",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-control.html"
+  },
+  {
+    "name": "Tally",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-tally.html"
+  },
+  {
+    "name": "Flujab",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-flujab.html"
+  },
+  {
+    "name": "Breadcrumbs",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-breadcrumbs.html"
+  },
+  {
+    "name": "Resolute",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-resolute.html"
+  },
+  {
+    "name": "RE",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-re.html"
+  },
+  {
+    "name": "Servmon",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-servmon.html"
+  },
+  {
+    "name": "Monitored",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-monitored.html"
+  },
+  {
+    "name": "Conceal",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-conceal.html"
+  },
+  {
+    "name": "BabyTwo",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-babytwo.html"
+  },
+  {
+    "name": "Sauna",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-sauna.html"
+  },
+  {
+    "name": "Bart",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-bart.html"
+  },
+  {
+    "name": "Intelligence",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-intelligence.html"
+  },
+  {
+    "name": "Epsilon",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-epsilon.html"
+  },
+  {
+    "name": "Querier",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-querier.html"
+  },
+  {
+    "name": "Previous",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-previous.html"
+  },
+  {
+    "name": "Giddy",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-giddy.html"
+  },
+  {
+    "name": "Remote",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-remote.html"
+  },
+  {
+    "name": "Compiled",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-compiled.html"
+  },
+  {
+    "name": "Sizzle",
+    "os": "Windows",
+    "difficulty": "Insane",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-sizzle.html"
+  },
+  {
+    "name": "Silo",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-silo.html"
+  },
+  {
+    "name": "Scrambled",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-scrambled.html"
+  },
+  {
+    "name": "Intentions",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-intentions.html"
+  },
+  {
+    "name": "Europa",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-europa.html"
+  },
+  {
+    "name": "Pandora",
+    "os": "Linux",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-pandora.html"
+  },
+  {
+    "name": "Jeeves",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-jeeves.html"
+  },
+  {
+    "name": "Conversor",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-conversor.html"
+  },
+  {
+    "name": "Charon",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-charon.html"
+  },
+  {
+    "name": "Love",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-love.html"
+  },
+  {
+    "name": "Atom",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-atom.html"
+  },
+  {
+    "name": "APT",
+    "os": "Windows",
+    "difficulty": "Insane",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-apt.html"
+  },
+  {
+    "name": "Blackfield",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-blackfield.html"
+  },
+  {
+    "name": "Acute",
+    "os": "Windows",
+    "difficulty": "Insane",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-acute.html"
+  },
+  {
+    "name": "Jewel",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-jewel.html"
+  },
+  {
+    "name": "Pressed",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-pressed.html"
+  },
+  {
+    "name": "Networked",
+    "os": "Linux",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-networked.html"
+  },
+  {
+    "name": "Flustered",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-flustered.html"
+  },
+  {
+    "name": "Editor",
+    "os": "Linux",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-editor.html"
+  },
+  {
+    "name": "Quick",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-quick.html"
+  },
+  {
+    "name": "SecNotes",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-secnotes.html"
+  },
+  {
+    "name": "Object",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-object.html"
+  },
+  {
+    "name": "Manager",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-manager.html"
+  },
+  {
+    "name": "EscapeTwo",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-escapetwo.html"
+  },
+  {
+    "name": "Blazorized",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-blazorized.html"
+  },
+  {
+    "name": "Office",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-office.html"
+  },
+  {
+    "name": "Carpediem",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-carpediem.html"
+  },
+  {
+    "name": "Mentor",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-mentor.html"
+  },
+  {
+    "name": "Joker",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-joker.html"
+  },
+  {
+    "name": "TombWatcher",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-tombwatcher.html"
+  },
+  {
+    "name": "Monteverde",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-monteverde.html"
+  },
+  {
+    "name": "Vintage",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-vintage.html"
+  },
+  {
+    "name": "Mantis",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-mantis.html"
+  },
+  {
+    "name": "Solidstate",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-solidstate.html"
+  },
+  {
+    "name": "Cascade",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-cascade.html"
+  },
+  {
+    "name": "Health",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-health.html"
+  },
+  {
+    "name": "Meta",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-meta.html"
+  },
+  {
+    "name": "Administrator",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-administrator.html"
+  },
+  {
+    "name": "Puppy",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-puppy.html"
+  },
+  {
+    "name": "Cronos",
+    "os": "Linux",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-cronos.html"
+  },
+  {
+    "name": "Phoenix",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-phoenix.html"
+  },
+  {
+    "name": "Mischief",
+    "os": "Linux",
+    "difficulty": "Insane",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-mischief.html"
+  },
+  {
+    "name": "Bastard",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-bastard.html"
+  },
+  {
+    "name": "Rebound",
+    "os": "Windows",
+    "difficulty": "Insane",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-rebound.html"
+  },
+  {
+    "name": "Access",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-access.html"
+  },
+  {
+    "name": "Helpline",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-helpline.html"
+  },
+  {
+    "name": "Outdated",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-outdated.html"
+  },
+  {
+    "name": "Search",
+    "os": "Windows",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-search.html"
+  },
+  {
+    "name": "Fulcrum",
+    "os": "Linux",
+    "difficulty": "Insane",
+    "platform": "Hack The Box",
+    "techniques": [
+      "Active Directory"
+    ],
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-fulcrum.html"
+  },
+  {
+    "name": "Worker",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-worker.html"
+  },
+  {
+    "name": "Netmon",
+    "os": "Windows",
+    "difficulty": "Easy",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-netmon.html"
+  },
+  {
+    "name": "Altered",
+    "os": "Linux",
+    "difficulty": "Hard",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-altered.html"
+  },
+  {
+    "name": "UpDown",
+    "os": "Windows",
+    "difficulty": "Medium",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-updown.html"
+  },
+  {
+    "name": "Fighter",
+    "os": "Windows",
+    "difficulty": "Insane",
+    "platform": "Hack The Box",
+    "techniques": "",
+    "certifications": [
+      "OSCP"
+    ],
+    "writeup": "/machines/writeups/writeup-fighter.html"
+  }
+]

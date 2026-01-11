@@ -1,0 +1,421 @@
+/* Reset global */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Variables de tema */
+:root {
+    --bg-deep: #151414;
+    --accent-primary: #1b85cc;
+    --accent-mid-purple: #7fcbff;
+    --accent-light-purple: #7fcbff;
+    --accent-secondary: #00FFFF;
+
+    --glass-surface: rgba(39, 38, 38, 0);
+    --glass-border: rgba(255, 255, 255, 0.681);
+    --glass-block: rgb(255, 255, 255);
+
+    --bg-primary: var(--bg-deep);
+    --bg-secondary: var(--glass-surface);
+    --bg-tertiary: rgba(255, 255, 255, 0.08);
+
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff;
+    --text-muted: #ffffff;
+
+    --accent-hover: #7fcbff;
+    --border-color: var(--glass-border);
+
+    --accent-primary-rgba-03: rgba(0, 0, 0, 0.3);
+    --accent-primary-rgba-05: rgba(127, 203, 255, 0.5);
+    --accent-light-purple-rgba-01: rgba(127, 203, 255, 0.1);
+    --accent-light-purple-rgba-03: rgba(127, 203, 255, 0.3);
+    --accent-mid-purple-rgba-05: rgba(127, 203, 255, 0.05);
+    --accent-mid-purple-rgba-01: rgba(127, 203, 255, 0.1);
+    --accent-mid-purple-rgba-02: rgba(127, 203, 255, 0.2);
+
+    --tag-bg: rgba(0, 0, 0, 0.4);
+    --tag-color: var(--accent-light-purple);
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+
+    --yellow-accent: #FFDD00;
+    --yellow-hover: #FFC700;
+
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+
+
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Inter', sans-serif;      
+    --font-mono: 'Roboto Mono', monospace; 
+
+    --font-logo: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-sans: var(--font-body);
+
+    --transition-fast: 150ms ease-in-out;
+    --transition-base: 300ms ease-in-out;
+    --transition-slow: 500ms ease-in-out;
+
+    --icon-sm: 1rem;
+    --icon-md: 1.25rem;
+    --icon-lg: 1.5rem;
+}
+
+/* Tema claro */
+[data-theme=light] {
+    --bg-primary: #ffffff;
+    --glass-surface: rgba(255, 255, 255, 0.2);
+    --glass-border: rgba(127, 203, 255, 0.5);
+    --glass-block: rgba(255, 255, 255, 0.8);
+    --bg-secondary: var(--glass-surface);
+    --bg-tertiary: rgba(255, 255, 255, 0.25);
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+
+    --accent-primary: #54b4f4;
+    --accent-mid-purple: #3ea7ed;
+    --accent-light-purple: #5daee4;
+    --accent-secondary: #47a7e7;
+    --accent-hover: #7fcbff;
+
+    --border-color: var(--glass-border);
+
+    --accent-primary-rgba-03: rgba(127, 203, 255, 0.3);
+    --accent-primary-rgba-05: rgba(127, 203, 255, 0.5);
+    --accent-light-purple-rgba-01: rgba(127, 203, 255, 0.1);
+    --accent-light-purple-rgba-03: rgba(127, 203, 255, 0.3);
+    --accent-mid-purple-rgba-05: rgba(127, 203, 255, 0.05);
+    --accent-mid-purple-rgba-01: rgba(127, 203, 255, 0.1);
+    --accent-mid-purple-rgba-02: rgba(127, 203, 255, 0.2);
+
+    --tag-bg: rgba(127, 203, 255, 0.1);
+    --tag-color: #7fcbff;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Body */
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+
+    background-image: radial-gradient(
+        circle at center,
+        rgba(25, 27, 30, 0.5) 40%,
+        var(--bg-deep) 100%
+    );
+
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    background-position: 50%;
+    position: relative;
+}
+
+[data-theme=light] body {
+    background-color: #fff;
+    background-image: radial-gradient(
+        circle at center,
+        rgba(127, 203, 255, 0.2) 0%,
+        rgba(243, 232, 255, 0.4) 40%,
+        #ffffff 100%
+    );
+}
+
+/* Overlay de ruido */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-size: 400px 400px;
+    background-repeat: repeat;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Todos los elementos encima del overlay */
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* ============================= */
+/* BARRA DE BÚSQUEDA Y BOTONES */
+/* ============================= */
+.search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-bar input[type="search"] {
+    flex: 1 1 250px;
+    min-width: 200px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all var(--transition-base);
+    outline: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.search-bar input[type="search"]::placeholder {
+    color: var(--text-muted);
+}
+
+.search-bar input[type="search"]:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 10px var(--accent-primary-rgba-05);
+    background-color: var(--bg-tertiary);
+}
+
+/* Botones generales */
+.search-bar .btn {
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 1px solid var(--accent-primary);
+    background-color: var(--accent-primary);
+    color: var(--bg-primary);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Hover / Focus */
+.search-bar .btn:hover,
+.search-bar .btn:focus {
+    background-color: var(--accent-primary-rgba-05);
+    color: var(--bg-primary);
+    border-color: var(--accent-primary);
+    box-shadow: 0 4px 12px var(--accent-primary-rgba-05);
+}
+
+/* Botón ghost (Clear) */
+.search-bar .btn.ghost {
+    background-color: transparent;
+    color: var(--accent-primary);
+    border: 1px solid var(--accent-primary);
+}
+
+.search-bar .btn.ghost:hover,
+.search-bar .btn.ghost:focus {
+    background-color: var(--accent-primary-rgba-05);
+    color: var(--bg-primary);
+    border-color: var(--accent-primary);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .search-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-bar input[type="search"],
+    .search-bar .btn {
+        width: 100%;
+    }
+}
+
+
+
+/* Reducir el tamaño de letra de los posts */
+.post-content-main {
+    font-size: 0.95rem; /* antes 1.125rem */
+    line-height: 1.4;   /* opcional, más compacto */
+}
+
+/* Reducir títulos dentro de los posts */
+.post-content-main h2 {
+    font-size: 1.2rem; /* antes 1.75rem */
+}
+
+.post-content-main h3 {
+    font-size: 1.0rem; /* antes 1.5rem */
+}
+
+/* Reducir descripciones y metadatos si quieres */
+.post-description,
+.post-meta-inline,
+.post-tags {
+    font-size: 0.75rem; /* antes 0.875rem */
+}
+
+/* ==============================
+   MAIN / POST STYLING
+   ============================== */
+.single-post-wrapper {
+    max-width: 900px;      /* ancho cómodo para lectura */
+    margin: 2rem auto;     /* centrado vertical y horizontal */
+    padding: 2rem;         /* espacio interno */
+    background-color: var(--bg-surface, #222222); /* suave contraste con el fondo */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+}
+
+.single-post-wrapper:hover {
+    transform: translateY(-4px);
+}
+
+/* Títulos */
+.single-post h1,
+.single-post h2,
+.single-post h3,
+.single-post h4 {
+    font-family: 'Outfit', 'Inter', sans-serif;
+    color: #7fcbff;
+    margin: 1.6rem 0 0.8rem 0;
+    line-height: 1.3;
+}
+
+.single-post h1.post-title-main {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 8px rgba(127,203,255,0.6);
+}
+
+.single-post h2 {
+    font-size: 1.8rem;
+    border-left: 4px solid #7fcbff;
+    padding-left: 0.5rem;
+}
+
+/* Paragraphs */
+.post-content-main p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin: 1rem 0;
+    color: var(--text-primary, #e0e0e0);
+}
+
+/* Links */
+.post-content-main a {
+    color: #bd5fff;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.post-content-main a:hover {
+    color: #ff80ff;
+}
+
+
+/* Blockquotes */
+.post-content-main blockquote {
+    border-left: 4px solid #bd5fff;
+    padding-left: 1rem;
+    color: #ccc;
+    font-style: italic;
+    background-color: rgba(189,95,255,0.05);
+    margin: 1.5rem 0;
+}
+
+/* Lists */
+.post-content-main ul,
+.post-content-main ol {
+    margin: 1rem 0 1rem 1.5rem;
+    line-height: 1.6;
+}
+
+.post-content-main li {
+    margin-bottom: 0.5rem;
+}
+
+/* Table of Contents */
+.post-toc {
+    position: sticky;
+    top: 2rem;
+    max-width: 250px;
+    padding: 1rem;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #e0e0e0;
+}
+
+.post-toc a {
+    color: #bd5fff;
+    text-decoration: none;
+}
+
+.post-toc a:hover {
+    text-decoration: underline;
+    color: #ff80ff;
+}
+
+/* Post footer tags */
+.post-tags-footer {
+    margin-top: 2rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.post-tags-footer .post-tag {
+    display: inline-block;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    background: rgba(127,203,255,0.1);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #7fcbff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.post-tags-footer .post-tag:hover {
+    background: #bd5fff;
+    color: #fff;
+}
+
+/* Smooth reading experience */
+html {
+    scroll-behavior: smooth;
+}
+
+.imagen {
+    display: block;           /* Evita inline gaps */
+    width: 100%;              /* Ocupa todo el ancho del contenedor padre */
+    max-width: 100%;          /* Nunca se salga del contenedor */
+    height: auto;             /* Mantiene la proporción */
+    margin: 1.5rem 0;         /* Separación arriba y abajo, opcional */
+    border-radius: 0.5rem;    /* Esquinas redondeadas */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* Profundidad */
+}

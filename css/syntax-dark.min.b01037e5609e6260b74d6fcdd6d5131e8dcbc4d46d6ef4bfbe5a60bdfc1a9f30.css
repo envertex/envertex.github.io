@@ -1,0 +1,212 @@
+﻿.bg {
+    color: #cad3f5;
+    background-color: #24273a;
+}
+
+.chroma {
+    color: #cad3f5;
+    background-color: #24273a;
+}
+
+.chroma .err {
+    color: #ed8796;
+}
+
+.chroma .lnlinks {
+    outline: none;
+    text-decoration: none;
+    color: inherit;
+}
+
+.chroma .lntd {
+    vertical-align: top;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.chroma .lntable {
+    border-spacing: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.chroma .hl {
+    background-color: #494d64;
+}
+
+.chroma .lnt,
+.chroma .ln {
+    white-space: pre;
+    -webkit-user-select: none;
+    user-select: none;
+    margin-right: .4em;
+    padding: 0 .4em;
+    color: #8087a2;
+}
+
+.chroma .line {
+    display: flex;
+}
+
+/* --- Cambié los morados brillosos a celeste --- */
+.chroma .k {
+    color: #7fcbff;
+}
+
+.chroma .kp {
+    color: #7fcbff;
+}
+
+.chroma .kr {
+    color: #7fcbff;
+}
+
+.chroma .nt {
+    color: #7fcbff;
+}
+
+/* Resto de colores intactos */
+.chroma .kc {
+    color: #f5a97f;
+}
+
+.chroma .kd {
+    color: #ed8796;
+}
+
+.chroma .kn {
+    color: #8bd5ca;
+}
+
+.chroma .kt {
+    color: #ed8796;
+}
+
+.chroma .na {
+    color: #8aadf4;
+}
+
+.chroma .nc,
+.chroma .no {
+    color: #eed49f;
+}
+
+.chroma .nd {
+    color: #8aadf4;
+    font-weight: 700;
+}
+
+.chroma .ni {
+    color: #8bd5ca;
+}
+
+.chroma .ne {
+    color: #f5a97f;
+}
+
+.chroma .nl {
+    color: #91d7e3;
+}
+
+.chroma .nn {
+    color: #f5a97f;
+}
+
+.chroma .py {
+    color: #f5a97f;
+}
+
+.chroma .nb,
+.chroma .bp {
+    color: #91d7e3;
+}
+
+.chroma .nv,
+.chroma .vc,
+.chroma .vg,
+.chroma .vi,
+.chroma .vm {
+    color: #f4dbd6;
+}
+
+.chroma .nf,
+.chroma .fm,
+.chroma .dl,
+.chroma .se {
+    color: #8aadf4;
+}
+
+.chroma .s,
+.chroma .sb,
+.chroma .sc,
+.chroma .s2,
+.chroma .si,
+.chroma .sx,
+.chroma .s1,
+.chroma .ss {
+    color: #a6da95;
+}
+
+.chroma .sa {
+    color: #ed8796;
+}
+
+.chroma .sh,
+.chroma .sd,
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs,
+.chroma .cp {
+    color: #6e738d;
+    font-style: italic;
+}
+
+.chroma .cpf {
+    color: #6e738d;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.chroma .gd {
+    color: #ed8796;
+    background-color: #363a4f;
+}
+
+.chroma .ge {
+    font-style: italic;
+}
+
+.chroma .gr {
+    color: #ed8796;
+}
+
+.chroma .gh {
+    color: #f5a97f;
+    font-weight: 700;
+}
+
+.chroma .gi {
+    color: #a6da95;
+    background-color: #363a4f;
+}
+
+.chroma .gs {
+    font-weight: 700;
+}
+
+.chroma .gu {
+    color: #f5a97f;
+    font-weight: 700;
+}
+
+.chroma .gt {
+    color: #ed8796;
+}
+
+.chroma .gl {
+    text-decoration: underline;
+}

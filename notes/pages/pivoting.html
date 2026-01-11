@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pivoting | OSCP Notes</title>
+
+  <!-- evita flash blanco -->
+  <meta name="color-scheme" content="dark">
+  <style>
+    html, body {
+      margin: 0;
+      background: #0b0c0d;
+      color: #e8e8ea;
+    }
+  </style>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <!-- PERFIL -->
+  <div class="profile">
+    <img src="../img/logo.png" alt="Logo" class="profile-img">
+    <h2>Genaro</h2>
+    <p class="tag">XXXX XXXX</p>
+  </div>
+
+  <!-- REDES -->
+  <div class="socials">
+    <a href="https://youtube.com/@g3narin" target="_blank">
+      <span class="icon">▶</span>
+      <span>YouTube</span>
+      <span class="user">g3narin</span>
+    </a>
+    <a href="https://app.hackthebox.com/users/2426983" target="_blank">
+      <span class="icon">⬢</span>
+      <span>HackTheBox</span>
+      <span class="user">Genaro</span>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+
+  <!-- NAV -->
+  <nav class="nav">
+
+    <a href="../index.html">🏠 Home</a>
+
+    <a href="enumeration.html">🔍 Enumeration</a>
+    <a href="web-attacks.html">🌐 Web Attacks</a>
+
+    <a href="shells.html" class="active">🐚 Shells & Payloads</a>
+
+    <a href="file-transfer.html">📁 File Transfer</a>
+    <a href="passwords.html">🔑 Password Attacks</a>
+
+    <a href="linux-privesc.html">🐧 Linux PrivEsc</a>
+    <a href="windows-privesc.html">🪟 Windows PrivEsc</a>
+
+    <a href="pivoting.html">🔀 Pivoting</a>
+    <a href="ad-enumeration.html">🧩 AD Enumeration</a>
+
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
+
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
+
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <input id="searchInput" placeholder="Search...">
+      <button id="clearBtn">Clear</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- TITLE -->
+    <div class="section">
+      <h1>Pivoting</h1>
+    </div>
+    <!-- TOOLS -->
+    <div class="section">
+      <h2>Ligolo</h2>
+      <ul>
+        <li>Direct Subnet Access</li>
+        <li>Layer 3 Tunneling</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Chisel</h2>
+      <ul>
+        <li>HTTP Tunneling</li>
+        <li>Reverse Tunnels</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Dnscat2</h2>
+      <ul>
+        <li>DNS Tunneling</li>
+        <li>Restricted Egress Bypass</li>
+      </ul>
+    </div>
+    <!-- MANUAL -->
+    <div class="section">
+      <h2>Port Redirection and Manual Tunneling</h2>
+    </div>
+
+    <div class="section">
+      <h2>Port Redirection with Socat</h2>
+    </div>
+
+    <!-- SSH -->
+    <div class="section">
+      <h2>SSH Local Port Forwarding</h2>
+    </div>
+
+    <div class="section">
+      <h2>SSH Dynamic Port Forwarding</h2>
+    </div>
+
+    <div class="section">
+      <h2>SSH Remote Port Forwarding</h2>
+    </div>
+
+    <div class="section">
+      <h2>SSH Remote Dynamic Port Forwarding</h2>
+    </div>
+
+    <!-- WINDOWS -->
+    <div class="section">
+      <h2>SSH on Windows</h2>
+    </div>
+
+    <div class="section">
+      <h2>Plink</h2>
+    </div>
+
+    <div class="section">
+      <h2>Netsh Portproxy</h2>
+    </div>
+
+
+
+  </div>
+</main>
+
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

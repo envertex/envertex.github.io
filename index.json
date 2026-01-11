@@ -1,0 +1,52 @@
+[
+    {
+  "title": "Hack The Box — Faculty (Linux)",
+  "summary": "Technical writeup of the Faculty machine from Hack The Box, covering SQL Injection, mPDF abuse for LFI, credential reuse, lateral movement, and privilege escalation through Linux capabilities and GDB.",
+  "content": "This writeup documents the full compromise of the Faculty machine from Hack The Box. Initial access is obtained through a SQL injection vulnerability in the administrative panel, allowing authentication bypass. Subsequently, the use of a vulnerable mPDF library is identified, enabling a Local File Inclusion vulnerability to extract source code and credentials. These credentials are then reused to gain SSH access to an internal user, from which lateral movement is performed by abusing a misconfigured sudo rule and a vulnerability in meta-git. Finally, privilege escalation to root is achieved by abusing Linux capabilities, specifically CAP_SYS_PTRACE, using GDB to inject shellcode into a process running as root and obtain a bind shell with elevated privileges.",
+  "permalink": "/machines/writeups/writeup-faculty.html",
+  "date": "2026-01-09",
+  "tags": [
+    "Hack The Box",
+    "Linux",
+    "OSCP",
+    "SQLi",
+    "LFi",
+    "GDB Abuse"
+  ],
+  "image": "https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/main.png"
+},
+  {
+    "title": "Hack The Box — Haircut (Linux)",
+    "summary": "Technical writeup of the Haircut machine from Hack The Box, covering remote file inclusion, remote command execution, reverse shell access, and privilege escalation via a vulnerable SUID Screen binary.",
+    "content": "This writeup documents the full compromise of the Haircut machine from Hack The Box. Initial enumeration reveals an exposed PHP application running on nginx. Through directory and file enumeration, an exposed PHP endpoint is identified that allows remote file inclusion. This vulnerability is leveraged to achieve remote command execution by loading attacker-controlled PHP code, which is then used to establish a reverse shell as the www-data user. From this foothold, local enumeration reveals a vulnerable SUID version of Screen (4.5.0). By abusing LD_PRELOAD through screen, a malicious shared library is loaded with elevated privileges, resulting in the creation of a SUID root shell. Executing this shell grants full root access and completes the system compromise.",
+    "permalink": "/machines/writeups/writeup-haircut.html",
+    "date": "2026-01-06",
+    "tags": [
+      "Hack The Box",
+      "Linux",
+      "OSCP",
+      "RFI",
+      "RCE",
+      "SUID"
+    ],
+    "image": "https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/haircut/main.png"
+  },
+  {
+  "title": "Hack The Box — Titanic (Linux)",
+  "summary": "Technical writeup of the Titanic machine from Hack The Box, detailing the abuse of a local file inclusion vulnerability to disclose internal application data, extraction and cracking of Gitea credentials, and final privilege escalation through an ImageMagick shared library hijacking flaw.",
+  "content": "This writeup documents the full compromise of the Titanic machine from Hack The Box. Initial interaction with the web application reveals a ticket download feature vulnerable to local file inclusion, allowing arbitrary file reads from the server. By abusing this flaw, internal configuration files and application data are accessed, leading to the disclosure of a Gitea SQLite database. Analysis of the database exposes PBKDF2 password hashes, which are converted and cracked offline to recover valid user credentials. These credentials provide SSH access to the system as a low-privileged user. Further local enumeration uncovers an automated script leveraging ImageMagick to process image files. Due to an insecure library loading behavior in the installed ImageMagick version, a malicious shared object is introduced, resulting in execution of attacker-controlled code with elevated privileges. This ultimately leads to full root access and completes the system compromise.",
+  "permalink": "/machines/writeups/writeup-titanic.html",
+  "date": "2026-01-08",
+  "tags": [
+    "Hack The Box",
+    "Linux",
+    "OSCP",
+    "LFI",
+    "Gitea",
+    "ImageMagick"
+  ],
+  "image": "https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/main.png"
+}
+
+]
+

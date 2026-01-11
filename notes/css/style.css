@@ -1,0 +1,399 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* ================== VARIABLES ================== */
+:root{
+  --bg:#0b0c0d;
+  --surface:#141416;
+  --surface-2:#1b1b1e;
+  --panel:#101012;
+  --text:#e8e8ea;
+  --muted:#9a9aa0;
+  --accent-1:#8b2e3a;
+  --accent-2:#b83b48;
+}
+
+/* ================== RESET ================== */
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family: "Inter", "Segoe UI", Roboto, system-ui, -apple-system, "Fira Code", monospace;
+
+  /* 🔥 CAMBIA ESTO */
+  font-size:14px; /* base neutra */
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+/* ================== LAYOUT ================== */
+.layout{
+  display:grid;
+  grid-template-columns:15% 1fr;
+  min-height:100vh;
+}
+
+/* ================== SIDEBAR ================== */
+.sidebar{
+  background:linear-gradient(180deg,var(--surface-2),#0f0f10);
+  border-right:1px solid rgba(255,255,255,0.04);
+  padding:18px 12px;
+
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+
+  /* ✅ AÑADE ESTO */
+  font-size:13px; /* ← SIDEBAR */
+}
+
+
+/* PROFILE */
+.profile{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.profile-img{
+  width:86px;
+  border-radius:10px;
+  margin-bottom:8px;
+  box-shadow:0 0 12px rgba(200,40,40,.4);
+}
+
+.profile h2{
+  margin:0;
+  font-size:1rem;
+}
+
+.profile .tag{
+  margin:2px 0 0;
+  font-size:.8rem;
+  color:var(--muted);
+}
+
+/* SOCIALS */
+.socials{
+  display:flex;
+  flex-direction:column;
+  gap:0px;
+  margin-bottom:4px;
+}
+
+.socials a{
+  display:grid;
+  grid-template-columns:20px 1fr auto;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:6px;
+  color:var(--muted);
+}
+
+.socials a:hover{
+  background:rgba(200,40,40,.12);
+  color:var(--text);
+}
+
+.socials .user{
+  font-size:.75rem;
+  color:var(--muted);
+}
+
+/* NAV */
+.nav a{
+  display:block;
+  padding:8px 12px;
+  margin:2px 0;
+  border-radius:6px;
+  color:var(--muted);
+}
+.nav a{
+  font-weight:500;
+}
+
+.nav a:hover{
+  background:rgba(200,40,40,.1);
+  color:var(--text);
+}
+
+/* ================== MAIN ================== */
+.main{
+  display: flex;
+  flex-direction: column;
+  padding: 0 28px;
+
+  height: 100vh;      /* ocupa toda la altura */
+  overflow-y: auto;   /* scroll SOLO aquí */
+}
+
+
+/* ================== TOPBAR ================== */
+
+.topbar{
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  position: sticky;
+  top: 0;
+  padding:12px 20px;
+  z-index: 100;
+  background: var(--panel);
+}
+
+.topbar-inner{
+  display:flex;
+  gap:10px;
+}
+
+.topbar input{
+  flex:1;
+  background:#0c0c0d;
+  border:1px solid rgba(255,255,255,.05);
+  color:var(--text);
+  padding:8px 12px;
+  border-radius:8px;
+}
+
+.topbar button{
+  background:linear-gradient(180deg,var(--accent-2),var(--accent-1));
+  border:0;
+  padding:8px 14px;
+  color:#fff;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* ================== CONTENT ================== */
+/* ================== CONTENT ================== */
+.content{
+  margin:24px 0;
+  padding:28px;
+  background:linear-gradient(180deg,var(--surface),#0e0e10);
+  border-radius:14px;
+  box-shadow:0 0 30px rgba(0,0,0,.6);
+
+  /* ✅ AÑADE ESTO */
+  font-size:15px;       /* ← CONTENIDO */
+  line-height:1.65;
+}
+
+
+/* ================== HEADINGS (ALINEADOS) ================== */
+h1,h2,h3{
+  margin:0;
+  padding:0;
+  font-weight:600;
+  letter-spacing:.4px;
+}
+
+h1{
+  font-size:1.5rem;
+  color:var(--accent-2);
+}
+
+h2{
+  font-size:1.05rem;
+  color:#ff6b6b;
+}
+
+h3{
+  font-size:.95rem;
+  color:#ff9aa2;
+}
+
+/* ================== SECTIONS ================== */
+.section{
+  margin-top:22px;
+}
+
+/* ================== CODE BLOCK ================== */
+pre{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+
+  background:#0b0b0c;
+  padding:12px 14px;
+  margin-top:8px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.04);
+
+  font-size:.9rem;
+  line-height:1.4;
+}
+
+/* COMMAND */
+pre code{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* COPY BUTTON */
+.copy-btn{
+  flex-shrink:0;
+  background:rgba(200,40,40,.2);
+  border:1px solid rgba(200,40,40,.4);
+  color:#ffb3b3;
+  padding:3px 10px;
+  border-radius:6px;
+  font-size:.75rem;
+  cursor:pointer;
+}
+
+/* ================== NO ANIMATIONS ================== */
+.nav a,
+.socials a,
+.topbar button{
+  transition:none;
+}
+.topbar input:focus{
+  outline: none; /* quita azul */
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 2px rgba(184, 59, 72, 0.4);
+}
+/* ================================
+   CUSTOM TABLE STYLES (Dark Red)
+   ================================ */
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background: var(--surface);
+  border: 1px solid rgba(255, 60, 70, 0.25);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.custom-table thead {
+  background: rgba(255, 60, 70, 0.12);
+  color: var(--text);
+}
+
+.custom-table th {
+  padding: 12px 15px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(255, 60, 70, 0.25);
+}
+
+.custom-table td {
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(255, 60, 70, 0.15);
+  font-size: 0.92rem;
+  color: var(--text);
+  vertical-align: top;
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.custom-table tbody tr:hover {
+  background: rgba(255, 60, 70, 0.08);
+  transition: 0.2s ease-in-out;
+}
+
+.custom-table code {
+  background: rgba(255, 60, 70, 0.15);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-family: "Fira Code", monospace;
+  font-size: 0.85rem;
+  color: #ff6e78;
+  border: 1px solid rgba(255, 60, 70, 0.2);
+}
+
+.custom-table strong {
+  color: #ff4b59;
+}
+h1{
+  font-size:1.5rem;
+  color:var(--accent-2);
+  font-weight:700; /* negrita */
+}
+ul li{
+  font-weight:600;
+}
+/* ================================
+   LINK AS CODE BUBBLE
+   ================================ */
+
+a.code-link {
+  display: inline-block;
+  background: rgba(255, 60, 70, 0.15);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 0.85rem;
+  color: #ff6e78;
+  border: 1px solid rgba(255, 60, 70, 0.25);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a.code-link:hover {
+  background: rgba(255, 60, 70, 0.25);
+  border-color: rgba(255, 60, 70, 0.45);
+  color: #ff9aa2;
+}
+
+
+.content h1 { font-size: 1.9rem; }
+.content h2 { font-size: 1.4rem; }
+.content h3 { font-size: 1.25rem; }
+.content h4 { font-size: 1rem; }
+
+.content p { font-size: 0.9rem; }
+pre{
+  font-size:.9rem;
+}
+
+
+/* ================== BLOQUE DE CÓDIGO MULTILÍNEA ================== */
+pre.code-block {
+  display: flex;               /* flex para alinear código y botón */
+  align-items: center;         /* centra verticalmente */
+  justify-content: space-between;
+  gap: 12px;
+
+  background: #0b0b0c;
+  padding: 12px 14px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+
+  font-size: 0.9rem;
+  line-height: 1.4;
+  overflow: auto;              /* permite scroll si el bloque es muy grande */
+}
+
+pre.code-block code {
+  white-space: pre;            /* permite saltos de línea */
+  overflow: auto;
+  text-overflow: unset;
+  flex: 1;                     /* ocupa todo el espacio disponible */
+}
+
+/* BOTÓN PEQUEÑO PARA BLOQUES MULTILÍNEA */
+pre.code-block .copy-btn {
+  flex-shrink: 0;               /* no se encoja */
+  background: rgba(200, 40, 40, 0.2);
+  border: 1px solid rgba(200, 40, 40, 0.4);
+  color: #ffb3b3;
+  padding: 3px 8px;             /* más pequeño que el normal */
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  height: fit-content;          /* se ajusta a la altura del contenido */
+}

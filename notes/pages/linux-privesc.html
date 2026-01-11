@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Linux Privilege Escalation | OSCP Notes</title>
+
+  <!-- evita flash blanco -->
+  <meta name="color-scheme" content="dark">
+  <style>
+    html, body {
+      margin: 0;
+      background: #0b0c0d;
+      color: #e8e8ea;
+    }
+  </style>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <!-- PERFIL -->
+  <div class="profile">
+    <img src="../img/logo.png" alt="Logo" class="profile-img">
+    <h2>Genaro</h2>
+    <p class="tag">XXXX XXXX</p>
+  </div>
+
+  <!-- REDES -->
+  <div class="socials">
+    <a href="https://youtube.com/@g3narin" target="_blank">
+      <span class="icon">▶</span>
+      <span>YouTube</span>
+      <span class="user">g3narin</span>
+    </a>
+    <a href="https://app.hackthebox.com/users/2426983" target="_blank">
+      <span class="icon">⬢</span>
+      <span>HackTheBox</span>
+      <span class="user">Genaro</span>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+
+  <!-- NAV -->
+  <nav class="nav">
+
+    <a href="../index.html">🏠 Home</a>
+
+    <a href="enumeration.html">🔍 Enumeration</a>
+    <a href="web-attacks.html">🌐 Web Attacks</a>
+
+    <a href="shells.html" class="active">🐚 Shells & Payloads</a>
+
+    <a href="file-transfer.html">📁 File Transfer</a>
+    <a href="passwords.html">🔑 Password Attacks</a>
+
+    <a href="linux-privesc.html">🐧 Linux PrivEsc</a>
+    <a href="windows-privesc.html">🪟 Windows PrivEsc</a>
+
+    <a href="pivoting.html">🔀 Pivoting</a>
+    <a href="ad-enumeration.html">🧩 AD Enumeration</a>
+
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
+
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
+  </nav>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <input id="searchInput" placeholder="Search...">
+      <button id="clearBtn">Clear</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- TITLE -->
+    <div class="section">
+      <h1>Linux Privilege Escalation</h1>
+      <p>
+        Privilege escalation is pattern recognition.<br>
+        Enumerate → think → exploit.
+      </p>
+    </div>
+
+    <!-- PRIORITY ORDER -->
+    <div class="section">
+      <h2>Enumeration</h2>
+    </div>
+
+    <div class="section">
+      <h2>Abusing SUDO</h2>
+    </div>
+
+    <div class="section">
+      <h2>PATH Hijacking</h2>
+      <ul>
+        <li>Binary PATH Hijacking</li>
+        <li>Script PATH Hijacking</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Python PATH Hijacking</h2>
+      <ul>
+        <li>import hijacking</li>
+        <li>PYTHONPATH abuse</li>
+        <li>Writable module precedence</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>World-Writable Scripts Invoked as Root</h2>
+    </div>
+
+    <div class="section">
+      <h2>Setuid Binaries and Capabilities</h2>
+    </div>
+
+    <div class="section">
+      <h2>SUID and GUID Files</h2>
+    </div>
+
+    <div class="section">
+      <h2>Cron Jobs</h2>
+    </div>
+
+    <div class="section">
+      <h2>Weak, Reused, and Plaintext Passwords</h2>
+    </div>
+
+    <div class="section">
+      <h2>Password Files</h2>
+      <ul>
+        <li>/etc/passwd</li>
+        <li>/etc/shadow</li>
+        <li>Backup credential files</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Inspecting Service Footprints</h2>
+    </div>
+
+    <div class="section">
+      <h2>User-Installed Software</h2>
+    </div>
+
+    <div class="section">
+      <h2>Internal Services</h2>
+    </div>
+
+    <div class="section">
+      <h2>Wildcard Exploitation</h2>
+    </div>
+
+    <div class="section">
+      <h2>Disk Group Permissions</h2>
+    </div>
+
+    <div class="section">
+      <h2>Unmounted Filesystems</h2>
+    </div>
+
+    <div class="section">
+      <h2>MySQL Privilege Escalation</h2>
+    </div>
+
+    <div class="section">
+      <h2>Kernel Exploitation</h2>
+    </div>
+
+    <div class="section">
+      <h2>Script Abuse</h2>
+      <ul>
+        <li>Bash scripts</li>
+        <li>Python scripts</li>
+        <li>Perl scripts</li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

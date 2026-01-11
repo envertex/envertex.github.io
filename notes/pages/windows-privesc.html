@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enumeration | OSCP Notes</title>
+
+  <!-- evita flash blanco -->
+  <meta name="color-scheme" content="dark">
+  <style>
+    html, body {
+      margin: 0;
+      background: #0b0c0d;
+      color: #e8e8ea;
+    }
+  </style>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <!-- PERFIL -->
+  <div class="profile">
+    <img src="../img/logo.png" alt="Logo" class="profile-img">
+    <h2>Genaro</h2>
+    <p class="tag">XXXX XXXX</p>
+  </div>
+
+  <!-- REDES -->
+  <div class="socials">
+    <a href="https://youtube.com/@g3narin" target="_blank">
+      <span class="icon">▶</span>
+      <span>YouTube</span>
+      <span class="user">g3narin</span>
+    </a>
+    <a href="https://app.hackthebox.com/users/2426983" target="_blank">
+      <span class="icon">⬢</span>
+      <span>HackTheBox</span>
+      <span class="user">Genaro</span>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+
+  <!-- NAV -->
+  <nav class="nav">
+
+    <a href="../index.html">🏠 Home</a>
+
+    <a href="enumeration.html">🔍 Enumeration</a>
+    <a href="web-attacks.html">🌐 Web Attacks</a>
+
+    <a href="shells.html" class="active">🐚 Shells & Payloads</a>
+
+    <a href="file-transfer.html">📁 File Transfer</a>
+    <a href="passwords.html">🔑 Password Attacks</a>
+
+    <a href="linux-privesc.html">🐧 Linux PrivEsc</a>
+    <a href="windows-privesc.html">🪟 Windows PrivEsc</a>
+
+    <a href="pivoting.html">🔀 Pivoting</a>
+    <a href="ad-enumeration.html">🧩 AD Enumeration</a>
+
+  <a href="ad-attacks.html">⚔️ AD Attacks I</a>
+    <a href="ad-attacks2.html">⚔️ AD Attacks II</a>
+
+  <a href="ad-lateral-movement.html">🔀 AD Lateral Movement</a>
+
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <input id="searchInput" placeholder="Search...">
+      <button id="clearBtn">Clear</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- TITLE -->
+    <div class="section">
+      <h1>Enumeration</h1>
+          
+    </div>
+
+    <div class="section">
+  <h2>Situational Awareness</h2>
+
+  <p>This command allows us to view DNS information, IP addresses, gateways, and network configuration.</p>
+  <pre>
+<code>ipconfig /all</code>
+<button class="copy-btn" data-copy="ipconfig /all">COPY</button>
+  </pre>
+
+  <p>Allows us to identify other devices that are connected to the same network.</p>
+  <pre>
+<code>arp -a</code>
+<button class="copy-btn" data-copy="arp -a">COPY</button>
+  </pre>
+
+  <p>Displays the routing table of the system, which is very important for lateral movement.</p>
+  <pre>
+<code>route print</code>
+<button class="copy-btn" data-copy="route print">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Protection</h2>
+
+  <p>Allows us to check if the antivirus (Windows Defender) is enabled.</p>
+  <pre>
+<code>Get-MpComputerStatus</code>
+<button class="copy-btn" data-copy="Get-MpComputerStatus">COPY</button>
+  </pre>
+
+  <p>Shows the effective AppLocker rules applied on the system.</p>
+  <pre>
+<code>Get-AppLockerPolicy -Effective</code>
+<button class="copy-btn" data-copy="Get-AppLockerPolicy -Effective">COPY</button>
+  </pre>
+
+  <p>Checks whether <code>cmd.exe</code> is allowed by AppLocker policies.</p>
+  <pre>
+<code>Get-AppLockerPolicy -Local | Test-AppLockerPolicy -Path C:\Windows\System32\cmd.exe -User Everyone</code>
+<button class="copy-btn" data-copy="Get-AppLockerPolicy -Local | Test-AppLockerPolicy -Path C:\Windows\System32\cmd.exe -User Everyone">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>System and Processes</h2>
+
+  <p>Lists running processes and their associated services.</p>
+  <pre>
+<code>tasklist /svc</code>
+<button class="copy-btn" data-copy="tasklist /svc">COPY</button>
+  </pre>
+
+  <p>Displays environment variables (PATH, shares, profiles, and potentially dangerous paths).</p>
+  <pre>
+<code>set</code>
+<button class="copy-btn" data-copy="set">COPY</button>
+  </pre>
+
+  <p>Provides detailed information about the operating system and hardware.</p>
+  <pre>
+<code>systeminfo</code>
+<button class="copy-btn" data-copy="systeminfo">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Services and Ports</h2>
+
+  <p>Displays active network connections, listening ports, and associated processes.</p>
+  <pre>
+<code>netstat -ano</code>
+<button class="copy-btn" data-copy="netstat -ano">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Users</h2>
+
+  <p>Shows currently logged-in users.</p>
+  <pre>
+<code>query user</code>
+<button class="copy-btn" data-copy="query user">COPY</button>
+  </pre>
+
+  <p>Displays the current username.</p>
+  <pre>
+<code>echo %USERNAME%</code>
+<button class="copy-btn" data-copy="echo %USERNAME%">COPY</button>
+  </pre>
+
+  <p>Lists all local users on the system.</p>
+  <pre>
+<code>net user</code>
+<button class="copy-btn" data-copy="net user">COPY</button>
+  </pre>
+
+  <p>Lists all local groups.</p>
+  <pre>
+<code>net localgroup</code>
+<button class="copy-btn" data-copy="net localgroup">COPY</button>
+  </pre>
+
+  <p>Lists members of the local Administrators group.</p>
+  <pre>
+<code>net localgroup administrators</code>
+<button class="copy-btn" data-copy="net localgroup administrators">COPY</button>
+  </pre>
+
+  <p>Lists domain groups (if the system is part of a domain).</p>
+  <pre>
+<code>net group /domain</code>
+<button class="copy-btn" data-copy="net group /domain">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Groups and Privileges</h2>
+
+  <p>Displays the privileges assigned to the current user.</p>
+  <pre>
+<code>whoami /priv</code>
+<button class="copy-btn" data-copy="whoami /priv">COPY</button>
+  </pre>
+
+  <p>Lists the groups the current user belongs to.</p>
+  <pre>
+<code>whoami /groups</code>
+<button class="copy-btn" data-copy="whoami /groups">COPY</button>
+  </pre>
+</div>
+
+<div class="section">
+  <h2>Updates</h2>
+
+  <p>Displays installed Windows updates and hotfixes.</p>
+  <pre>
+<code>wmic qfe</code>
+<button class="copy-btn" data-copy="wmic qfe">COPY</button>
+  </pre>
+</div>
+
+
+  </div>
+</main>
+
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

